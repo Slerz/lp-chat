@@ -869,7 +869,7 @@ function sendChatHistory() {
   }
 
   $.ajax({
-    url: 'php/formProcessor.php',
+    url: 'https://grand-smile-production.up.railway.app/formProcessor.php',
     type: 'POST',
     data: formData,
     processData: false,
