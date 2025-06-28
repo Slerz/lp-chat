@@ -1073,9 +1073,8 @@ function renderCityInputWithAI(key, next) {
 
 function renderPhoneInputWithAI(key, next) {
   renderPhoneInput(key, (userPhone) => {
-    sendMessageToAI(userPhone, () => {
-      if (next) processChatState(next);
-    });
+    // НЕ отправляем номер в sendMessageToAI!
+    if (next) processChatState(next);
   });
 }
 
