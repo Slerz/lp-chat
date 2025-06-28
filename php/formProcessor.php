@@ -12,7 +12,7 @@ if (!empty($_POST['honeyfield'])) {
 
 	// Pre settings
 		define('SND_FROM', 'info@chat.франшиза-шефпорт.рф');
-		define('SND_TO', ''); // allowble comma-sepparated values
+		define('SND_TO', 'idrisovamir21tr@gmail.com'); // allowble comma-sepparated values
 		define('SND_NAME', 'ШефПорт Чат-бот');
 		define('NAME_FRANCH', 'ШефПорт Чат-бот');
 		define('SMTP', false); // see settings in Helper.php before you change this const
