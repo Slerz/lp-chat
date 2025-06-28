@@ -628,9 +628,11 @@ function renderPhoneInput(key, callback) {
     submitHandler: function () {
       const phoneNumber = inputField.value.trim();
       inputContainer.remove();
-      // НЕ отправляем номер в sendMessageToAI!
       appendMessage({ text: phoneNumber, key: key, isUser: true });
+      // Переходим к следующему шагу сценария
       if (callback) callback(phoneNumber);
+      const state = chatScenario[key];
+      if (state && state.next) processChatState(state.next);
     },
   });
 }
@@ -725,13 +727,11 @@ function renderNameInput(key, callback) {
     submitHandler: function () {
       const userName = inputField.value.trim();
       inputContainer.remove();
-      // НЕ отправляем имя в sendMessageToAI!
       appendMessage({ text: userName, key: key, isUser: true });
-      displayStatus(true);
-      setTimeout(() => {
-        window.location.href = 'thanks.html';
-      }, 5000);
+      // Переходим к следующему шагу сценария
       if (callback) callback(userName);
+      const state = chatScenario[key];
+      if (state && state.next) processChatState(state.next);
     },
   });
 }
