@@ -628,6 +628,8 @@ function renderPhoneInput(key, callback) {
     submitHandler: function () {
       const phoneNumber = inputField.value.trim();
       inputContainer.remove();
+      // НЕ отправляем номер в sendMessageToAI!
+      appendMessage({ text: phoneNumber, key: key, isUser: true });
       if (callback) callback(phoneNumber);
     },
   });
@@ -723,12 +725,12 @@ function renderNameInput(key, callback) {
     submitHandler: function () {
       const userName = inputField.value.trim();
       inputContainer.remove();
-      sendMessageToAI(userName).then(() => {
-        displayStatus(true);
-        setTimeout(() => {
-          window.location.href = 'thanks.html';
-        }, 5000);
-      });
+      // НЕ отправляем имя в sendMessageToAI!
+      appendMessage({ text: userName, key: key, isUser: true });
+      displayStatus(true);
+      setTimeout(() => {
+        window.location.href = 'thanks.html';
+      }, 5000);
       if (callback) callback(userName);
     },
   });
