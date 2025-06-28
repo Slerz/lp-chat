@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Gilroy-Regular";
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  outline: none;
+  color: inherit;
+}
+
+strong {
+  font-family: "Gilroy-Regular";
+}
+
+br {
+  display: none;
+}
+
+svg,
+img {
+  display: block;
+}
+
+@media only screen and (min-width: 768px) {
+  br {
+    display: block;
+  }
+}

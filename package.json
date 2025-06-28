@@ -1,0 +1,33 @@
+{
+  "name": "shefport-chatbot",
+  "version": "1.0.0",
+  "description": "Conversational chatbot with OpenAI GPT integration and PHP forms",
+  "main": "openai-chat-backend.js",
+  "scripts": {
+    "start": "node openai-chat-backend.js",
+    "dev": "node openai-chat-backend.js",
+    "build": "echo 'No build step required'",
+    "deploy": "echo 'Deploy to Railway: git push origin main'"
+  },
+  "keywords": [
+    "chatbot",
+    "openai",
+    "gpt",
+    "conversational",
+    "ai",
+    "php",
+    "forms"
+  ],
+  "author": "Shefport",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "openai": "^4.20.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
