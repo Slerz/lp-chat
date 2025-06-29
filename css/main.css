@@ -366,6 +366,38 @@ h4 {
   right: 4px;
 }
 
+.chat__mode-indicator {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff6b35;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-family: "Gilroy-Medium";
+  white-space: nowrap;
+  z-index: 10;
+  animation: fadeInMode 0.3s ease-in;
+}
+
+.mode-indicator__text {
+  font-size: 10px;
+  line-height: 1;
+}
+
+@keyframes fadeInMode {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 @-moz-keyframes pulseStatus {
   0% {
     transform: scale(1);
@@ -2352,27 +2384,49 @@ h4 {
   }
 
   .content-privacy h2 {
-    font-size: 24px;
+    margin-bottom: 20px;
+    font-size: 26px;
+  }
+
+  .content-privacy h3,
+  .content-privacy strong {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .content-privacy p {
+    font-size: 16px;
   }
 
   .remodal__feedback {
-    width: 386px;
+    width: 432px;
+  }
+
+  .remodal__feedback-close {
+    top: 10px;
+    right: 10px;
   }
 
   .thanks-section__inner {
-    padding: 70px 0;
+    padding: 100px 0;
   }
 
   .thanks-section__title {
-    font-size: 32px;
+    font-size: 40px;
+    margin-bottom: 20px;
   }
 
   .thanks-section__title-helper {
-    font-size: 22px;
+    font-size: 24px;
+    margin-bottom: 40px;
   }
 
   .thanks-section__btn {
-    max-width: 270px;
+    max-width: 307px;
+  }
+
+  .page--thanks {
+    font-size: 16px;
   }
 }
 

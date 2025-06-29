@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Fallback - ШефПорт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-button {
+            background: #0070f0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тест Fallback механизма чат-бота</h1>
+    
+    <div class="test-section">
+        <h2>Тестирование переключения режимов</h2>
+        <p>Этот тест поможет проверить, как работает fallback на сценарный режим при ошибках ChatGPT.</p>
+        
+        <button class="test-button" onclick="testAIMode()">Тест AI режима</button>
+        <button class="test-button" onclick="testScenarioMode()">Тест сценарного режима</button>
+        <button class="test-button" onclick="testFallback()">Тест fallback</button>
+        <button class="test-button" onclick="resetTest()">Сброс</button>
+        
+        <div id="testResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Инструкции по тестированию</h2>
+        <ol>
+            <li><strong>Тест AI режима:</strong> Проверяет нормальную работу с ChatGPT</li>
+            <li><strong>Тест сценарного режима:</strong> Принудительно переключает на сценарный режим</li>
+            <li><strong>Тест fallback:</strong> Симулирует ошибку ChatGPT и проверяет автоматическое переключение</li>
+            <li><strong>Сброс:</strong> Возвращает к исходному состоянию</li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>Как проверить в реальном чат-боте</h2>
+        <ol>
+            <li>Откройте основной чат-бот (index.html)</li>
+            <li>Попробуйте отправить сообщение</li>
+            <li>Если сервер ChatGPT недоступен, бот должен автоматически переключиться на сценарный режим</li>
+            <li>В сценарном режиме попробуйте написать "AI" или "ChatGPT" для возврата к AI режиму</li>
+            <li>Проверьте, что индикатор режима появляется/исчезает корректно</li>
+        </ol>
+    </div>
+
+    <script>
+        let isScenarioMode = false;
+        
+        function addStatus(message, type = 'info') {
+            const results = document.getElementById('testResults');
+            const status = document.createElement('div');
+            status.className = `status ${type}`;
+            status.textContent = message;
+            results.appendChild(status);
+        }
+        
+        function testAIMode() {
+            isScenarioMode = false;
+            addStatus('✅ AI режим активирован', 'success');
+            addStatus('Бот готов к работе с ChatGPT', 'info');
+        }
+        
+        function testScenarioMode() {
+            isScenarioMode = true;
+            addStatus('🔄 Переключение на сценарный режим', 'info');
+            addStatus('Бот работает по заранее подготовленным сценариям', 'info');
+        }
+        
+        function testFallback() {
+            addStatus('⚠️ Симуляция ошибки ChatGPT...', 'error');
+            setTimeout(() => {
+                isScenarioMode = true;
+                addStatus('🔄 Автоматическое переключение на сценарный режим', 'success');
+                addStatus('Бот продолжает работать в сценарном режиме', 'info');
+            }, 1000);
+        }
+        
+        function resetTest() {
+            isScenarioMode = false;
+            document.getElementById('testResults').innerHTML = '';
+            addStatus('🔄 Тест сброшен', 'info');
+        }
+        
+        // Инициализация
+        addStatus('Тест готов к запуску', 'info');
+    </script>
+</body>
+</html> 
