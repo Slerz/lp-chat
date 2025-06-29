@@ -10,7 +10,6 @@ let allowedScroll = false;
 let botMessageCount = 0;
 let swiperInstance = null;
 let isProcessingBreak = false; // Флаг для отслеживания обработки [BREAK]
-let isScenarioMode = false; // Новый флаг для отслеживания режима работы
 
 import startQuestions from './startQuestions.js';
 import messengerOptions from './messengerOptions.js';
@@ -906,18 +905,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // === Chat input send logic ===
   const userInput = document.getElementById('userChatInput');
   const sendBtn = document.getElementById('userChatSendBtn');
-  function handleUserSend() {
-    const message = userInput.value.trim();
-    if (!message) return;
+  function sendUserMessage() {
+    const text = userInput.value.trim();
+    if (!text) return;
+    appendMessage({ text, isUser: true });
     userInput.value = '';
-    sendMessageToAI(message);
   }
   if (userInput && sendBtn) {
-    sendBtn.addEventListener('click', handleUserSend);
+    sendBtn.addEventListener('click', sendUserMessage);
     userInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        handleUserSend();
+        sendUserMessage();
       }
     });
   }
@@ -984,35 +983,22 @@ async function sendMessageToAI(userMessage) {
       if (data.text) {
         await new Promise(resolve => setTimeout(resolve, 300));
         appendMessage({ text: data.text, isUser: false });
-        isScenarioMode = false; // Успешное подключение к AI
-        hideModeIndicator(); // Скрываем индикатор сценарного режима
       } else if (data.error) {
-        console.log('Ошибка AI сервера, переключаемся на сценарный режим:', data.error);
-        switchToScenarioMode();
+        appendMessage({ text: 'Ошибка: ' + data.error, isUser: false });
       }
     } catch (e) {
-      console.log('Ошибка соединения с AI сервером, переключаемся на сценарный режим:', e);
-      switchToScenarioMode();
+      appendMessage({ text: 'Ошибка соединения с сервером.', isUser: false });
     }
     return;
   }
-  
   if (!userMessage || !userMessage.trim()) return;
   appendMessage({ text: userMessage, isUser: true });
-  
-  // Если уже в сценарном режиме, обрабатываем через сценарий
-  if (isScenarioMode) {
-    handleScenarioModeMessage(userMessage);
-    return;
-  }
-  
   // Тест: если пользователь отправляет одну из меток, бот возвращает её же
   const testTags = ['[ASK_CITY]', '[ASK_PHONE]', '[ASK_MESSENGER]', '[SHOW_MAGNET_OPTIONS]', '[PHOTO]'];
   if (testTags.some(tag => userMessage.includes(tag))) {
     appendMessage({ text: userMessage, isUser: false });
     return;
   }
-  
   // Оригинальный код
   try {
     // Показываем индикатор печати перед отправкой запроса
@@ -1033,116 +1019,34 @@ async function sendMessageToAI(userMessage) {
       setTimeout(() => {
         hideTypingIndicator();
       }, 600);
-      
-      // Если мы были в сценарном режиме, но получили ответ от AI, переключаемся обратно
-      if (isScenarioMode) {
-        isScenarioMode = false;
-        hideModeIndicator();
-      }
     } else if (data.error) {
-      console.log('Ошибка AI сервера, переключаемся на сценарный режим:', data.error);
-      appendMessage({ text: 'Переключаюсь на сценарный режим...', isUser: false });
+      appendMessage({ text: 'Ошибка: ' + data.error, isUser: false });
       hideTypingIndicator();
-      switchToScenarioMode();
-      // Повторно обрабатываем сообщение в сценарном режиме
-      setTimeout(() => {
-        handleScenarioModeMessage(userMessage);
-      }, 1000);
     }
   } catch (e) {
-    console.log('Ошибка соединения с AI сервером, переключаемся на сценарный режим:', e);
-    appendMessage({ text: 'Переключаюсь на сценарный режим...', isUser: false });
+    appendMessage({ text: 'Ошибка соединения с сервером.', isUser: false });
     hideTypingIndicator();
-    switchToScenarioMode();
-    // Повторно обрабатываем сообщение в сценарном режиме
-    setTimeout(() => {
-      handleScenarioModeMessage(userMessage);
-    }, 1000);
   }
 }
 
-// Функция переключения на сценарный режим
-function switchToScenarioMode() {
-  if (isScenarioMode) return; // Уже в сценарном режиме
-  
-  isScenarioMode = true;
-  console.log('Переключение на сценарный режим');
-  
-  // Показываем индикатор режима
-  showModeIndicator();
-  
-  // Показываем уведомление пользователю
-  appendMessage({ 
-    text: '🤖 Переключился на сценарный режим. Теперь я буду отвечать по заранее подготовленным сценариям. Выберите интересующий вас вопрос:', 
-    isUser: false 
-  });
-  
-  // Запускаем начальный сценарий
-  setTimeout(() => {
-    processChatState("start");
-  }, 1500);
+// Перехват отправки сообщения пользователем (Enter или кнопка)
+const userInput = document.getElementById('userChatInput');
+const sendBtn = document.getElementById('userChatSendBtn');
+
+function handleUserSend() {
+  const message = userInput.value.trim();
+  if (!message) return;
+  userInput.value = '';
+  sendMessageToAI(message);
 }
 
-// Функция показа индикатора режима
-function showModeIndicator() {
-  const modeIndicator = document.getElementById('modeIndicator');
-  if (modeIndicator) {
-    modeIndicator.style.display = 'block';
+userInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleUserSend();
   }
-}
-
-// Функция скрытия индикатора режима
-function hideModeIndicator() {
-  const modeIndicator = document.getElementById('modeIndicator');
-  if (modeIndicator) {
-    modeIndicator.style.display = 'none';
-  }
-}
-
-// Функция обработки сообщений в сценарном режиме
-function handleScenarioModeMessage(userMessage) {
-  // Простая логика сопоставления сообщений с сценариями
-  const message = userMessage.toLowerCase();
-  
-  // Проверяем, не хочет ли пользователь вернуться к AI режиму
-  if (message.includes('ai') || message.includes('искусственный интеллект') || message.includes('чатгпт') || message.includes('chatgpt')) {
-    appendMessage({ 
-      text: 'Попробую снова подключиться к AI серверу...', 
-      isUser: false 
-    });
-    // Пытаемся вернуться к AI режиму
-    setTimeout(() => {
-      sendMessageToAI("__INIT__");
-    }, 1000);
-    return;
-  }
-  
-  // Более точное сопоставление ключевых слов
-  if (message.includes('инвестиции') || message.includes('деньги') || message.includes('стоимость') || message.includes('сколько стоит') || message.includes('вложения')) {
-    processChatState("investments");
-  } else if (message.includes('прибыль') || message.includes('заработок') || message.includes('доход') || message.includes('сколько зарабатывают') || message.includes('выручка')) {
-    processChatState("profit");
-  } else if (message.includes('помощь') || message.includes('поддержка') || message.includes('сопровождение') || message.includes('как помогаете') || message.includes('что делаете')) {
-    processChatState("help");
-  } else if (message.includes('галерея') || message.includes('фото') || message.includes('магазин') || message.includes('как выглядят') || message.includes('примеры')) {
-    processChatState("gallery");
-  } else if (message.includes('отзывы') || message.includes('владельцы') || message.includes('партнеры') || message.includes('общение') || message.includes('встреча')) {
-    processChatState("feedback");
-  } else if (message.includes('компания') || message.includes('кто вы') || message.includes('сеть') || message.includes('о вас') || message.includes('расскажите')) {
-    processChatState("aboutCompany");
-  } else if (message.includes('вопрос') || message.includes('задать') || message.includes('интересует')) {
-    processChatState("question");
-  } else {
-    // Если не можем определить сценарий, предлагаем варианты
-    appendMessage({ 
-      text: 'Я не совсем понял ваш вопрос. Выберите один из вариантов ниже или переформулируйте вопрос:', 
-      isUser: false 
-    });
-    setTimeout(() => {
-      processChatState("start");
-    }, 1000);
-  }
-}
+});
+sendBtn.addEventListener('click', handleUserSend);
 
 /**
  * Обновлённые обработчики для всех интерактивных элементов:
