@@ -60,13 +60,15 @@ app.post('/chat', async (req, res) => {
   // Добавляем сообщение пользователя в историю
   sessions[sessionId].push({ role: 'user', content: message });
 
-  // Формируем массив messages для OpenAI: system prompt + история
-  const messages = [SYSTEM_PROMPT, ...sessions[sessionId]];
+  // Формируем массив messages для OpenAI: system prompt + история (ограничиваем до 12)
+  const shortHistory = sessions[sessionId].slice(-12);
+  const messages = [SYSTEM_PROMPT, ...shortHistory];
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
       model: 'gpt-4.1-mini',
-      messages
+      messages,
+      max_tokens: 300
     }, {
       headers: {
         'Authorization': `Bearer ${OPENAI_API_KEY}`,
@@ -83,4 +85,4 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`OpenAI chat backend running on port ${PORT}`)); 
+app.listen(PORT, () => console.log(`OpenAI chat backend running on port ${PORT}`));
