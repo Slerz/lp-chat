@@ -61,15 +61,15 @@ function initFeedbackForm() {
           return $.extend(acc, { [current.name]: current.value })
         }, {})
 
-      localStorage.removeItem('lead_name')
-      localStorage.removeItem('city')
+      sessionStorage.removeItem('lead_name')
+      sessionStorage.removeItem('city')
 
       if (fields.name) {
-        localStorage.setItem('lead_name', fields.name)
+        sessionStorage.setItem('lead_name', fields.name)
       }
 
       if (fields.city) {
-        localStorage.setItem('city', fields.city)
+        sessionStorage.setItem('city', fields.city)
       }
 
       var data = $.extend($.feedback_store, fields)

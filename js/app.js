@@ -959,10 +959,10 @@ function renderModuleOptions(key, options, callback) {
 
 // Генерация и хранение sessionId
 function getSessionId() {
-  let sessionId = localStorage.getItem('sessionId');
+  let sessionId = sessionStorage.getItem('sessionId');
   if (!sessionId) {
     sessionId = crypto.randomUUID();
-    localStorage.setItem('sessionId', sessionId);
+    sessionStorage.setItem('sessionId', sessionId);
   }
   return sessionId;
 }
