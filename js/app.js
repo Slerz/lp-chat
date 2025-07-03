@@ -607,24 +607,20 @@ function renderPhoneInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  // Контейнер для горизонтального расположения поля и кнопки
-  const rowContainer = document.createElement("div");
-  rowContainer.className = "chat-phone-row";
-  rowContainer.appendChild(inputField);
-  rowContainer.appendChild(submitButton);
-
-  form.appendChild(rowContainer);
-
-  // Контейнер для чекбокса и ссылки (вертикально, под формой)
   const checkboxContainer = document.createElement("div");
   checkboxContainer.className = "chat-checkbox-container";
 
   const checkboxLabel = document.createElement("label");
   checkboxLabel.className = "chat-checkbox-label";
+  checkboxLabel.style.display = "block";
+  checkboxLabel.style.fontSize = "14px";
+  checkboxLabel.style.cursor = "pointer";
+  checkboxLabel.style.marginBottom = "4px";
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.className = "chat-checkbox";
+  checkbox.style.marginRight = "6px";
 
   const labelText = document.createElement("span");
   labelText.className = "chat-checkbox-text";
@@ -636,13 +632,29 @@ function renderPhoneInput(key, callback) {
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
   privacyLink.textContent = "Политика конфиденциальности";
-  privacyLink.className = "chat-privacy-link";
+  privacyLink.style.fontSize = "12px";
+  privacyLink.style.color = "#888";
+  privacyLink.style.textDecoration = "underline";
+  privacyLink.style.display = "block";
+  privacyLink.style.marginLeft = "22px";
   privacyLink.target = "_blank";
+  privacyLink.className = "chat-privacy-link";
 
   checkboxContainer.appendChild(checkboxLabel);
   checkboxContainer.appendChild(privacyLink);
 
-  // Добавляем чекбокс под формой
+  // Контейнер для горизонтального расположения
+  const rowContainer = document.createElement("div");
+  rowContainer.className = "chat-phone-row";
+  rowContainer.style.display = "flex";
+  rowContainer.style.alignItems = "center";
+  rowContainer.style.gap = "12px";
+
+  rowContainer.appendChild(inputField);
+  rowContainer.appendChild(submitButton);
+
+  // В форму сначала добавляем строку с полем и кнопкой, затем чекбокс снизу
+  form.appendChild(rowContainer);
   form.appendChild(checkboxContainer);
   inputContainer.appendChild(form);
 
