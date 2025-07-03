@@ -662,9 +662,9 @@ function renderPhoneInput(key, callback) {
   formModalAgree.appendChild(agreeDiv);
 
   form.appendChild(inputField);
+  form.appendChild(formModalAgree);
   form.appendChild(submitButton);
   inputContainer.appendChild(form);
-  inputContainer.appendChild(formModalAgree);
 
   chatContent.appendChild(inputContainer);
 
