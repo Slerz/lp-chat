@@ -291,20 +291,27 @@ h4 {
   justify-content: left;
 }
 
+.dynamic-form .agree {
+  margin-bottom: 5px;
+}
 
 .agree__label {
   position: relative;
-  padding: 0 0 0 26px;
-  cursor: pointer;
 }
 
 .agree__checkbox {
   position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 18px;
+  height: 18px;
   margin: 0;
-  pointer-events: none;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.agree__custom {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .agree__custom {
@@ -1065,6 +1072,8 @@ h4 {
   height: 56px;
   margin-bottom: 7px;
 }
+
+
 
 .form-modal__feedback-input .input {
   border: none;
@@ -2730,10 +2739,6 @@ Geometria-Bold
   .wrapper {
     max-width: 970px;
     padding: 0 15px;
-  }
-
-  .dynamic-form .agree {
-    margin-bottom: 8px;
   }
 
   .dynamic-form .agree .error--privacy{
