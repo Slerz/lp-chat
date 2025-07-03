@@ -621,16 +621,26 @@ function renderPhoneInput(key, callback) {
   agreeLabel.style.display = "flex";
   agreeLabel.style.alignItems = "center";
   agreeLabel.style.cursor = "pointer";
+  agreeLabel.style.position = "relative";
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
   agreeCheckbox.className = "agree__checkbox agree";
   agreeCheckbox.id = "agree";
   agreeCheckbox.name = "agree";
-  agreeCheckbox.style.marginRight = "8px";
+  agreeCheckbox.style.position = "absolute";
+  agreeCheckbox.style.opacity = "0";
+  agreeCheckbox.style.width = "18px";
+  agreeCheckbox.style.height = "18px";
+  agreeCheckbox.style.margin = "0";
+  agreeCheckbox.style.zIndex = "2";
+  agreeCheckbox.style.cursor = "pointer";
+  agreeCheckbox.style.left = "0";
+  agreeCheckbox.style.top = "0";
 
   const agreeCustom = document.createElement("span");
   agreeCustom.className = "agree__custom";
+  agreeCustom.style.marginRight = "8px";
 
   const agreeTextSpan = document.createElement("span");
   agreeTextSpan.style.color = "#303437";
