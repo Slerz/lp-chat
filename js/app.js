@@ -618,26 +618,37 @@ function renderPhoneInput(key, callback) {
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
   agreeCheckbox.className = "agree";
+  agreeCheckbox.id = "agree";
   agreeCheckbox.style.marginRight = "8px";
 
   const agreeText = document.createElement("span");
   agreeText.textContent = "Я принимаю условия ";
+  agreeText.style.color = "#303437";
 
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
   privacyLink.setAttribute("data-remodal-target", "privacy");
-  privacyLink.textContent = "политики конфиденциальности";
+  privacyLink.textContent = "Политики конфиденциальности";
   privacyLink.style.textDecoration = "underline";
-  privacyLink.style.color = "#ff0032";
+  privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
 
   agreeContainer.appendChild(agreeCheckbox);
   agreeContainer.appendChild(agreeText);
   agreeContainer.appendChild(privacyLink);
 
+  // Сообщение об ошибке (скрыто по умолчанию)
+  const agreeError = document.createElement("div");
+  agreeError.id = "agree-error";
+  agreeError.className = "error error--privacy";
+  agreeError.setAttribute("for", "agree");
+  agreeError.style.display = "none";
+  agreeError.textContent = "Подтвердите согласие с политикой конфиденциальности";
+
   form.appendChild(inputField);
   form.appendChild(submitButton);
   form.appendChild(agreeContainer);
+  form.appendChild(agreeError);
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
@@ -661,6 +672,23 @@ function renderPhoneInput(key, callback) {
     messages: {
       agree: "Необходимо принять условия"
     },
+    highlight: function(element, errorClass, validClass) {
+      if (element.name === "agree") {
+        agreeError.style.display = "block";
+        inputField.style.borderColor = "#ff0032";
+        inputField.style.color = "#ff0032";
+        inputField.placeholder = "Ваш телефон";
+        inputField.classList.add("input-error");
+      }
+    },
+    unhighlight: function(element, errorClass, validClass) {
+      if (element.name === "agree") {
+        agreeError.style.display = "none";
+        inputField.style.borderColor = "";
+        inputField.style.color = "";
+        inputField.classList.remove("input-error");
+      }
+    },
     submitHandler: function () {
       const phoneNumber = inputField.value.trim();
       inputContainer.remove();
@@ -670,6 +698,16 @@ function renderPhoneInput(key, callback) {
       const state = chatScenario[key];
       if (state && state.next) processChatState(state.next);
     },
+  });
+
+  // Скрывать ошибку при клике на чекбокс
+  agreeCheckbox.addEventListener("change", function() {
+    if (agreeCheckbox.checked) {
+      agreeError.style.display = "none";
+      inputField.style.borderColor = "";
+      inputField.style.color = "";
+      inputField.classList.remove("input-error");
+    }
   });
 }
 
