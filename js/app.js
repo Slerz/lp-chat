@@ -607,23 +607,27 @@ function renderPhoneInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
+  // Контейнер для горизонтального расположения поля и кнопки
+  const rowContainer = document.createElement("div");
+  rowContainer.className = "chat-phone-row";
+  rowContainer.appendChild(inputField);
+  rowContainer.appendChild(submitButton);
+
+  form.appendChild(rowContainer);
+
+  // Контейнер для чекбокса и ссылки (вертикально, под формой)
   const checkboxContainer = document.createElement("div");
-  checkboxContainer.style.display = "flex";
-  checkboxContainer.style.flexDirection = "column";
-  checkboxContainer.style.alignItems = "flex-start";
-  checkboxContainer.style.marginLeft = "16px";
+  checkboxContainer.className = "chat-checkbox-container";
 
   const checkboxLabel = document.createElement("label");
-  checkboxLabel.style.display = "block";
-  checkboxLabel.style.fontSize = "14px";
-  checkboxLabel.style.cursor = "pointer";
-  checkboxLabel.style.marginBottom = "4px";
+  checkboxLabel.className = "chat-checkbox-label";
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.style.marginRight = "6px";
+  checkbox.className = "chat-checkbox";
 
   const labelText = document.createElement("span");
+  labelText.className = "chat-checkbox-text";
   labelText.textContent = "Я принимаю условия";
 
   checkboxLabel.appendChild(checkbox);
@@ -632,27 +636,14 @@ function renderPhoneInput(key, callback) {
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
   privacyLink.textContent = "Политика конфиденциальности";
-  privacyLink.style.fontSize = "12px";
-  privacyLink.style.color = "#888";
-  privacyLink.style.textDecoration = "underline";
-  privacyLink.style.display = "block";
-  privacyLink.style.marginLeft = "22px";
+  privacyLink.className = "chat-privacy-link";
   privacyLink.target = "_blank";
 
   checkboxContainer.appendChild(checkboxLabel);
   checkboxContainer.appendChild(privacyLink);
 
-  // Контейнер для горизонтального расположения
-  const rowContainer = document.createElement("div");
-  rowContainer.style.display = "flex";
-  rowContainer.style.alignItems = "center";
-  rowContainer.style.gap = "12px";
-
-  rowContainer.appendChild(inputField);
-  rowContainer.appendChild(submitButton);
-  rowContainer.appendChild(checkboxContainer);
-
-  form.appendChild(rowContainer);
+  // Добавляем чекбокс под формой
+  form.appendChild(checkboxContainer);
   inputContainer.appendChild(form);
 
   // Делаем кнопку неактивной, пока чекбокс не отмечен
