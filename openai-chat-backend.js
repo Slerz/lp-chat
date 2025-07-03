@@ -13,7 +13,7 @@ app.use(cors());
 // Статические файлы
 app.use(express.static(path.join(__dirname)));
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim();
 const PORT = process.env.PORT || 3001;
 const sessions = {};
 
@@ -51,11 +51,17 @@ app.get('/thanks', (req, res) => {
 
 // Тестовый эндпоинт для проверки API ключа
 app.get('/test-api', (req, res) => {
+  const rawKey = process.env.OPENAI_API_KEY;
+  const cleanKey = OPENAI_API_KEY;
+  
   res.json({
-    apiKeyConfigured: !!OPENAI_API_KEY,
-    apiKeyLength: OPENAI_API_KEY ? OPENAI_API_KEY.length : 0,
-    apiKeyPrefix: OPENAI_API_KEY ? OPENAI_API_KEY.substring(0, 7) + '...' : 'none',
-    environment: process.env.NODE_ENV || 'development'
+    apiKeyConfigured: !!cleanKey,
+    apiKeyLength: cleanKey ? cleanKey.length : 0,
+    apiKeyPrefix: cleanKey ? cleanKey.substring(0, 7) + '...' : 'none',
+    rawKeyLength: rawKey ? rawKey.length : 0,
+    rawKeyPrefix: rawKey ? rawKey.substring(0, 10) + '...' : 'none',
+    environment: process.env.NODE_ENV || 'development',
+    hasWhitespace: rawKey ? rawKey !== rawKey.trim() : false
   });
 });
 
@@ -92,7 +98,7 @@ app.post('/chat', async (req, res) => {
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-4.1-mini',
+      model: 'gpt-3.5-turbo',
       messages,
       max_tokens: 300
     }, {
