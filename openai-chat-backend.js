@@ -49,15 +49,31 @@ app.get('/thanks', (req, res) => {
   res.sendFile(path.join(__dirname, 'thanks.html'));
 });
 
+// Тестовый эндпоинт для проверки API ключа
+app.get('/test-api', (req, res) => {
+  res.json({
+    apiKeyConfigured: !!OPENAI_API_KEY,
+    apiKeyLength: OPENAI_API_KEY ? OPENAI_API_KEY.length : 0,
+    apiKeyPrefix: OPENAI_API_KEY ? OPENAI_API_KEY.substring(0, 7) + '...' : 'none',
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 app.post('/chat', async (req, res) => {
+  console.log('Chat request received:', { message: req.body.message?.substring(0, 50) + '...', sessionId: req.body.sessionId });
+  
   const { message, sessionId } = req.body;
   if (!message || !sessionId) {
+    console.log('Missing required fields:', { message: !!message, sessionId: !!sessionId });
     return res.status(400).json({ error: 'message and sessionId required' });
   }
 
   if (!OPENAI_API_KEY) {
+    console.log('API key not configured');
     return res.status(500).json({ error: 'OpenAI API key not configured' });
   }
+  
+  console.log('API key configured, length:', OPENAI_API_KEY.length);
 
   // Инициализация истории для сессии
   if (!sessions[sessionId]) {
@@ -71,9 +87,12 @@ app.post('/chat', async (req, res) => {
   const shortHistory = sessions[sessionId].slice(-12);
   const messages = [SYSTEM_PROMPT, ...shortHistory];
 
+  console.log('Sending request to OpenAI with model: gpt-3.5-turbo');
+  console.log('Messages count:', messages.length);
+
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4.1-mini',
       messages,
       max_tokens: 300
     }, {
