@@ -22,7 +22,7 @@ function mailer($sendto, $subject, $htmlBody, $headers = false)
         $phpmailer->Port = 465;
         $phpmailer->SMTPSecure = 'ssl';
         $phpmailer->Username = getenv('GMAIL_USER') ?: 'idrisovamir21tr@gmail.com'; // ваш Gmail
-        $phpmailer->Password = getenv('GMAIL_PASS') ?: 'fhkf qfxp ckxn bokv'; // пароль приложения Gmail
+        $phpmailer->Password = getenv('GMAIL_PASS') ?: 'fhkfqfxpckxnbokv'; // пароль приложения Gmail
 
         $phpmailer->setFrom(SND_FROM ?: 'idrisovamir21tr@gmail.com', SND_NAME ?: 'Shefport Chatbot');
 
