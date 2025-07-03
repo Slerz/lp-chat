@@ -3451,3 +3451,21 @@ Geometria-Bold
   pointer-events: none;
   user-select: none;
 }
+
+/* --- Стили для формы с телефоном и чекбоксом --- */
+.input-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.input-row input,
+.input-row button {
+  margin-bottom: 0;
+}
+
+.form-modal__agree {
+  margin-top: 12px;
+}
+
+/* --- Конец блока --- */
