@@ -256,6 +256,7 @@ h4 {
 }
 
 .agree {
+  width: 100%;
   line-height: 1.7;
   font-family: "Gilroy-Regular";
   font-weight: 400;
@@ -3450,25 +3451,4 @@ Geometria-Bold
   object-fit: cover;
   pointer-events: none;
   user-select: none;
-}
-
-/* Чекбокс на всю ширину экрана */
-.form-modal__agree {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  box-sizing: border-box;
-  padding: 0 16px;
-}
-.agree {
-  width: 100%;
-}
-.agree__label.tap-color {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-  justify-content: flex-start;
-  padding: 12px 0;
-  background: none;
-  border-radius: 0;
 }
