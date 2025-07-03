@@ -288,7 +288,7 @@ h4 {
 }
 
 .dynamic-form .form-modal__agree .agree__label.tap-color {
-  align-items: left;
+  justify-content: left;
 }
 
 .agree__label {
