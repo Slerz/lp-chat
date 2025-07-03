@@ -1,4 +1,3 @@
-// Функция для создания состояния
 const createState = ({ key, showStatus = false, messages, options = [], requiresInput = false, next = null, autoNext = false, actionRedirect = false }) => ({
   key,
   showStatus,
@@ -10,24 +9,20 @@ const createState = ({ key, showStatus = false, messages, options = [], requires
   actionRedirect,
 });
 
-// Функция для создания опции
 const createOption = (label, value, next) => ({
   label,
   value,
   next,
 });
 
-// Создаем динамический сценарий
 const chatScenario = (() => {
   const states = {};
 
-  // Функция добавления состояния в сценарий
   const addState = (stateConfig) => {
     const state = createState(stateConfig);
     states[state.key] = state;
   };
 
-  // Добавляем состояния
   addState({
     key: "start",
     messages: [],
@@ -887,7 +882,5 @@ const chatScenario = (() => {
     next: "name3",
   });
 
-
-  // Возвращаем сценарий
   return states;
 })();

@@ -13,7 +13,7 @@ app.use(cors());
 // Статические файлы
 app.use(express.static(path.join(__dirname)));
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY_1?.trim();
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim();
 const PORT = process.env.PORT || 3001;
 const sessions = {};
 

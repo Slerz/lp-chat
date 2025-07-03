@@ -871,7 +871,7 @@ function sendChatHistory() {
   }
 
   $.ajax({
-    url: 'https://robust-blessing-production-97dc.up.railway.app/formProcessor.php',
+    url: 'https://grand-smile-production.up.railway.app/formProcessor.php',
     type: 'POST',
     data: formData,
     processData: false,
@@ -882,17 +882,6 @@ function sendChatHistory() {
 
 function setCurrentYear() {
   $('[data-current-year]').text(new Date().getFullYear())
-}
-
-function initAnchorBtn() {
-  $('[data-scroll-top]').on('click', function () {
-    $('.modal-scrollable').animate(
-      {
-        scrollTop: 0,
-      },
-      1000,
-    )
-  })
 }
 
 document.addEventListener("DOMContentLoaded", () => {

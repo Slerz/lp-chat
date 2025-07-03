@@ -15,13 +15,18 @@ $.validator.addMethod(
 $.validator.addMethod(
   'phone',
   function (value) {
-    return /\+\d{1} \([9]\d{2}\) \d{3} \d{4}/.test(value) && !/(\d)\1{4,}/.test(value.replace(/[^\d]/g, ''));
+    return /\+\d{1} \([9]\d{2}\) \d{3} \d{4}/.test(value) && !/(\d)\1{6,}/.test(value.replace(/[^\d]/g, ''));
   },
 );
 
 $('form').each(function () {
   $(this).validate({
-    errorPlacement: function () {},
+    errorPlacement: function (error, element) {
+      if (element.attr("name") === "agree") {
+        error.addClass('error--privacy');
+        error.appendTo(element.closest('.agree'));
+      }
+    },
     rules: {
       name: {
         required: true,
@@ -44,6 +49,12 @@ $('form').each(function () {
         required: true,
         phone: true,
       },
+      agree: {
+        required: true,
+      },
+    },
+    messages: {
+      agree: 'Подтвердите согласие с политикой конфиденциальности',
     },
   });
 });

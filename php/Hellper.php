@@ -1,3 +1,4 @@
+
 <?php
 $path = dirname(__FILE__);
 require $path . '/PHPMailer/src/Exception.php';
@@ -15,23 +16,26 @@ function mailer($sendto, $subject, $htmlBody, $headers = false)
     try {
         $phpmailer = new PHPMailer();
 
-        // Включаем SMTP для Gmail
-        $phpmailer->isSMTP();
-        $phpmailer->Host = 'smtp.gmail.com';
-        $phpmailer->SMTPAuth = true;
-        $phpmailer->Port = 465;
-        $phpmailer->SMTPSecure = 'ssl';
-        $phpmailer->Username = getenv('GMAIL_USER') ?: 'idrisovamir21tr@gmail.com'; // ваш Gmail
-        $phpmailer->Password = getenv('GMAIL_PASS') ?: 'fhkfqfxpckxnbokv'; // пароль приложения Gmail
+        if (SMTP) {
+            $phpmailer->isSMTP();
+            $phpmailer->Host = ''; // ex: smtp.mailtrap.io
+            $phpmailer->SMTPAuth = true; // change to false if not needed
+            $phpmailer->Port = 2525; // port
+            $phpmailer->Username = ''; // only n case auth needed, otherwise comment this line
+            $phpmailer->Password = ''; // only n case auth needed, otherwise comment this line
+        }
 
-        $phpmailer->setFrom(SND_FROM ?: 'idrisovamir21tr@gmail.com', SND_NAME ?: 'Shefport Chatbot');
+
+        $phpmailer->setFrom(SND_FROM, SND_NAME);
 
         $addresses = explode(",", $sendto);
+
         foreach ($addresses as $address) {
             $phpmailer->addAddress(trim($address));
         }
 
-        $phpmailer->addReplyTo(SND_FROM ?: 'idrisovamir21tr@gmail.com', SND_NAME ?: 'Shefport Chatbot');
+
+        $phpmailer->addReplyTo(SND_FROM, SND_NAME);
 
         $phpmailer->isHTML(true);
         $phpmailer->Subject = $subject;
@@ -41,7 +45,6 @@ function mailer($sendto, $subject, $htmlBody, $headers = false)
         $phpmailer->send();
         return true;
     } catch (Exception $e) {
-        error_log('Mailer Error: ' . $phpmailer->ErrorInfo);
         return false;
     }
 }

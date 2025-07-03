@@ -75,7 +75,7 @@ function initFeedbackForm() {
       var data = $.extend($.feedback_store, fields)
       var formData = createFormData(data)
 
-      $.ajax('https://robust-blessing-production-97dc.up.railway.app/formProcessor.php', {
+      $.ajax('https://grand-smile-production.up.railway.app/formProcessor.php', {
         type: 'POST',
         data: formData,
         processData: false,
@@ -88,10 +88,35 @@ function initFeedbackForm() {
   })
 }
 
+function initAnchorBtn() {
+  $('[data-scroll-top]').on('click', function () {
+    $('.modal-scrollable').animate(
+      {
+        scrollTop: 0,
+      },
+      1000,
+    )
+  })
+}
+
+function setCurrentYear() {
+  $('[data-current-year]').text(new Date().getFullYear())
+}
+
+function initCloseCookie() {
+  $('[data-cookie-btn]').on('click', function() {
+    $('.page-cookie').fadeOut(200);
+  });
+}
+
 $(document).ready(function () {
   initFeedbackForm()
   setInitialFeedbackStore()
 
   filterInvalidCharacters()
   $('input').inputmask()
+
+  initAnchorBtn()
+  setCurrentYear()
+  initCloseCookie()
 })

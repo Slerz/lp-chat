@@ -11,11 +11,11 @@ if (!empty($_POST['honeyfield'])) {
 }
 
 	// Pre settings
-		define('SND_FROM', 'idrisovamir21tr@gmail.com');
+		define('SND_FROM', ' ');
 		define('SND_TO', 'idrisovamir21tr@gmail.com'); // allowble comma-sepparated values
 		define('SND_NAME', 'ШефПорт Чат-бот');
 		define('NAME_FRANCH', 'ШефПорт Чат-бот');
-		define('SMTP', true); // теперь всегда true для отправки через PHPMailer
+		define('SMTP', false); // see settings in Helper.php before you change this const
 		define('SND_TO_BITRIX', false); // Разрешить отправку лидов в Битрикс. true - отправляем, false - запрещаем
 
 		$path = dirname(__FILE__);
@@ -151,8 +151,7 @@ if (!empty($_POST['honeyfield'])) {
 
 				mailer($fields["email"][2], $customerSubject, $customerBody, $headers);
 			}
-			echo json_encode(['success' => true, 'message' => 'Заявка отправлена!']);
+			echo $goodStatus;
 		}
-		else {
-			echo json_encode(['success' => false, 'message' => 'Ошибка отправки письма. Проверьте настройки SMTP.']);
-		}
+		else
+			echo 1;
