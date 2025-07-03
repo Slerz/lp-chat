@@ -607,36 +607,41 @@ function renderPhoneInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  // === Добавляем чекбокс согласия ===
-  const agreeContainer = document.createElement("label");
-  agreeContainer.style.display = "flex";
-  agreeContainer.style.alignItems = "center";
-  agreeContainer.style.marginTop = "12px";
-  agreeContainer.style.fontSize = "14px";
-  agreeContainer.style.cursor = "pointer";
+  // === Контейнер для чекбокса и ошибки ===
+  const formModalAgree = document.createElement("div");
+  formModalAgree.className = "form-modal__agree";
+
+  // === Контейнер для чекбокса и подписи ===
+  const agreeDiv = document.createElement("div");
+  agreeDiv.className = "agree";
+  agreeDiv.style.display = "flex";
+  agreeDiv.style.alignItems = "center";
+  agreeDiv.style.marginTop = "12px";
+  agreeDiv.style.fontSize = "14px";
+  agreeDiv.style.cursor = "pointer";
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
   agreeCheckbox.className = "agree";
   agreeCheckbox.id = "agree";
-  agreeCheckbox.style.marginRight = "8px";
   agreeCheckbox.name = "agree";
+  agreeCheckbox.style.marginRight = "8px";
 
   const agreeText = document.createElement("span");
-  agreeText.textContent = "Я принимаю условия ";
+  agreeText.textContent = "Я принимаю ";
   agreeText.style.color = "#303437";
 
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
   privacyLink.setAttribute("data-remodal-target", "privacy");
-  privacyLink.textContent = "Политики конфиденциальности";
+  privacyLink.textContent = "Политику конфиденциальности";
   privacyLink.style.textDecoration = "underline";
   privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
 
-  agreeContainer.appendChild(agreeCheckbox);
-  agreeContainer.appendChild(agreeText);
-  agreeContainer.appendChild(privacyLink);
+  agreeDiv.appendChild(agreeCheckbox);
+  agreeDiv.appendChild(agreeText);
+  agreeDiv.appendChild(privacyLink);
 
   // Сообщение об ошибке (скрыто по умолчанию)
   const agreeError = document.createElement("div");
@@ -646,10 +651,12 @@ function renderPhoneInput(key, callback) {
   agreeError.style.display = "none";
   agreeError.textContent = "Подтвердите согласие с политикой конфиденциальности";
 
+  formModalAgree.appendChild(agreeDiv);
+  formModalAgree.appendChild(agreeError);
+
   form.appendChild(inputField);
   form.appendChild(submitButton);
-  form.appendChild(agreeContainer);
-  form.appendChild(agreeError);
+  form.appendChild(formModalAgree);
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
