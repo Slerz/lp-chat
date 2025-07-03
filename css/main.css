@@ -3465,3 +3465,12 @@ Geometria-Bold
   color: #ff0032 !important;
   opacity: 1;
 }
+
+/* Красный placeholder и маска при ошибке согласия */
+.input__field.placeholder-error {
+  color: #ff0032 !important;
+}
+.input__field.placeholder-error::placeholder {
+  color: #ff0032 !important;
+  opacity: 1;
+}
