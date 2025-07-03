@@ -11,6 +11,24 @@
 }
 
 @font-face {
+  font-family: "Geometria-Regular";
+  src: url("../fonts/Geometria.woff"), url("../fonts/Geometria.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geometria-Bold";
+  src: url("../fonts/Geometria-Bold.woff"), url("../fonts/Geometria-Bold.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geometria-Light";
+  src: url("../fonts/Geometria-Light.woff"), url("../fonts/Geometria-Light.woff2");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Gilroy-Light";
   src: url("../fonts/Gilroy-Light.woff"), url("../fonts/Gilroy-Light.woff2");
   font-display: swap;
@@ -41,9 +59,11 @@
 }
 
 .wrapper {
+  position: relative;
   max-width: 362px;
   margin: 0 auto;
   padding: 0 6px;
+  z-index: 100;
 }
 
 section {
@@ -55,9 +75,9 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Geometria-ExtraBold";
+  font-family: "Geometria-Bold";
   font-weight: 700;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .d-flex {
@@ -92,14 +112,30 @@ h4 {
   color: #faea81;
 }
 
-.font-g-bold {
+.font-g-extrabold {
   font-family: "Geometria-ExtraBold";
+  font-weight: 800;
+}
+
+.font-g-bold {
+  font-family: "Geometria-Bold";
   font-weight: 700;
+}
+
+
+.font-g-reg {
+  font-family: "Geometria-Regular";
+  font-weight: 400;
 }
 
 .font-g-med {
   font-family: "Geometria-Medium";
   font-weight: 500;
+}
+
+.font-g-light {
+  font-family: "Geometria-Light";
+  font-weight: 300;
 }
 
 .font-gil-light {
@@ -169,11 +205,16 @@ h4 {
 
 .font-s-32 {
   font-size: 22px;
-  line-height: 100%;
+  line-height: 120%;
 }
 
 .font-s-56 {
   font-size: 22px;
+  line-height: 110%;
+}
+
+.font-s-58 {
+  font-size: 24px;
   line-height: 110%;
 }
 
@@ -334,16 +375,21 @@ h4 {
   overflow: hidden;
   display: flex;
   border-radius: 30px;
-  gap: 8px;
+  gap: 20px;
   min-height: 400px;
   padding: 16px 16px 30px 16px;
+  z-index: 100;
 }
 
+.chat {
+  z-index: 100;
+}
 .chat__wrapper {
   position: relative;
   flex: 1 1 auto;
   width: 100%;
 }
+
 
 .chat__bot-avatar div {
   position: relative;
@@ -469,25 +515,32 @@ h4 {
 
 .response-options button {
   border: none;
-  border: 1px solid #0070f0;
-  color: #0070f0;
-  font-family: "Gilroy-Medium";
+  border: 1px solid #3F6878;
+  color: #3F6878;
+  font-family: "Geometria-Regular";
   background: none;
   cursor: pointer;
   line-height: 120%;
   outline: none;
   text-align: center;
-  border-radius: 24px;
+  border-radius: 16px;
   font-size: 13px;
   padding: 16px;
   min-width: 32%;
-  transition: 0.3s;
+  transition: all 0.6s;
   transform: scale(1);
 }
 
 .response-options button:hover {
   transform: scale(0.98);
+  background-color: #CDDFE6;
+  border: none;
+  color: #3F6878;
+  font-weight: 500;
+  font-family: "Geometria-Medium"
+  
 }
+
 
 .message {
   display: flex;
@@ -497,6 +550,8 @@ h4 {
 .bot-message {
   flex-direction: row;
   margin: 0 0 6px 0;
+  display: inline-block;      /* Пусть ширина зависит от содержимого */
+  max-width: 90%; 
 }
 
 .bot-message:last-child {
@@ -511,6 +566,10 @@ h4 {
   flex-direction: row-reverse;
   text-align: right;
   margin: 12px 0;
+  word-break: break-word;
+  /* или, для полной гарантии: */
+  overflow-wrap: break-word;
+  text-align: right;
 }
 
 .message p {
@@ -527,7 +586,7 @@ h4 {
 }
 
 .user-message p {
-  background-color: #0070f0;
+  background-color: #3F6878;
   color: #fff;
   min-width: 10%;
   border-radius: 19px 19px 0 19px;
@@ -732,8 +791,8 @@ h4 {
 }
 
 .connection__description {
-  box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.3);
-  background: #ff0026;
+  background: linear-gradient(90deg, #FF3027 0%, #FF9B08 100%) !important;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -744,6 +803,34 @@ h4 {
   height: 33px;
   font-size: 12px;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer__connection .connection__description::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 36px;
+  transform: skewX(-45deg);
+  left: -150%;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
+  animation: flareAnimation 4s infinite ease-in;
+}
+
+.header__connection .connection__description::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 36px;
+  transform: skewX(-45deg);
+  left: -150%;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
+  animation: flareAnimation 4s infinite ease-in;
 }
 
 .feedback__list {
@@ -897,16 +984,18 @@ h4 {
 .header {
   position: relative;
   z-index: 22;
-  color: #fff;
+  color: #212529;
 }
 
 .header__wrapper {
-  background-color: #0b0b0b;
+  background-color: #ffffff;
 }
 
 .header__info {
+  font-family: "Geometria-Regular";
+  font-weight: 400;
   padding: 4px 0;
-  background-color: #212529;
+  background-color: #ffffff;
   text-align: center;
   font-size: 10px;
   line-height: normal;
@@ -1110,38 +1199,90 @@ h4 {
   z-index: 1;
 }
 
+.decor-fish {
+  position: absolute;
+  right: -120px;
+  top: 310px;
+  width: 320px;
+  z-index: 5;
+}
+
+.decor-lemon {
+  position: absolute;
+  right: 25px;
+  top: 300px;
+  width: 130px;
+  z-index: 5;
+
+}
+
+.decor-small-white-fish {
+  position: absolute;
+  left: 20px;
+  top: 250px;
+  width: 260px;
+  z-index: 5;
+  visibility: hidden;
+}
+
+.decor-big-white-fish {
+  position: absolute;
+  right: -5px;
+  bottom: 150px;
+  width: 300px;
+  z-index: 5;
+  visibility: hidden;
+}
+
+.decor-shrimp {
+  position: absolute;
+  right: 180px;
+  top: 370px;
+  width: 270px;
+  z-index: 5;
+}
+
 .main-section__image {
   position: absolute;
-  z-index: -1;
+  z-index: 10;
   top: 236px;
-  right: calc(50% - 212px);
+  right: calc(50% - 140px);
 }
 
 .main-section__image img {
   height: auto;
-  width: 425px;
+  width: 280px;
 }
 
 .main-section__title {
   margin: 0 0 6px 0;
   text-align: center;
+  z-index: 100;
+  position: relative;
 }
 
 .main-section__title-secondary {
-  margin: 0 0 4px 0;
+  margin: 0 0 8px 0;
   display: block;
+}
+
+.main-section__info-secondary {
+  color: #ECDF32;
 }
 
 .main-section__title-main {
   display: inline-block;
-  background: linear-gradient(90deg, #078a3e 0%, #35ce75 100%);
-  padding: 6px 11px;
-  border-radius: 6px;
+  background: linear-gradient(90deg, #E37238 0%, #F9982F 100%);
+
+  padding: 4px 28px;
+  border-radius: 60px;
 }
 
 .main-section__info {
   margin: 0 0 281px 0;
   text-align: center;
+  z-index: 100;
+  position: relative;
 }
 
 .content-privacy {
@@ -1205,62 +1346,6 @@ h4 {
 .content-privacy__icon-up img {
   width: 17px;
   height: auto;
-}
-
-@-moz-keyframes pulse {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(5px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(5px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@-o-keyframes pulse {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(5px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(5px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
 }
 
 .content-privacy h2 {
@@ -1781,6 +1866,7 @@ h4 {
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
+
 }
 
 .page__content--layout {
@@ -1812,16 +1898,17 @@ h4 {
 }
 
 .chat__input-btn {
-  height: 48px;
-  width: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: 100px;
   display: flex
 ;
   align-items: center;
   justify-content: center;
-  background: #ff0026;
+  background: linear-gradient(90deg, #FF3027 0%, #FF9B08 100%);
+
   color: #fff;
   border: none;
   cursor: pointer;
@@ -1833,12 +1920,12 @@ h4 {
 
 .chat__input-field {
   flex: 1;
-  height: 48px;
-  border-radius: 24px;
-  border: 1px solid #cacaca;
+  height: 40px;
+  border-radius: 16px;
+  border: 1px solid #3F6878;
   padding: 0 18px;
   font-size: 16px;
-  font-family: "Gilroy-Regular", Arial, sans-serif;
+  font-family: "Geometria-Regular", Arial, sans-serif;
   background: #f7f7f7;
   color: #222;
   outline: none;
@@ -1851,6 +1938,24 @@ h4 {
 }
 
 
+.chat__input-field {
+  height: 40px;
+  font-family: "Geometria-Regular";
+  font-weight: 400;
+  color:#3F6878;
+}
+
+.chat__input-field.input__field::placeholder {
+  color:#3F6878;
+  font-family: "Geometria-Regular";
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.chat__input-field.input__field:focus{
+  border: 1.8px solid #3F6878;
+}
+
 @media only screen and (min-width: 768px) {
   .wrapper {
     max-width: 720px;
@@ -1858,9 +1963,18 @@ h4 {
     padding: 0 12px;
   }
 
+  .chat__input-field.input__field::placeholder {
+    color:#3F6878;
+    font-family: "Geometria-Regular";
+    font-weight: 400;
+    font-size: 12px;
+  }
+
   section {
     font-size: 14px;
   }
+
+ 
 
   .font-s-12 {
     font-size: 10px;
@@ -1895,11 +2009,46 @@ h4 {
   }
 
   .font-s-32 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .font-s-56 {
     font-size: 28px;
+  }
+
+  .font-s-58 {
+    font-size: 30px;
+  }
+
+  .decor-fish {
+    width: 380px;
+    right: -150px;
+    top: 70px;
+  }
+
+  .decor-lemon {
+    width: 128px;
+    right: -10px;
+    top: 30px;
+  }
+
+  .decor-shrimp {
+    width: 185px;
+    right: calc(25% + 65px);
+    top: 20px;
+  }
+
+  .decor-small-white-fish {
+    width: 165px;
+    top: 160px;
+    left: 10px;
+    visibility: visible;
+  }
+
+  .decor-big-white-fish {
+    width: 160px;
+    bottom: 450px;
+    visibility: visible;
   }
 
   .transform-unset {
@@ -1915,6 +2064,7 @@ h4 {
 
   .chat__container {
     padding: 20px 30px;
+    z-index: 100;
   }
 
   .response-options {
@@ -1923,14 +2073,14 @@ h4 {
 
   .response-options button {
     min-width: 20%;
-    max-width: 32.2%;
+    max-width: 31.9%;
     border-radius: 12px;
     padding: 8px;
   }
 
   .user-message {
     margin: 16px 0;
-    text-align: center;
+    text-align: left;
   }
 
   .dynamic-form {
@@ -2024,7 +2174,7 @@ h4 {
   }
 
   .header__inner {
-    padding: 12px 0;
+    padding: 12px 0 0 0;
   }
 
   .header__logo img {
@@ -2050,12 +2200,12 @@ h4 {
   }
 
   .main-section__image {
-    top: 0;
-    right: calc(50% - 450px);
+    top: 20px;
+    right: 30px;
   }
 
   .main-section__image img {
-    width: 470px;
+    width: 300px;
   }
 
   .main-section__title {
@@ -2064,8 +2214,8 @@ h4 {
   }
 
   .main-section__title-main {
-    padding: 5px 9px 4px 9px;
-    border-radius: 8px;
+    padding: 3px 20px 5px 20px;
+ 
   }
 
   .main-section__info {
@@ -2150,12 +2300,39 @@ h4 {
   .thanks-section__btn {
     max-width: 230px;
   }
+
+  .page--thanks {
+    font-size: 16px;
+  }
+
+  .chat__input-field {
+    height: 42px;
+  }
+
+  .chat__input-btn {
+    height: 42px;
+    width: 42px;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
   .wrapper {
     max-width: 970px;
     padding: 0 15px;
+  }
+
+  .chat__input-field.input__field::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .chat__input-field.input__field {
+    height: 47px;
+  }
+
+  .chat__input-btn {
+    height: 47px;
+    width: 47px;
   }
 
   section {
@@ -2200,6 +2377,10 @@ h4 {
 
   .font-s-56 {
     font-size: 40px;
+  }
+
+  .font-s-58 {
+    font-size: 42px;
   }
 
   .btn {
@@ -2291,7 +2472,7 @@ h4 {
   }
 
   .header__inner {
-    padding: 14px 0;
+    padding: 14px 0 0 0;
   }
 
   .header__container {
@@ -2321,11 +2502,41 @@ h4 {
   }
 
   .main-section__image {
-    right: calc(50% - 605px);
+    right: calc(50% - 400px);
+    top: 35px;
   }
 
   .main-section__image img {
-    width: 670px;
+    width: 400px;
+
+  }
+
+  .decor-fish {
+    width: 500px;
+    right: -185px;
+  }
+
+  .decor-lemon {
+    width: 160px;
+    right: -30px;
+
+  }
+
+  .decor-shrimp {
+    width: 240px;
+    right: calc(25% + 80px);
+    top: 30px;
+  }
+
+  .decor-small-white-fish {
+    width: 220px;
+    top: 200px;
+
+  }
+
+  .decor-big-white-fish {
+    width: 220px;
+    bottom: 190px;
   }
 
   .main-section__info {
@@ -2352,11 +2563,27 @@ h4 {
   }
 
   .content-privacy h2 {
-    font-size: 24px;
+    margin-bottom: 20px;
+    font-size: 26px;
+  }
+
+  .content-privacy h3,
+  .content-privacy strong {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .content-privacy p {
+    font-size: 16px;
   }
 
   .remodal__feedback {
-    width: 386px;
+    width: 432px;
+  }
+
+  .remodal__feedback-close {
+    top: 10px;
+    right: 10px;
   }
 
   .thanks-section__inner {
@@ -2364,15 +2591,21 @@ h4 {
   }
 
   .thanks-section__title {
-    font-size: 32px;
+    font-size: 40px;
+    margin-bottom: 20px;
   }
 
   .thanks-section__title-helper {
-    font-size: 22px;
+    font-size: 24px;
+    margin-bottom: 40px;
   }
 
   .thanks-section__btn {
-    max-width: 270px;
+    max-width: 307px;
+  }
+
+  .page--thanks {
+    font-size: 16px;
   }
 }
 
@@ -2380,6 +2613,62 @@ h4 {
   .wrapper {
     padding: 0 20px;
     max-width: 1200px;
+  }
+
+  .chat__input-field.input__field::placeholder {
+    color:#3F6878;
+    font-family: "Geometria-Regular";
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  .chat__input-field.input__field {
+    height: 51px;
+  }
+
+  .chat__input-btn {
+    height: 51px;
+    width: 51px;
+  }
+
+  .decor-fish {
+    position: absolute;
+    right: -25%;
+    top: 90px;
+    width: 645px;
+    z-index: 5;
+  }
+  
+  .decor-lemon {
+    position: absolute;
+    right: -50px;
+    top: 40px;
+    width: 190px;
+    z-index: 5;
+  }
+  
+  .decor-small-white-fish {
+    position: absolute;
+    left: 20px;
+    top: 250px;
+    width: 260px;
+    z-index: 5;
+  }
+  
+  .decor-big-white-fish {
+    position: absolute;
+    right: -5px;
+    bottom: 150px;
+    width: 300px;
+    z-index: 5;
+  }
+  
+  .decor-shrimp {
+    position: absolute;
+    right: calc(25% + 45px);
+    top: 40px;
+    width: 300px;
+    z-index: 5;
   }
 
   section {
@@ -2430,6 +2719,10 @@ h4 {
     font-size: 56px;
   }
 
+  .font-s-58 {
+    font-size: 58px;
+  }
+
   .border-r-10 {
     border-radius: 10px;
   }
@@ -2444,12 +2737,16 @@ h4 {
   }
 
   .chat__input-btn {
-    height: 60px;
-    width: 60px;
+    height: 51px;
+    width: 51px;
+  }
+
+  .chat__input-field {
+    height: 51px;
   }
 
   .chat__container {
-    padding: 80px 124px;
+    padding: 80px 151px;
     min-height: 600px;
   }
 
@@ -2481,11 +2778,11 @@ h4 {
   }
 
   .bot-message p {
-    border-radius: 0 24px 24px 24px;
+    border-radius: 0 16px 16px 16px;
   }
 
   .user-message p {
-    border-radius: 24px 24px 0 24px;
+    border-radius: 16px 16px 0 16px;
   }
 
   .dynamic-form .input__field {
@@ -2562,7 +2859,7 @@ h4 {
   }
 
   .header__inner {
-    padding: 20px 0;
+    padding: 10px 0 3px 0;
   }
 
   .header__container {
@@ -2570,7 +2867,7 @@ h4 {
   }
 
   .header__logo img {
-    width: 100px;
+    width: 120px;
   }
 
   .header__description div {
@@ -2589,29 +2886,29 @@ h4 {
   }
 
   .main-section__inner {
-    padding: 110px 0;
+    padding: 128px 0;
   }
 
   .main-section__image {
     top: 20px;
-    right: calc(50% - 827px);
+    right: calc(50% - 570px);
   }
 
   .main-section__image img {
-    width: 870px;
+    width: 529px;
   }
 
   .main-section__title {
-    margin: 0 0 20px 0;
+    margin: 0 0 29px 0;
   }
 
   .main-section__title-main {
-    padding: 5px 13px;
-    border-radius: 12px;
+    padding: 4px 28px 6px 28px;
+  
   }
 
   .main-section__info {
-    margin: 0 0 90px 0;
+    margin: 0 0 67px 0;
   }
 
   .content-privacy__wrapper {
@@ -2669,4 +2966,22 @@ h4 {
   .page--thanks {
     font-size: 16px;
   }
+}
+
+.header-wave {
+  position: absolute;
+  width: 100%;
+  height: 31px; /* подберите под вашу волну */
+  margin-top: -5px; /* чтобы перекрывала низ header, можно скорректировать */
+  overflow: hidden;
+  z-index: 10;
+}
+
+.header-wave img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
 }
