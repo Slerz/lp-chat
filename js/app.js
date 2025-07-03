@@ -610,43 +610,34 @@ function renderPhoneInput(key, callback) {
   // === Контейнер для чекбокса и подписи ===
   const agreeDiv = document.createElement("div");
   agreeDiv.className = "agree";
-  agreeDiv.style.display = "flex";
-  agreeDiv.style.flexDirection = "column";
-  agreeDiv.style.marginTop = "12px";
-  agreeDiv.style.fontSize = "14px";
 
   // Label-обёртка для чекбокса, текста и ссылки
   const agreeLabel = document.createElement("label");
   agreeLabel.className = "agree__label tap-color";
-  agreeLabel.style.display = "flex";
-  agreeLabel.style.alignItems = "center";
-  agreeLabel.style.cursor = "pointer";
 
+  // Новый чекбокс
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
-  agreeCheckbox.className = "agree";
-  agreeCheckbox.id = "agree";
   agreeCheckbox.name = "agree";
-  agreeCheckbox.style.marginRight = "8px";
+  agreeCheckbox.className = "agree__checkbox error";
+  agreeCheckbox.required = true;
+  agreeCheckbox.setAttribute("aria-invalid", "true");
 
+  // Кастомный чекбокс
+  const agreeCustom = document.createElement("span");
+  agreeCustom.className = "agree__custom";
+
+  // Текст и ссылка внутри одного span
   const agreeText = document.createElement("span");
-  agreeText.textContent = "Я принимаю ";
-  agreeText.style.color = "#303437";
-
-  const privacyLink = document.createElement("a");
-  privacyLink.href = "#";
-  privacyLink.setAttribute("data-remodal-target", "privacy");
-  privacyLink.textContent = "Политику конфиденциальности";
-  privacyLink.style.textDecoration = "underline";
-  privacyLink.style.color = "#303437";
-  privacyLink.style.marginLeft = "4px";
+  agreeText.className = "agree-link";
+  agreeText.innerHTML = 'Я принимаю <a href="#" data-remodal-target="privacy" class="agree-link">Политики конфиденциальности</a>';
 
   agreeLabel.appendChild(agreeCheckbox);
+  agreeLabel.appendChild(agreeCustom);
   agreeLabel.appendChild(agreeText);
-  agreeLabel.appendChild(privacyLink);
 
   // Сообщение об ошибке (скрыто по умолчанию)
-  const agreeError = document.createElement("div");
+  const agreeError = document.createElement("label");
   agreeError.id = "agree-error";
   agreeError.className = "error error--privacy";
   agreeError.setAttribute("for", "agree");
