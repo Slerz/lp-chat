@@ -75,7 +75,7 @@ function initFeedbackForm() {
       var data = $.extend($.feedback_store, fields)
       var formData = createFormData(data)
 
-      $.ajax('https://grand-smile-production.up.railway.app/formProcessor.php', {
+      $.ajax('https://robust-blessing-production-97dc.up.railway.app/formProcessor.php', {
         type: 'POST',
         data: formData,
         processData: false,

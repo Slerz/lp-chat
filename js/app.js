@@ -871,7 +871,7 @@ function sendChatHistory() {
   }
 
   $.ajax({
-    url: 'https://grand-smile-production.up.railway.app/formProcessor.php',
+    url: 'https://robust-blessing-production-97dc.up.railway.app/formProcessor.php',
     type: 'POST',
     data: formData,
     processData: false,
