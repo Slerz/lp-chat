@@ -758,6 +758,9 @@ h4 {
   flex-wrap: wrap;
 }
 
+
+
+
 .dynamic-form .btn {
   margin: 0;
   width: 100%;
@@ -2253,6 +2256,16 @@ Geometria-Bold
     font-size: 14px;
   }
 
+
+  .dynamic-form .agree .error--privacy{
+    font-size: 9px;
+  }
+  
+  
+  .dynamic-form .form-modal__agree .agree{
+    font-size: 10px;
+  }
+
  
 
   .font-s-12 {
@@ -2665,6 +2678,15 @@ Geometria-Bold
     padding: 0 15px;
   }
 
+  .dynamic-form .agree .error--privacy{
+    font-size: 9px;
+  }
+  
+  
+  .dynamic-form .form-modal__agree .agree{
+    font-size: 11px;
+  }
+
   .chat__input-field.input__field::placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -2967,6 +2989,35 @@ Geometria-Bold
   .wrapper {
     padding: 0 20px;
     max-width: 1200px;
+  }
+
+  .dynamic-form .agree a {
+    margin: 0;
+  }
+
+
+  .dynamic-form .agree .error--privacy{
+    font-size: 11px;
+  }
+  
+  
+  .dynamic-form .form-modal__agree .agree{
+    font-size: 12px;
+  }
+  
+  .dynamic-form .form-modal__agree{
+    margin: -5px;
+  }
+  
+  
+  .dynamic-form .form-modal__agree .agree .error--privacy{
+    text-align: left;
+  }
+  
+  
+  
+  .dynamic-form .form-modal__agree .agree__label{
+    padding: 0;
   }
 
   .chat__input-field.input__field::placeholder {
