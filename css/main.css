@@ -2219,32 +2219,32 @@ Geometria-Bold
   transition-property: border;
 }
 
-.dynamic-form .agree .error--privacy{
+.textarea-container .agree .error--privacy{
   font-size: 9px;
 }
 
 
-.dynamic-form .form-modal__agree .agree{
+.textarea-container .agree .agree__label.tap-color{
   font-size: 11px;
 }
 
-.dynamic-form .agree a {
+.textarea-container .agree a {
   margin: 0;
 }
 
 
-.dynamic-form .form-modal__agree{
+.textarea-container .form-modal__agree{
   margin: -5px;
 }
 
 
-.dynamic-form .form-modal__agree .agree .error--privacy{
+.textarea-container .form-modal__agree .agree .error--privacy{
   text-align: left;
 }
 
 
 
-.dynamic-form .form-modal__agree .agree__label.tap-color{
+.textarea-container .form-modal__agree .agree__label.tap-color{
   padding: 0;
 }
 
@@ -2286,32 +2286,32 @@ Geometria-Bold
   }
 
 
-  .dynamic-form .agree .error--privacy{
+  .textarea-container .agree .error--privacy{
     font-size: 9px;
   }
   
   
-  .dynamic-form .form-modal__agree .agree{
+  .textarea-container .agree .agree__label.tap-color{
     font-size: 11px;
   }
 
-  .dynamic-form .agree a {
+  .textarea-container .agree a {
     margin: 0;
   }
 
   
-  .dynamic-form .form-modal__agree{
+  .textarea-container .form-modal__agree{
     margin: -5px;
   }
   
   
-  .dynamic-form .form-modal__agree .agree .error--privacy{
+  .textarea-container .form-modal__agree .agree .error--privacy{
     text-align: left;
   }
   
   
   
-  .dynamic-form .form-modal__agree .agree__label.tap-color{
+  .textarea-container .form-modal__agree .agree__label.tap-color{
     padding: 0;
   }
 
@@ -2727,12 +2727,12 @@ Geometria-Bold
     padding: 0 15px;
   }
 
-  .dynamic-form .agree .error--privacy{
+  .textarea-container .agree .error--privacy{
     font-size: 11px;
   }
   
   
-  .dynamic-form .form-modal__agree .agree .agree__label.tap-color{
+  .textarea-container .agree .agree__label.tap-color{
     font-size: 12px;
   }
 
@@ -3040,32 +3040,32 @@ Geometria-Bold
     max-width: 1200px;
   }
 
-  .dynamic-form .agree a {
+  .textarea-container .agree a {
     margin: 0;
   }
 
 
-  .dynamic-form .agree .error--privacy{
+  .textarea-container .agree .error--privacy{
     font-size: 12px;
   }
   
   
-  .dynamic-form .form-modal__agree .agree{
+  .textarea-container .agree .agree__label.tap-color{
     font-size: 13px;
   }
   
-  .dynamic-form .form-modal__agree{
+  .textarea-container .form-modal__agree{
     margin: -5px;
   }
   
   
-  .dynamic-form .form-modal__agree .agree .error--privacy{
+  .textarea-container .form-modal__agree .agree .error--privacy{
     text-align: left;
   }
   
   
   
-  .dynamic-form .form-modal__agree .agree__label.tap-color{
+  .textarea-container .form-modal__agree .agree__label.tap-color{
     padding: 0;
   }
 
