@@ -661,9 +661,18 @@ function renderPhoneInput(key, callback) {
   formModalAgree.className = "form-modal__agree";
   formModalAgree.appendChild(agreeDiv);
 
-  form.appendChild(inputField);
-  form.appendChild(submitButton);
-  form.appendChild(formModalAgree);
+  // flex-контейнер для input и button
+  const inputGroup = document.createElement("div");
+  inputGroup.className = "input-group-flex";
+  inputGroup.style.display = "flex";
+  inputGroup.style.flexDirection = "row";
+  inputGroup.style.gap = "8px";
+  inputGroup.style.alignItems = "center";
+  inputGroup.appendChild(inputField);
+  inputGroup.appendChild(submitButton);
+
+  form.appendChild(inputGroup);
+  form.appendChild(formModalAgree); // formModalAgree содержит .agree
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
