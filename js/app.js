@@ -663,8 +663,8 @@ function renderPhoneInput(key, callback) {
 
   form.appendChild(inputField);
   form.appendChild(submitButton);
-  form.appendChild(formModalAgree);
   inputContainer.appendChild(form);
+  inputContainer.appendChild(formModalAgree);
 
   chatContent.appendChild(inputContainer);
 
