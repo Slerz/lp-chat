@@ -620,6 +620,7 @@ function renderPhoneInput(key, callback) {
   agreeCheckbox.className = "agree";
   agreeCheckbox.id = "agree";
   agreeCheckbox.style.marginRight = "8px";
+  agreeCheckbox.name = "agree";
 
   const agreeText = document.createElement("span");
   agreeText.textContent = "Я принимаю условия ";
