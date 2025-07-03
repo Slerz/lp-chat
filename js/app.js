@@ -666,6 +666,7 @@ function renderPhoneInput(key, callback) {
   inputGroup.className = "input-group-flex";
   inputGroup.style.display = "flex";
   inputGroup.style.flexDirection = "row";
+  inputGroup.style.flexWrap = "wrap";
   inputGroup.style.gap = "8px";
   inputGroup.style.alignItems = "center";
   inputGroup.appendChild(inputField);
