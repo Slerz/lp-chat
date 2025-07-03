@@ -699,18 +699,13 @@ function renderPhoneInput(key, callback) {
     highlight: function(element, errorClass, validClass) {
       if (element.name === "agree") {
         agreeError.style.display = "block";
-        inputField.style.borderColor = "#ff0032";
-        inputField.style.color = "#ff0032";
-        inputField.placeholder = "Ваш телефон";
-        inputField.classList.add("input-error");
+        inputField.classList.add("placeholder-error");
       }
     },
     unhighlight: function(element, errorClass, validClass) {
       if (element.name === "agree") {
         agreeError.style.display = "none";
-        inputField.style.borderColor = "";
-        inputField.style.color = "";
-        inputField.classList.remove("input-error");
+        inputField.classList.remove("placeholder-error");
       }
     },
     submitHandler: function () {
@@ -728,9 +723,7 @@ function renderPhoneInput(key, callback) {
   agreeCheckbox.addEventListener("change", function() {
     if (agreeCheckbox.checked) {
       agreeError.style.display = "none";
-      inputField.style.borderColor = "";
-      inputField.style.color = "";
-      inputField.classList.remove("input-error");
+      inputField.classList.remove("placeholder-error");
     }
   });
 }
