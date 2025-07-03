@@ -759,7 +759,7 @@ h4 {
 .dynamic-form {
   display: flex;
   gap: 6px;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 
