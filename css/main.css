@@ -297,21 +297,17 @@ h4 {
 
 .agree__label {
   position: relative;
+  padding: 0 0 0 26px;
+  cursor: pointer;
 }
 
 .agree__checkbox {
   position: absolute;
   opacity: 0;
-  width: 18px;
-  height: 18px;
+  width: 0;
+  height: 0;
   margin: 0;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.agree__custom {
-  display: inline-block;
-  vertical-align: middle;
+  pointer-events: none;
 }
 
 .agree__custom {
@@ -1072,8 +1068,6 @@ h4 {
   height: 56px;
   margin-bottom: 7px;
 }
-
-
 
 .form-modal__feedback-input .input {
   border: none;
