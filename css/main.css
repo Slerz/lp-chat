@@ -2219,6 +2219,35 @@ Geometria-Bold
   transition-property: border;
 }
 
+.dynamic-form .agree .error--privacy{
+  font-size: 9px;
+}
+
+
+.dynamic-form .form-modal__agree .agree{
+  font-size: 11px;
+}
+
+.dynamic-form .agree a {
+  margin: 0;
+}
+
+
+.dynamic-form .form-modal__agree{
+  margin: -5px;
+}
+
+
+.dynamic-form .form-modal__agree .agree .error--privacy{
+  text-align: left;
+}
+
+
+
+.dynamic-form .form-modal__agree .agree__label.tap-color{
+  padding: 0;
+}
+
 
 .chat__input-field {
   height: 40px;
@@ -2263,7 +2292,7 @@ Geometria-Bold
   
   
   .dynamic-form .form-modal__agree .agree{
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .dynamic-form .agree a {
@@ -2699,12 +2728,12 @@ Geometria-Bold
   }
 
   .dynamic-form .agree .error--privacy{
-    font-size: 9px;
+    font-size: 11px;
   }
   
   
   .dynamic-form .form-modal__agree .agree{
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .chat__input-field.input__field::placeholder {
@@ -3017,12 +3046,12 @@ Geometria-Bold
 
 
   .dynamic-form .agree .error--privacy{
-    font-size: 11px;
+    font-size: 12px;
   }
   
   
   .dynamic-form .form-modal__agree .agree{
-    font-size: 12px;
+    font-size: 13px;
   }
   
   .dynamic-form .form-modal__agree{
