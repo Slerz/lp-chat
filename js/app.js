@@ -607,9 +607,59 @@ function renderPhoneInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  form.appendChild(inputField);
-  form.appendChild(submitButton);
+  const checkboxContainer = document.createElement("div");
+  checkboxContainer.style.display = "flex";
+  checkboxContainer.style.flexDirection = "column";
+  checkboxContainer.style.alignItems = "flex-start";
+  checkboxContainer.style.marginLeft = "16px";
+
+  const checkboxLabel = document.createElement("label");
+  checkboxLabel.style.display = "block";
+  checkboxLabel.style.fontSize = "14px";
+  checkboxLabel.style.cursor = "pointer";
+  checkboxLabel.style.marginBottom = "4px";
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.style.marginRight = "6px";
+
+  const labelText = document.createElement("span");
+  labelText.textContent = "Я принимаю условия";
+
+  checkboxLabel.appendChild(checkbox);
+  checkboxLabel.appendChild(labelText);
+
+  const privacyLink = document.createElement("a");
+  privacyLink.href = "#";
+  privacyLink.textContent = "Политика конфиденциальности";
+  privacyLink.style.fontSize = "12px";
+  privacyLink.style.color = "#888";
+  privacyLink.style.textDecoration = "underline";
+  privacyLink.style.display = "block";
+  privacyLink.style.marginLeft = "22px";
+  privacyLink.target = "_blank";
+
+  checkboxContainer.appendChild(checkboxLabel);
+  checkboxContainer.appendChild(privacyLink);
+
+  // Контейнер для горизонтального расположения
+  const rowContainer = document.createElement("div");
+  rowContainer.style.display = "flex";
+  rowContainer.style.alignItems = "center";
+  rowContainer.style.gap = "12px";
+
+  rowContainer.appendChild(inputField);
+  rowContainer.appendChild(submitButton);
+  rowContainer.appendChild(checkboxContainer);
+
+  form.appendChild(rowContainer);
   inputContainer.appendChild(form);
+
+  // Делаем кнопку неактивной, пока чекбокс не отмечен
+  submitButton.disabled = true;
+  checkbox.addEventListener("change", function() {
+    submitButton.disabled = !checkbox.checked;
+  });
 
   chatContent.appendChild(inputContainer);
 
@@ -871,7 +921,7 @@ function sendChatHistory() {
   }
 
   $.ajax({
-    url: 'https://robust-blessing-production-97dc.up.railway.app/formProcessor.php',
+    url: 'https://grand-smile-production.up.railway.app/formProcessor.php',
     type: 'POST',
     data: formData,
     processData: false,
