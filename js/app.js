@@ -621,30 +621,17 @@ function renderPhoneInput(key, callback) {
   agreeLabel.style.display = "flex";
   agreeLabel.style.alignItems = "center";
   agreeLabel.style.cursor = "pointer";
-  agreeLabel.style.position = "relative";
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
-  agreeCheckbox.className = "agree__checkbox agree";
+  agreeCheckbox.className = "agree";
   agreeCheckbox.id = "agree";
   agreeCheckbox.name = "agree";
-  agreeCheckbox.style.position = "absolute";
-  agreeCheckbox.style.opacity = "0";
-  agreeCheckbox.style.width = "18px";
-  agreeCheckbox.style.height = "18px";
-  agreeCheckbox.style.margin = "0";
-  agreeCheckbox.style.zIndex = "2";
-  agreeCheckbox.style.cursor = "pointer";
-  agreeCheckbox.style.left = "0";
-  agreeCheckbox.style.top = "0";
+  agreeCheckbox.style.marginRight = "8px";
 
-  const agreeCustom = document.createElement("span");
-  agreeCustom.className = "agree__custom";
-  agreeCustom.style.marginRight = "8px";
-
-  const agreeTextSpan = document.createElement("span");
-  agreeTextSpan.style.color = "#303437";
-  agreeTextSpan.append("Я принимаю ");
+  const agreeText = document.createElement("span");
+  agreeText.textContent = "Я принимаю ";
+  agreeText.style.color = "#303437";
 
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
@@ -654,11 +641,9 @@ function renderPhoneInput(key, callback) {
   privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
 
-  agreeTextSpan.appendChild(privacyLink);
-
   agreeLabel.appendChild(agreeCheckbox);
-  agreeLabel.appendChild(agreeCustom);
-  agreeLabel.appendChild(agreeTextSpan);
+  agreeLabel.appendChild(agreeText);
+  agreeLabel.appendChild(privacyLink);
 
   // Сообщение об ошибке (скрыто по умолчанию)
   const agreeError = document.createElement("div");
