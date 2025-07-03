@@ -2266,6 +2266,26 @@ Geometria-Bold
     font-size: 10px;
   }
 
+  .dynamic-form .agree a {
+    margin: 0;
+  }
+
+  
+  .dynamic-form .form-modal__agree{
+    margin: -5px;
+  }
+  
+  
+  .dynamic-form .form-modal__agree .agree .error--privacy{
+    text-align: left;
+  }
+  
+  
+  
+  .dynamic-form .form-modal__agree .agree__label.tap-color{
+    padding: 0;
+  }
+
  
 
   .font-s-12 {
