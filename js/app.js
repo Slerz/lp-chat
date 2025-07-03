@@ -610,10 +610,17 @@ function renderPhoneInput(key, callback) {
   // === Контейнер для чекбокса и подписи ===
   const agreeDiv = document.createElement("div");
   agreeDiv.className = "agree";
+  agreeDiv.style.display = "flex";
+  agreeDiv.style.flexDirection = "column";
+  agreeDiv.style.marginTop = "12px";
+  agreeDiv.style.fontSize = "14px";
 
   // Label-обёртка для чекбокса, текста и ссылки
   const agreeLabel = document.createElement("label");
   agreeLabel.className = "agree__label tap-color";
+  agreeLabel.style.display = "flex";
+  agreeLabel.style.alignItems = "center";
+  agreeLabel.style.cursor = "pointer";
 
   // Новый чекбокс
   const agreeCheckbox = document.createElement("input");
@@ -630,7 +637,8 @@ function renderPhoneInput(key, callback) {
   // Текст и ссылка внутри одного span
   const agreeText = document.createElement("span");
   agreeText.className = "agree-link";
-  agreeText.innerHTML = 'Я принимаю <a href="#" data-remodal-target="privacy" class="agree-link">Политики конфиденциальности</a>';
+  agreeText.style.color = "#303437";
+  agreeText.innerHTML = 'Я принимаю <a href="#" data-remodal-target="privacy" class="agree-link" style="text-decoration: underline; color: #303437; margin-left: 4px;">Политики конфиденциальности</a>';
 
   agreeLabel.appendChild(agreeCheckbox);
   agreeLabel.appendChild(agreeCustom);
