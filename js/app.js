@@ -607,18 +607,20 @@ function renderPhoneInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  // === Контейнер для чекбокса и ошибки ===
-  const formModalAgree = document.createElement("div");
-  formModalAgree.className = "form-modal__agree";
-
   // === Контейнер для чекбокса и подписи ===
   const agreeDiv = document.createElement("div");
   agreeDiv.className = "agree";
   agreeDiv.style.display = "flex";
-  agreeDiv.style.alignItems = "center";
+  agreeDiv.style.flexDirection = "column";
   agreeDiv.style.marginTop = "12px";
   agreeDiv.style.fontSize = "14px";
-  agreeDiv.style.cursor = "pointer";
+
+  // Label-обёртка для чекбокса, текста и ссылки
+  const agreeLabel = document.createElement("label");
+  agreeLabel.className = "agree__label tap-color";
+  agreeLabel.style.display = "flex";
+  agreeLabel.style.alignItems = "center";
+  agreeLabel.style.cursor = "pointer";
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
@@ -639,9 +641,9 @@ function renderPhoneInput(key, callback) {
   privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
 
-  agreeDiv.appendChild(agreeCheckbox);
-  agreeDiv.appendChild(agreeText);
-  agreeDiv.appendChild(privacyLink);
+  agreeLabel.appendChild(agreeCheckbox);
+  agreeLabel.appendChild(agreeText);
+  agreeLabel.appendChild(privacyLink);
 
   // Сообщение об ошибке (скрыто по умолчанию)
   const agreeError = document.createElement("div");
@@ -651,8 +653,13 @@ function renderPhoneInput(key, callback) {
   agreeError.style.display = "none";
   agreeError.textContent = "Подтвердите согласие с политикой конфиденциальности";
 
+  agreeDiv.appendChild(agreeLabel);
+  agreeDiv.appendChild(agreeError);
+
+  // === Контейнер для чекбокса и ошибки ===
+  const formModalAgree = document.createElement("div");
+  formModalAgree.className = "form-modal__agree";
   formModalAgree.appendChild(agreeDiv);
-  formModalAgree.appendChild(agreeError);
 
   form.appendChild(inputField);
   form.appendChild(submitButton);
