@@ -2219,32 +2219,32 @@ Geometria-Bold
   transition-property: border;
 }
 
-.textarea-container .agree .error--privacy{
+.dynamic-form .agree .error--privacy{
   font-size: 9px;
 }
 
 
-.textarea-container .agree .agree__label.tap-color{
+.dynamic-form .agree .agree__label.tap-color{
   font-size: 11px;
 }
 
-.textarea-container .agree a {
+.dynamic-form .agree a {
   margin: 0;
 }
 
 
-.textarea-container .form-modal__agree{
+.dynamic-form .form-modal__agree{
   margin: -5px;
 }
 
 
-.textarea-container .form-modal__agree .agree .error--privacy{
+.dynamic-form .form-modal__agree .agree .error--privacy{
   text-align: left;
 }
 
 
 
-.textarea-container .form-modal__agree .agree__label.tap-color{
+.dynamic-form .form-modal__agree .agree__label.tap-color{
   padding: 0;
 }
 
@@ -2286,32 +2286,32 @@ Geometria-Bold
   }
 
 
-  .textarea-container .agree .error--privacy{
+  .dynamic-form .agree .error--privacy{
     font-size: 9px;
   }
   
   
-  .textarea-container .agree .agree__label.tap-color{
+  .dynamic-form .agree .agree__label.tap-color{
     font-size: 11px;
   }
 
-  .textarea-container .agree a {
+  .dynamic-form .agree a {
     margin: 0;
   }
 
   
-  .textarea-container .form-modal__agree{
+  .dynamic-form .form-modal__agree{
     margin: -5px;
   }
   
   
-  .textarea-container .form-modal__agree .agree .error--privacy{
+  .dynamic-form .form-modal__agree .agree .error--privacy{
     text-align: left;
   }
   
   
   
-  .textarea-container .form-modal__agree .agree__label.tap-color{
+  .dynamic-form .form-modal__agree .agree__label.tap-color{
     padding: 0;
   }
 
@@ -2727,12 +2727,12 @@ Geometria-Bold
     padding: 0 15px;
   }
 
-  .textarea-container .agree .error--privacy{
+  .dynamic-form .agree .error--privacy{
     font-size: 11px;
   }
   
   
-  .textarea-container .agree .agree__label.tap-color{
+  .dynamic-form .agree .agree__label.tap-color{
     font-size: 12px;
   }
 
@@ -3040,32 +3040,32 @@ Geometria-Bold
     max-width: 1200px;
   }
 
-  .textarea-container .agree a {
+  .dynamic-form .agree a {
     margin: 0;
   }
 
 
-  .textarea-container .agree .error--privacy{
+  .dynamic-form .agree .error--privacy{
     font-size: 12px;
   }
   
   
-  .textarea-container .agree .agree__label.tap-color{
+  .dynamic-form .agree .agree__label.tap-color{
     font-size: 13px;
   }
   
-  .textarea-container .form-modal__agree{
+  .dynamic-form .form-modal__agree{
     margin: -5px;
   }
   
   
-  .textarea-container .form-modal__agree .agree .error--privacy{
+  .dynamic-form .form-modal__agree .agree .error--privacy{
     text-align: left;
   }
   
   
   
-  .textarea-container .form-modal__agree .agree__label.tap-color{
+  .dynamic-form .form-modal__agree .agree__label.tap-color{
     padding: 0;
   }
 
@@ -3451,21 +3451,3 @@ Geometria-Bold
   pointer-events: none;
   user-select: none;
 }
-
-/* --- Стили для формы с телефоном и чекбоксом --- */
-.input-row {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.input-row input,
-.input-row button {
-  margin-bottom: 0;
-}
-
-.form-modal__agree {
-  margin-top: 12px;
-}
-
-/* --- Конец блока --- */
