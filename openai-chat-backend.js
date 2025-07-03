@@ -17,6 +17,13 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const PORT = process.env.PORT || 3001;
 const sessions = {};
 
+// Проверяем наличие API ключа при запуске
+if (!OPENAI_API_KEY) {
+  console.warn('⚠️  WARNING: OPENAI_API_KEY not configured!');
+} else {
+  console.log('✅ OpenAI API key configured');
+}
+
 // Загружаем promt.txt при запуске
 const promtPath = path.join(__dirname, 'chat-gpt-data', 'promt.txt');
 let promtText = '';
@@ -66,7 +73,7 @@ app.post('/chat', async (req, res) => {
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-      model: 'gpt-4.1-mini',
+      model: 'gpt-3.5-turbo',
       messages,
       max_tokens: 300
     }, {
@@ -81,7 +88,17 @@ app.post('/chat', async (req, res) => {
     res.json({ text: aiMessage });
   } catch (error) {
     console.error('OpenAI API error:', error.response ? error.response.data : error);
-    res.status(500).json({ error: 'Ошибка при обращении к OpenAI API', details: error.message });
+    console.error('Error details:', {
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      message: error.message
+    });
+    res.status(500).json({ 
+      error: 'Ошибка при обращении к OpenAI API', 
+      details: error.message,
+      status: error.response?.status
+    });
   }
 });
 
