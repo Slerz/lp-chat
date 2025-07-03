@@ -624,14 +624,17 @@ function renderPhoneInput(key, callback) {
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
-  agreeCheckbox.className = "agree";
+  agreeCheckbox.className = "agree__checkbox agree";
   agreeCheckbox.id = "agree";
   agreeCheckbox.name = "agree";
   agreeCheckbox.style.marginRight = "8px";
 
-  const agreeText = document.createElement("span");
-  agreeText.textContent = "Я принимаю ";
-  agreeText.style.color = "#303437";
+  const agreeCustom = document.createElement("span");
+  agreeCustom.className = "agree__custom";
+
+  const agreeTextSpan = document.createElement("span");
+  agreeTextSpan.style.color = "#303437";
+  agreeTextSpan.append("Я принимаю ");
 
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
@@ -641,9 +644,11 @@ function renderPhoneInput(key, callback) {
   privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
 
+  agreeTextSpan.appendChild(privacyLink);
+
   agreeLabel.appendChild(agreeCheckbox);
-  agreeLabel.appendChild(agreeText);
-  agreeLabel.appendChild(privacyLink);
+  agreeLabel.appendChild(agreeCustom);
+  agreeLabel.appendChild(agreeTextSpan);
 
   // Сообщение об ошибке (скрыто по умолчанию)
   const agreeError = document.createElement("div");
