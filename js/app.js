@@ -661,9 +661,14 @@ function renderPhoneInput(key, callback) {
   formModalAgree.className = "form-modal__agree";
   formModalAgree.appendChild(agreeDiv);
 
-  form.appendChild(inputField);
+  // Создаём контейнер для поля и кнопки
+  const inputRow = document.createElement("div");
+  inputRow.className = "input-row";
+  inputRow.appendChild(inputField);
+  inputRow.appendChild(submitButton);
+
+  form.appendChild(inputRow);
   form.appendChild(formModalAgree);
-  form.appendChild(submitButton);
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
