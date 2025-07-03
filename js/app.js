@@ -659,11 +659,11 @@ function renderPhoneInput(key, callback) {
   // === Контейнер для чекбокса и ошибки ===
   const formModalAgree = document.createElement("div");
   formModalAgree.className = "form-modal__agree";
-  formModalAgree.style.width = "100%";
+  formModalAgree.appendChild(agreeDiv);
 
   form.appendChild(inputField);
-  form.appendChild(formModalAgree);
   form.appendChild(submitButton);
+  form.appendChild(formModalAgree);
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
