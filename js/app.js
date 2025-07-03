@@ -607,62 +607,38 @@ function renderPhoneInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  const checkboxContainer = document.createElement("div");
-  checkboxContainer.className = "chat-checkbox-container";
+  // === Добавляем чекбокс согласия ===
+  const agreeContainer = document.createElement("label");
+  agreeContainer.style.display = "flex";
+  agreeContainer.style.alignItems = "center";
+  agreeContainer.style.marginTop = "12px";
+  agreeContainer.style.fontSize = "14px";
+  agreeContainer.style.cursor = "pointer";
 
-  const checkboxLabel = document.createElement("label");
-  checkboxLabel.className = "chat-checkbox-label";
-  checkboxLabel.style.display = "block";
-  checkboxLabel.style.fontSize = "14px";
-  checkboxLabel.style.cursor = "pointer";
-  checkboxLabel.style.marginBottom = "4px";
+  const agreeCheckbox = document.createElement("input");
+  agreeCheckbox.type = "checkbox";
+  agreeCheckbox.className = "agree";
+  agreeCheckbox.style.marginRight = "8px";
 
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.className = "chat-checkbox";
-  checkbox.style.marginRight = "6px";
-
-  const labelText = document.createElement("span");
-  labelText.className = "chat-checkbox-text";
-  labelText.textContent = "Я принимаю условия";
-
-  checkboxLabel.appendChild(checkbox);
-  checkboxLabel.appendChild(labelText);
+  const agreeText = document.createElement("span");
+  agreeText.textContent = "Я принимаю условия ";
 
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
-  privacyLink.textContent = "Политика конфиденциальности";
-  privacyLink.style.fontSize = "12px";
-  privacyLink.style.color = "#888";
+  privacyLink.setAttribute("data-remodal-target", "privacy");
+  privacyLink.textContent = "политики конфиденциальности";
   privacyLink.style.textDecoration = "underline";
-  privacyLink.style.display = "block";
-  privacyLink.style.marginLeft = "22px";
-  privacyLink.target = "_blank";
-  privacyLink.className = "chat-privacy-link";
+  privacyLink.style.color = "#ff0032";
+  privacyLink.style.marginLeft = "4px";
 
-  checkboxContainer.appendChild(checkboxLabel);
-  checkboxContainer.appendChild(privacyLink);
+  agreeContainer.appendChild(agreeCheckbox);
+  agreeContainer.appendChild(agreeText);
+  agreeContainer.appendChild(privacyLink);
 
-  // Контейнер для горизонтального расположения
-  const rowContainer = document.createElement("div");
-  rowContainer.className = "chat-phone-row";
-  rowContainer.style.display = "flex";
-  rowContainer.style.alignItems = "center";
-  rowContainer.style.gap = "12px";
-
-  rowContainer.appendChild(inputField);
-  rowContainer.appendChild(submitButton);
-
-  // В форму сначала добавляем строку с полем и кнопкой, затем чекбокс снизу
-  form.appendChild(rowContainer);
-  form.appendChild(checkboxContainer);
+  form.appendChild(inputField);
+  form.appendChild(submitButton);
+  form.appendChild(agreeContainer);
   inputContainer.appendChild(form);
-
-  // Делаем кнопку неактивной, пока чекбокс не отмечен
-  submitButton.disabled = true;
-  checkbox.addEventListener("change", function() {
-    submitButton.disabled = !checkbox.checked;
-  });
 
   chatContent.appendChild(inputContainer);
 
@@ -670,6 +646,7 @@ function renderPhoneInput(key, callback) {
   smoothScrollToBottom();
   lastOptions = inputContainer;
 
+  // Блокируем отправку, если чекбокс не отмечен
   $(form).validate({
     errorPlacement: function () {},
     rules: {
@@ -677,6 +654,12 @@ function renderPhoneInput(key, callback) {
         required: true,
         phone: true,
       },
+      agree: {
+        required: true
+      }
+    },
+    messages: {
+      agree: "Необходимо принять условия"
     },
     submitHandler: function () {
       const phoneNumber = inputField.value.trim();
