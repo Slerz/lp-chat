@@ -433,9 +433,9 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value.length * 18, 4000),
+    'text':  Math.min(message.value.length * 50, 4000),
     'swiper': 2000,
-    'yesno': 500,
+    'yesno': 800,
   }
 
   isBotBusy = true;
