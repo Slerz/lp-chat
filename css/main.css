@@ -499,6 +499,9 @@ h4 {
 }
 
 
+
+
+
 .chat__bot-avatar div {
   position: relative;
 }
@@ -1075,14 +1078,21 @@ h4 {
 
 .dynamic-form .input__field {
   height: 50px;
-  width: 80%;
+  width: 75%;
+  font-size: 14px;
+  
+}
+
+.dynamic-form .input__field::placeholder {
+  font-size: 14px;
 }
 
 
 
 .dynamic-form .btn {
   height: 50px;
-  width: 80%;
+  width: 75%;
+  font-size: 14px;
 }
 
 .form-modal__feedback-input .input__field {
@@ -2297,11 +2307,17 @@ Geometria-Bold
   .dynamic-form .input__field {
     height: 60px;
     width: 100%;
+    font-size: 16px;
+  }
+
+  .dynamic-form .input__field::placeholder {
+    font-size: 16px;
   }
 
   .dynamic-form .btn {
     height: 60px;
     width: 100%;
+    font-size: 16px;
   }
 
   .chat__input-field.input__field::placeholder {
