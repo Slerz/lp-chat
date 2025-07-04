@@ -115,10 +115,10 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
           // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
           // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
           appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
-          
-          // Задержка 1100мс между частями, кроме последней
+          // Задержка между частями зависит от длины части
           if (i < parts.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            const delay = Math.min(part.length * 30, 4000);
+            await new Promise(resolve => setTimeout(resolve, delay));
           }
         }
         // Скрываем индикатор печати только после обработки ВСЕХ частей
@@ -433,7 +433,7 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value.length * 40, 4000),
+    'text':  Math.min(message.value.length * 30, 4000),
     'swiper': 2000,
     'yesno': 1000,
   }
