@@ -113,10 +113,10 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         for (let i = 0; i < parts.length; i++) {
           const part = parts[i];
           // Показываем индикатор печати перед каждым пузырьком
-          const delay = Math.min(part.length * 18, 4000);
+          const delay = Math.min(part.length * 10, 3500);
           await showTypingIndicator(delay);
           // Задержка 300мс после индикатора
-          await new Promise(resolve => setTimeout(resolve, 300));
+          await new Promise(resolve => setTimeout(resolve, 250));
           // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
           // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
           appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
@@ -434,7 +434,7 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value.length * 18, 4000),
+    'text':  Math.min(message.value.length * 10, 3500),
     'swiper': 2000,
     'yesno': 500,
   }
@@ -443,7 +443,7 @@ async function appendBotMessageWithDelay(message, key) {
 
   await showTypingIndicator(delayMap[message.type] || 0);
   // Задержка 300мс перед каждым сообщением бота
-  await new Promise(resolve => setTimeout(resolve, 300));
+  await new Promise(resolve => setTimeout(resolve, 250));
 
   botNotificationSound.play();
 
