@@ -112,14 +112,15 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
       (async function showPartsWithDelay() {
         for (let i = 0; i < parts.length; i++) {
           const part = parts[i];
+          // Показываем индикатор печати перед каждым пузырьком
+          const delay = Math.min(part.length * 18, 4000);
+          await showTypingIndicator(delay);
+          // Задержка 300мс после индикатора
+          await new Promise(resolve => setTimeout(resolve, 300));
           // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
           // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
           appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
-          // Задержка между частями зависит от длины части
-          if (i < parts.length - 1) {
-            const delay = Math.min(part.length * 18, 4000);
-            await new Promise(resolve => setTimeout(resolve, delay));
-          }
+          // Задержка между частями не нужна, так как showTypingIndicator уже ждёт нужное время
         }
         // Скрываем индикатор печати только после обработки ВСЕХ частей
         isProcessingBreak = false; // Сбрасываем флаг
@@ -435,14 +436,14 @@ async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
     'text':  Math.min(message.value.length * 18, 4000),
     'swiper': 2000,
-    'yesno': 1000,
+    'yesno': 500,
   }
 
   isBotBusy = true;
 
   await showTypingIndicator(delayMap[message.type] || 0);
   // Задержка 300мс перед каждым сообщением бота
-  await new Promise(resolve => setTimeout(resolve, 400));
+  await new Promise(resolve => setTimeout(resolve, 300));
 
   botNotificationSound.play();
 
