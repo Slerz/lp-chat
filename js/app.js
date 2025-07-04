@@ -113,14 +113,13 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         for (let i = 0; i < parts.length; i++) {
           const part = parts[i];
           // Показываем индикатор печати перед каждым пузырьком
-          const delay = Math.min(part.length * 10, 3500);
+          const delay = Math.min(part.length * 18, 4000);
           await showTypingIndicator(delay);
           // Задержка 300мс после индикатора
-          await new Promise(resolve => setTimeout(resolve, 250));
+          await new Promise(resolve => setTimeout(resolve, 300));
           // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
           // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
           appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
-          // Задержка между частями не нужна, так как showTypingIndicator уже ждёт нужное время
         }
         // Скрываем индикатор печати только после обработки ВСЕХ частей
         isProcessingBreak = false; // Сбрасываем флаг
@@ -141,7 +140,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       renderModuleOptionsWithAI('startQuestions', startQuestions);
@@ -151,7 +149,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[START_QUESTIONS]', timestamp: new Date().toISOString() });
@@ -168,7 +165,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       renderCityInputWithAI(key || 'city', (userCity) => {});
@@ -178,7 +174,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[ASK_CITY]', timestamp: new Date().toISOString() });
@@ -195,7 +190,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       renderPhoneInputWithAI(key || 'phone', (userPhone) => {});
@@ -205,7 +199,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[ASK_PHONE]', timestamp: new Date().toISOString() });
@@ -222,7 +215,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       renderModuleOptionsWithAI(key || 'messenger', messengerOptions);
@@ -232,7 +224,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[ASK_MESSENGER]', timestamp: new Date().toISOString() });
@@ -249,7 +240,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       renderYesNoOptionsWithAI(key || 'magnet');
@@ -259,7 +249,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[SHOW_MAGNET_OPTIONS]', timestamp: new Date().toISOString() });
@@ -276,7 +265,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       // Пример набора фото (можно заменить на реальные пути)
@@ -295,7 +283,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[PHOTO]', timestamp: new Date().toISOString() });
@@ -312,7 +299,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${before}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       renderNameInput(key || 'name', () => {});
@@ -322,7 +308,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         message.innerHTML = `<p>${after}</p>`;
         chatContent.appendChild(message);
         animateFadeIn(message);
-        botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
       chatHistory.push({ sender: "bot", key: key, message: '[ASK_NAME]', timestamp: new Date().toISOString() });
@@ -348,7 +333,9 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
   if (!isUser) {
     swiperInstance = message;
     // Воспроизводим звуковой сигнал для сообщений от бота
-    botNotificationSound.play();
+    if (!isProcessingBreak && !isBreakPart) {
+      botNotificationSound.play();
+    }
     // Скрываем индикатор печати для обычных сообщений от бота
     // НО только если это не часть [BREAK] последовательности
     if (!isProcessingBreak && !isBreakPart) {
@@ -434,18 +421,16 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value.length * 10, 3500),
+    'text':  Math.min(message.value.length * 18, 4000),
     'swiper': 2000,
-    'yesno': 500,
+    'yesno': 500
   }
 
   isBotBusy = true;
 
   await showTypingIndicator(delayMap[message.type] || 0);
   // Задержка 300мс перед каждым сообщением бота
-  await new Promise(resolve => setTimeout(resolve, 250));
-
-  botNotificationSound.play();
+  await new Promise(resolve => setTimeout(resolve, 280));
 
   switch(message.type) {
     case 'text':
