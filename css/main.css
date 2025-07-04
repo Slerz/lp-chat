@@ -1073,6 +1073,11 @@ h4 {
   border: none;
 }
 
+.dynamic-form .input__field {
+  height: 40px;
+  width: 50%;
+}
+
 .form-modal__feedback-input .input__field {
   height: 100%;
   color: #fff;
