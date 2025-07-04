@@ -608,19 +608,18 @@ function renderPhoneInput(key, callback) {
   submitButton.textContent = "Отправить";
 
   // === Контейнер для чекбокса и подписи ===
-  const agreeDiv = document.createElement("div");
-  agreeDiv.className = "agree";
-  agreeDiv.style.display = "flex";
-  agreeDiv.style.flexDirection = "column";
-  agreeDiv.style.marginTop = "12px";
-  agreeDiv.style.fontSize = "14px";
+  // Новый flex-контейнер для двух блоков
+  const agreeFlex = document.createElement("div");
+  agreeFlex.className = "agree__flex";
+  agreeFlex.style.display = "flex";
+  agreeFlex.style.flexWrap = "wrap";
+  agreeFlex.style.alignItems = "center";
 
-  // Label-обёртка для чекбокса, текста и ссылки
-  const agreeLabel = document.createElement("label");
-  agreeLabel.className = "agree__label tap-color";
-  agreeLabel.style.display = "flex";
-  agreeLabel.style.alignItems = "center";
-  agreeLabel.style.cursor = "pointer";
+  // Контейнер для чекбокса и текста
+  const agreeMain = document.createElement("div");
+  agreeMain.className = "agree__main";
+  agreeMain.style.display = "flex";
+  agreeMain.style.alignItems = "center";
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
@@ -633,6 +632,15 @@ function renderPhoneInput(key, callback) {
   agreeText.textContent = "Я принимаю ";
   agreeText.style.color = "#303437";
 
+  agreeMain.appendChild(agreeCheckbox);
+  agreeMain.appendChild(agreeText);
+
+  // Контейнер для ссылки
+  const agreeLink = document.createElement("div");
+  agreeLink.className = "agree__link";
+  agreeLink.style.display = "flex";
+  agreeLink.style.alignItems = "center";
+
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
   privacyLink.setAttribute("data-remodal-target", "privacy");
@@ -641,9 +649,18 @@ function renderPhoneInput(key, callback) {
   privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
 
-  agreeLabel.appendChild(agreeCheckbox);
-  agreeLabel.appendChild(agreeText);
-  agreeLabel.appendChild(privacyLink);
+  agreeLink.appendChild(privacyLink);
+
+  // Собираем flex-контейнер
+  agreeFlex.appendChild(agreeMain);
+  agreeFlex.appendChild(agreeLink);
+
+  // Label-обёртка для accessibility (можно оставить пустой или обернуть agreeFlex)
+  const agreeLabel = document.createElement("label");
+  agreeLabel.className = "agree__label tap-color";
+  agreeLabel.style.display = "block";
+  agreeLabel.style.cursor = "pointer";
+  agreeLabel.appendChild(agreeFlex);
 
   // Сообщение об ошибке (скрыто по умолчанию)
   const agreeError = document.createElement("div");
@@ -653,6 +670,13 @@ function renderPhoneInput(key, callback) {
   agreeError.style.display = "none";
   agreeError.textContent = "Подтвердите согласие с политикой конфиденциальности";
 
+  // Основной контейнер для блока согласия
+  const agreeDiv = document.createElement("div");
+  agreeDiv.className = "agree";
+  agreeDiv.style.display = "flex";
+  agreeDiv.style.flexDirection = "column";
+  agreeDiv.style.marginTop = "12px";
+  agreeDiv.style.fontSize = "14px";
   agreeDiv.appendChild(agreeLabel);
   agreeDiv.appendChild(agreeError);
 
