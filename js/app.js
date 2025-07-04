@@ -442,7 +442,7 @@ async function appendBotMessageWithDelay(message, key) {
 
   await showTypingIndicator(delayMap[message.type] || 0);
   // Задержка 300мс перед каждым сообщением бота
-  await new Promise(resolve => setTimeout(resolve, 300));
+  await new Promise(resolve => setTimeout(resolve, 800));
 
   botNotificationSound.play();
 
