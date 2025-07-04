@@ -118,7 +118,7 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
           
           // Задержка 1100мс между частями, кроме последней
           if (i < parts.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 1100));
+            await new Promise(resolve => setTimeout(resolve, 2000));
           }
         }
         // Скрываем индикатор печати только после обработки ВСЕХ частей
@@ -433,16 +433,16 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value.length * 1000, 8000),
+    'text':  Math.min(message.value.length * 40, 4000),
     'swiper': 2000,
-    'yesno': 800,
+    'yesno': 1000,
   }
 
   isBotBusy = true;
 
   await showTypingIndicator(delayMap[message.type] || 0);
   // Задержка 300мс перед каждым сообщением бота
-  await new Promise(resolve => setTimeout(resolve, 500));
+  await new Promise(resolve => setTimeout(resolve, 400));
 
   botNotificationSound.play();
 
