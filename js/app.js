@@ -596,7 +596,7 @@ function renderPhoneInput(key, callback) {
 
   const form = document.createElement("form");
   form.className = "dynamic-form";
-  form.flexDirection = "row";
+  form.flexDirection = "column";
 
   const inputField = document.createElement("input");
   inputField.type = "tel";
