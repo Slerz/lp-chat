@@ -777,8 +777,18 @@ function renderCityInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  form.appendChild(inputField);
-  form.appendChild(submitButton);
+  // Flex-контейнер для input и button
+  const inputGroup = document.createElement("div");
+  inputGroup.className = "input-group-flex";
+  inputGroup.style.display = "flex";
+  inputGroup.style.flexDirection = "row";
+  inputGroup.style.flexWrap = "wrap";
+  inputGroup.style.gap = "8px";
+  inputGroup.style.alignItems = "center";
+  inputGroup.appendChild(inputField);
+  inputGroup.appendChild(submitButton);
+
+  form.appendChild(inputGroup);
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
@@ -827,8 +837,18 @@ function renderNameInput(key, callback) {
   submitButton.type = "submit";
   submitButton.textContent = "Отправить";
 
-  form.appendChild(inputField);
-  form.appendChild(submitButton);
+  // Flex-контейнер для input и button
+  const inputGroup = document.createElement("div");
+  inputGroup.className = "input-group-flex";
+  inputGroup.style.display = "flex";
+  inputGroup.style.flexDirection = "row";
+  inputGroup.style.flexWrap = "wrap";
+  inputGroup.style.gap = "8px";
+  inputGroup.style.alignItems = "center";
+  inputGroup.appendChild(inputField);
+  inputGroup.appendChild(submitButton);
+
+  form.appendChild(inputGroup);
   inputContainer.appendChild(form);
 
   chatContent.appendChild(inputContainer);
