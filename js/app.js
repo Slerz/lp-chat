@@ -433,7 +433,7 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value.length * 50, 4000),
+    'text':  Math.min(message.value.length * 1000, 8000),
     'swiper': 2000,
     'yesno': 800,
   }
@@ -442,7 +442,7 @@ async function appendBotMessageWithDelay(message, key) {
 
   await showTypingIndicator(delayMap[message.type] || 0);
   // Задержка 300мс перед каждым сообщением бота
-  await new Promise(resolve => setTimeout(resolve, 800));
+  await new Promise(resolve => setTimeout(resolve, 500));
 
   botNotificationSound.play();
 
