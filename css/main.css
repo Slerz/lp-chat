@@ -1074,8 +1074,15 @@ h4 {
 }
 
 .dynamic-form .input__field {
-  height: 40px;
-  width: 50%;
+  height: 50px;
+  width: 80%;
+}
+
+
+
+.dynamic-form .btn {
+  height: 50px;
+  width: 80%;
 }
 
 .form-modal__feedback-input .input__field {
@@ -2285,6 +2292,16 @@ Geometria-Bold
     max-width: 720px;
     margin: 0 auto;
     padding: 0 12px;
+  }
+
+  .dynamic-form .input__field {
+    height: 60px;
+    width: 100%;
+  }
+
+  .dynamic-form .btn {
+    height: 60px;
+    width: 100%;
   }
 
   .chat__input-field.input__field::placeholder {
