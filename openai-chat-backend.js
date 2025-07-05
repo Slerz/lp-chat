@@ -13,7 +13,7 @@ app.use(cors());
 // Статические файлы
 app.use(express.static(path.join(__dirname)));
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim();
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY_2?.trim();
 const PORT = process.env.PORT || 3001;
 const sessions = {};
 
@@ -25,8 +25,7 @@ if (!OPENAI_API_KEY) {
 }
 
 // Загружаем promt.txt при запуске
-//!!!!Времено не грузим промт
-/*const promtPath = path.join(__dirname, 'chat-gpt-data', 'promt.txt');
+const promtPath = path.join(__dirname, 'chat-gpt-data', 'promt.txt');
 let promtText = '';
 try {
   promtText = fs.readFileSync(promtPath, 'utf8');
@@ -39,8 +38,6 @@ const SYSTEM_PROMPT = {
   role: 'system',
   content: promtText
 };
-
-*/
 
 // Главная страница
 app.get('/', (req, res) => {
