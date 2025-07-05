@@ -1,3 +1,4 @@
+// ВРЕМЕННО: Метка [BREAK] отображается для отладки
 // Хранение данных
 const chatHistory = [];
 
@@ -105,28 +106,42 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
   }
   // Парсер меток для интерактивных элементов
   if (!isUser && typeof text === 'string') {
-    // [BREAK] - с задержкой между частями для сообщений от бота
+    // [BREAK] - ВРЕМЕННО: отображаем метку для отладки
     if (text.includes('[BREAK]')) {
-      const parts = text.split('[BREAK]').map(part => part.trim()).filter(Boolean);
-      isProcessingBreak = true; // Устанавливаем флаг
-      (async function showPartsWithDelay() {
-        for (let i = 0; i < parts.length; i++) {
-          const part = parts[i];
-          // Показываем индикатор печати перед каждым пузырьком
-          const delay = Math.min(part.length * 15, 3800);
-          await showTypingIndicator(delay);
-          // Задержка 300мс после индикатора
-          await new Promise(resolve => setTimeout(resolve, 300));
-          // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
-          // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
-          appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
-        }
-        // Скрываем индикатор печати только после обработки ВСЕХ частей
-        isProcessingBreak = false; // Сбрасываем флаг
-        setTimeout(() => {
-          hideTypingIndicator();
-        }, 600);
-      })();
+      // Временно показываем метку [BREAK] пользователю
+      const parts = text.split('[BREAK]');
+      const before = parts[0]?.trim();
+      const after = parts[1]?.trim();
+      
+      if (before) {
+        const message = document.createElement("div");
+        message.className = `message bot-message`;
+        message.innerHTML = `<p>${before}</p>`;
+        chatContent.appendChild(message);
+        animateFadeIn(message);
+        botNotificationSound.play();
+        if (!skipScroll) smoothScrollToBottom();
+      }
+      
+      // Показываем метку [BREAK] как отдельное сообщение
+      const breakMessage = document.createElement("div");
+      breakMessage.className = `message bot-message`;
+      breakMessage.innerHTML = `<p style="color: #ff0000; font-weight: bold; background-color: #ffe6e6; border: 2px dashed #ff0000;">[BREAK]</p>`;
+      chatContent.appendChild(breakMessage);
+      animateFadeIn(breakMessage);
+      if (!skipScroll) smoothScrollToBottom();
+      
+      if (after) {
+        const message = document.createElement("div");
+        message.className = `message bot-message`;
+        message.innerHTML = `<p>${after}</p>`;
+        chatContent.appendChild(message);
+        animateFadeIn(message);
+        botNotificationSound.play();
+        if (!skipScroll) smoothScrollToBottom();
+      }
+      
+      chatHistory.push({ sender: "bot", key: key, message: '[BREAK]', timestamp: new Date().toISOString() });
       return;
     }
     // [START_QUESTIONS]
