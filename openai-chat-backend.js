@@ -116,6 +116,7 @@ app.post('/chat', async (req, res) => {
       }
     });
     const aiMessage = response.data.choices[0].message.content;
+    console.log('AI RAW MESSAGE:', aiMessage);
     // Добавляем ответ бота в историю
     sessions[sessionId].push({ role: 'assistant', content: aiMessage });
     res.json({ text: aiMessage });
