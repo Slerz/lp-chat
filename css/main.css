@@ -751,7 +751,7 @@ h4 {
   word-break: break-word;
   /* или, для полной гарантии: */
   overflow-wrap: break-word;
-  text-align: right;
+  text-align: left;
 }
 
 .message p {
