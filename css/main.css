@@ -53,6 +53,18 @@
 }
 
 @font-face {
+  font-family: "Gilroy-SemiboldItalic";
+  src: url("../fonts/Gilroy-SemiboldItalic.woff"), url("../fonts/Gilroy-SemiboldItalic.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy-MediumItalic";
+  src: url("../fonts/Gilroy-MediumItalic.woff"), url("../fonts/Gilroy-MediumItalic.woff2");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Gilroy-Bold";
   src: url("../fonts/Gilroy-Bold.woff"), url("../fonts/Gilroy-Bold.woff2");
   font-display: swap;
@@ -148,6 +160,12 @@ h4 {
   font-weight: 400;
 }
 
+.font-gil-med {
+  font-family: "Gilroy-Medium";
+  font-weight: 500;
+}
+
+
 .font-gil-s-bold {
   font-family: "Gilroy-Semibold";
   font-weight: 600;
@@ -170,12 +188,12 @@ h4 {
 
 .font-s-16 {
   line-height: 110%;
-  font-size: 14px;
+  font-size: 11px;
 }
 
 .font-s-18 {
-  font-size: 15px;
-  line-height: 140%;
+  font-size: 12px;
+  line-height: 110%;
 }
 
 .font-s-20 {
@@ -207,6 +225,8 @@ h4 {
   font-size: 22px;
   line-height: 120%;
 }
+
+
 
 .font-s-56 {
   font-size: 22px;
@@ -478,8 +498,7 @@ h4 {
   position: relative;
   /* Чтобы можно было позиционировать элементы внутри */
   background: #fff;
-  color: #303437;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  color: #292231;
   overflow: hidden;
   display: flex;
   border-radius: 30px;
@@ -487,6 +506,7 @@ h4 {
   min-height: 400px;
   padding: 16px 16px 30px 16px;
   z-index: 100;
+  border: 1px solid #B8AEFF;
 }
 
 .chat {
@@ -499,7 +519,23 @@ h4 {
 }
 
 
+.skew-bg {
+  display: inline-block;
+  background: linear-gradient(152.28deg, #C3A0F9 0.9%, #ACBAF9 100%);
+  color: white;
+  font-family: "Gilroy-MediumItalic";
+  font-weight: 600;
+  border-radius: 10px;
+  transform: skew(-15deg);
+  box-shadow: 0 2px 8px rgba(100, 80, 200, 0.08);
+  margin-left: -15px;
+  padding: 1px 8px;
+}
 
+.skew-bg > * {
+  transform: skew(15deg); /* чтобы текст не был скошен */
+  display: inline-block;
+}
 
 
 .chat__bot-avatar div {
@@ -626,9 +662,9 @@ h4 {
 
 .response-options button {
   border: none;
-  border: 1px solid #3F6878;
-  color: #3F6878;
-  font-family: "Geometria-Regular";
+  border: 1px solid #7868E6;
+  color: #7868E6;
+  font-family: "Gilroy-Medium";
   background: none;
   cursor: pointer;
   line-height: 120%;
@@ -644,11 +680,9 @@ h4 {
 
 .response-options button:hover {
   transform: scale(0.98);
-  background-color: #CDDFE6;
+  background-color: #E1DDFF;
   border: none;
-  color: #3F6878;
-  font-weight: 500;
-  font-family: "Geometria-Medium"
+  color: #7868E6;
   
 }
 
@@ -690,15 +724,17 @@ h4 {
 }
 
 .bot-message p {
-  background-color: #f2f4f5;
+  background-color: #F3F3FF;
   max-width: 100%;
   width: 100%;
+  font-family: "Gilroy-Medium";
   border-radius: 0 19px 19px 19px;
 }
 
 .user-message p {
-  background-color: #3F6878;
+  background-color: #7868E6;
   color: #fff;
+  font-family: "Gilroy-Semibold";
   min-width: 10%;
   border-radius: 19px 19px 0 19px;
 }
@@ -769,7 +805,9 @@ h4 {
   flex-wrap: wrap;
 }
 
-
+.main-section__title-red {
+  color: #FF364E;
+}
 
 
 .dynamic-form .btn {
@@ -886,8 +924,8 @@ h4 {
 .connection {
   display: flex;
   align-items: center;
-  font-family: "Gilroy-Bold";
-  gap: 10px;
+  font-family: "Gilroy-Semibold";
+  gap: 8px;
 }
 
 .connection__link {
@@ -913,8 +951,8 @@ h4 {
   text-align: center;
   border-radius: 100px;
   line-height: normal;
-  width: 125px;
-  height: 33px;
+  width: 113px;
+  height: 29px;
   font-size: 12px;
   cursor: pointer;
   position: relative;
@@ -995,7 +1033,6 @@ h4 {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: #a49c9c;
   transition: 0.3s;
   text-align: left;
 }
@@ -1014,7 +1051,7 @@ h4 {
 
 .footer__logo-corp img {
   height: auto;
-  width: 120px;
+  width: 95px;
   transform: scale(1);
   transition: 0.3s;
 }
@@ -1028,7 +1065,7 @@ h4 {
 .footer__cookie {
   text-decoration: underline;
   text-decoration-skip-ink: none;
-  color: #bebebe;
+  color: #7A7A7A;
   transition: 0.3s;
 }
 
@@ -1183,14 +1220,14 @@ h4 {
 }
 
 .header {
-  position: relative;
-  z-index: 22;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
   color: #212529;
 }
 
-.header__wrapper {
-  background-color: #ffffff;
-}
 
 .header__info {
   font-family: "Geometria-Regular";
@@ -1212,12 +1249,12 @@ h4 {
 .header__container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .header__logo img {
   height: auto;
-  width: 74px;
+  width: 85px;
 }
 
 .header__description {
@@ -1391,63 +1428,21 @@ h4 {
 }
 
 .main-section {
-  color: #fff;
+  color: #292231;
 }
 
 .main-section__inner {
-  padding: 36px 0 50px 0;
+  padding: 65px 0 50px 0;
   position: relative;
   z-index: 1;
 }
 
-.decor-fish {
-  position: absolute;
-  right: -120px;
-  top: 310px;
-  width: 320px;
-  z-index: 5;
-}
-
-.decor-lemon {
-  position: absolute;
-  right: 25px;
-  top: 300px;
-  width: 130px;
-  z-index: 5;
-
-}
-
-.decor-small-white-fish {
-  position: absolute;
-  left: 20px;
-  top: 250px;
-  width: 260px;
-  z-index: 5;
-  visibility: hidden;
-}
-
-.decor-big-white-fish {
-  position: absolute;
-  right: -5px;
-  bottom: 150px;
-  width: 300px;
-  z-index: 5;
-  visibility: hidden;
-}
-
-.decor-shrimp {
-  position: absolute;
-  right: 180px;
-  top: 370px;
-  width: 270px;
-  z-index: 5;
-}
 
 .main-section__image {
   position: absolute;
   z-index: 10;
-  top: 236px;
-  right: calc(50% - 140px);
+  top: 260px;
+  left: 65px;
 }
 
 .main-section__image img {
@@ -1465,26 +1460,9 @@ h4 {
 .main-section__title-secondary {
   margin: 0 0 8px 0;
   display: block;
+  letter-spacing: -0.03em;
 }
 
-.main-section__info-secondary {
-  color: #ECDF32;
-}
-
-.main-section__title-main {
-  display: inline-block;
-  background: linear-gradient(90deg, #E37238 0%, #F9982F 100%);
-
-  padding: 4px 28px;
-  border-radius: 60px;
-}
-
-.main-section__info {
-  margin: 0 0 281px 0;
-  text-align: center;
-  z-index: 100;
-  position: relative;
-}
 
 .content-privacy {
   padding: 0 0 14px 0;
@@ -2070,7 +2048,7 @@ Geometria-Bold
   align-items: center;
   flex: 1;
   width: 100%;
-  background-image: url("../images/main-bg.jpg");
+  background-image: url("../images/main-bg.png");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -2115,7 +2093,7 @@ Geometria-Bold
 .page--thanks {
   font-size: 13px;
   line-height: 130%;
-  color: #fff;
+  color: #292231;
   position: relative;
   z-index: 1;
 }
@@ -2129,11 +2107,27 @@ Geometria-Bold
 }
 
 .page__content--main {
-  background-image: url("../images/main-bg.jpg");
+  background-image: url("../images/main-bg.png");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
 
+  position: relative;
+}
+
+.page__content--main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 60%;
+  background-image: url("../images/pattern.png");
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: contain;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .page__content--layout {
@@ -2199,7 +2193,7 @@ Geometria-Bold
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
   width: 100%;
@@ -2229,15 +2223,25 @@ Geometria-Bold
   padding: 0;
 }
 
+.font-s-50 {
+  line-height: 110%;
+  font-size: 26px;
+}
+
+
+
+.main-section__title-secondary {
+  text-align: center;
+}
 
 .chat__input-field {
   flex: 1;
   height: 40px;
   border-radius: 16px;
-  border: 1px solid #3F6878;
+  border: 1px solid #7868E6;
   padding: 0 18px;
   font-size: 16px;
-  font-family: "Geometria-Regular", Arial, sans-serif;
+  font-family: "Gilroy-Medium", Arial, sans-serif;
   background: #f7f7f7;
   color: #222;
   outline: none;
@@ -2278,23 +2282,70 @@ Geometria-Bold
   padding: 0;
 }
 
+.main-section__info {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  gap: 12px;
+  align-items: flex-end; 
+  z-index: 100;
+  max-width: 420px;
+  margin-bottom: 230px;
+}
+
+.main-section__info-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+
+.main-section__info-price {
+  color: white;
+  font-family: "Gilroy-Bold";
+  font-weight: 700;
+  border-radius: 6px;
+  display: inline-block;
+  background: #75C833;
+  transform: skew(-15deg);
+  box-shadow: 0 2px 8px rgba(100, 80, 200, 0.08);
+  padding: 1px 5px 2px 5px;
+}
+
+.main-section__info-price > * {
+  transform: skew(15deg); /* чтобы текст не был скошен */
+  display: inline-block;
+}
+
+.footer-left-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap:4px;
+}
+
+.main-section__info-phoneWidget {
+  width: 60px;
+}
+
+
 
 .chat__input-field {
   height: 40px;
-  font-family: "Geometria-Regular";
+  font-family: "Gilroy-Medium";
   font-weight: 400;
-  color:#3F6878;
+  color: #7868E6;
 }
 
 .chat__input-field.input__field::placeholder {
-  color:#3F6878;
-  font-family: "Geometria-Regular";
-  font-weight: 400;
   font-size: 16px;
+  color: #7868E6;
+  font-family: "Gilroy-Medium";
 }
 
 .chat__input-field.input__field:focus{
-  border: 1.8px solid #3F6878;
+  border: 1.8px solid #7868E6;
 }
 
 @media only screen and (min-width: 768px) {
@@ -2302,6 +2353,24 @@ Geometria-Bold
     max-width: 720px;
     margin: 0 auto;
     padding: 0 12px;
+  }
+
+  .footer-left-info {
+    gap: 0px;
+  }
+
+  .main-section__title-secondary {
+    text-align: left;
+  }
+
+  .header__container {
+    gap: 8px;
+  }
+
+
+  .font-s-50 {
+    font-size: 30px;
+    line-height: 110%;
   }
 
   .dynamic-form .input__field {
@@ -2321,9 +2390,6 @@ Geometria-Bold
   }
 
   .chat__input-field.input__field::placeholder {
-    color:#3F6878;
-    font-family: "Geometria-Regular";
-    font-weight: 400;
     font-size: 12px;
   }
 
@@ -2368,11 +2434,13 @@ Geometria-Bold
   }
 
   .font-s-16 {
-    font-size: 13px;
+    font-size: 11px;
   }
 
   .font-s-18 {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 110%;
+    letter-spacing: -0.03em;
   }
 
   .font-s-20 {
@@ -2407,36 +2475,6 @@ Geometria-Bold
     font-size: 30px;
   }
 
-  .decor-fish {
-    width: 380px;
-    right: -150px;
-    top: 70px;
-  }
-
-  .decor-lemon {
-    width: 128px;
-    right: -10px;
-    top: 30px;
-  }
-
-  .decor-shrimp {
-    width: 185px;
-    right: calc(25% + 65px);
-    top: 20px;
-  }
-
-  .decor-small-white-fish {
-    width: 165px;
-    top: 160px;
-    left: 10px;
-    visibility: visible;
-  }
-
-  .decor-big-white-fish {
-    width: 160px;
-    bottom: 450px;
-    visibility: visible;
-  }
 
   .transform-unset {
     transform: unset !important;
@@ -2539,19 +2577,14 @@ Geometria-Bold
     align-items: center;
   }
 
-  .footer__container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    text-align: left;
-  }
+ 
 
   .footer__info {
     margin: 0 0 4px 0;
   }
 
   .footer__logo-corp img {
-    width: 110px;
+    width: 85px;
   }
 
   .footer__logo img {
@@ -2585,7 +2618,7 @@ Geometria-Bold
   }
 
   .header__logo img {
-    width: 70px;
+    width: 85px;
   }
 
   .header__description {
@@ -2603,16 +2636,20 @@ Geometria-Bold
   }
 
   .main-section__inner {
-    padding: 70px 0;
+    padding: 96px 0;
+  }
+
+  .skew-bg {
+    padding: 1px 10px;
   }
 
   .main-section__image {
-    top: 20px;
-    right: 30px;
+    top: 58px;
+    left: 310px;
   }
 
   .main-section__image img {
-    width: 300px;
+    width: 400px;
   }
 
   .main-section__title {
@@ -2620,14 +2657,12 @@ Geometria-Bold
     margin: 0 0 14px 0;
   }
 
-  .main-section__title-main {
-    padding: 3px 20px 5px 20px;
- 
+  .main-section__info-phoneWidget {
+    width: 80px;
   }
 
   .main-section__info {
-    text-align: left;
-    margin: 0 0 48px 0;
+    margin: 0 0 60px 0;
   }
 
   .connection__link {
@@ -2765,6 +2800,10 @@ Geometria-Bold
     height: 42px;
     width: 42px;
   }
+
+  .main-section__info-price {
+    padding: 1px 5px 2px 5px;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -2772,6 +2811,43 @@ Geometria-Bold
     max-width: 970px;
     padding: 0 15px;
   }
+
+  .font-s-18 {
+    font-size: 14px;
+    line-height: 120%;
+  }
+
+  .main-section__info-price {
+    padding: 3px 7px 4px 7px;
+    font-size: 16px;
+  }
+
+  .skew-bg {
+    padding: 2px 12px;
+  }
+
+  .main-section__title-secondary{
+    margin: 0 0 8px 0;
+  }
+
+  .connection__description {
+    height: 35px;
+  }
+
+  .main-section__info {
+    margin-bottom: 60px;
+  }
+
+  .main-section__info-phoneWidget {
+    width: 105px;
+  }
+
+
+  .font-s-50 {
+    font-size: 40px;
+    line-height: 110%;
+  }
+
 
   .dynamic-form .agree .error--privacy{
     font-size: 11px;
@@ -2783,7 +2859,6 @@ Geometria-Bold
   }
 
   .chat__input-field.input__field::placeholder {
-    font-weight: 400;
     font-size: 14px;
   }
 
@@ -2809,7 +2884,7 @@ Geometria-Bold
   }
 
   .font-s-16 {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .font-s-20 {
@@ -2913,7 +2988,7 @@ Geometria-Bold
   }
 
   .footer__logo-corp img {
-    width: 130px;
+    width: 110px;
   }
 
   .form-modal__feedback {
@@ -2943,11 +3018,11 @@ Geometria-Bold
   }
 
   .header__container {
-    gap: 20px;
+    gap: 15px;
   }
 
   .header__logo img {
-    width: 80px;
+    width: 105px;
   }
 
   .header__description div {
@@ -2965,50 +3040,20 @@ Geometria-Bold
   }
 
   .main-section__inner {
-    padding: 90px 0;
+    padding: 120px 0 90px 0;
   }
 
   .main-section__image {
-    right: calc(50% - 400px);
-    top: 35px;
+    left: 430px;
+    top: 55px;
   }
 
   .main-section__image img {
-    width: 400px;
+    width: 530px;
 
   }
 
-  .decor-fish {
-    width: 500px;
-    right: -185px;
-  }
 
-  .decor-lemon {
-    width: 160px;
-    right: -30px;
-
-  }
-
-  .decor-shrimp {
-    width: 240px;
-    right: calc(25% + 80px);
-    top: 30px;
-  }
-
-  .decor-small-white-fish {
-    width: 220px;
-    top: 200px;
-
-  }
-
-  .decor-big-white-fish {
-    width: 220px;
-    bottom: 190px;
-  }
-
-  .main-section__info {
-    margin: 0 0 66px 0;
-  }
 
   .content-privacy__wrapper {
     max-width: 550px;
@@ -3086,6 +3131,36 @@ Geometria-Bold
     max-width: 1200px;
   }
 
+  .connection {
+    gap: 24px;
+  }
+
+  .main-section__title-secondary {
+    margin: 0 0 14px 0;
+  }
+
+  .main-section__info-phoneWidget {
+    width: 137px;    
+  }
+
+  .main-section__info {
+    margin-bottom: 91px;
+  }
+
+  .main-section__info-price {
+    font-size: 23px;
+    padding: 3px 9px 4px 10px;
+  }
+
+  .skew-bg {
+    padding: 2px 17px;
+  }
+
+  .font-s-50 {
+    font-size: 50px;
+    line-height: 110%;
+  }
+
   .dynamic-form .agree a {
     margin: 0;
   }
@@ -3116,9 +3191,6 @@ Geometria-Bold
   }
 
   .chat__input-field.input__field::placeholder {
-    color:#3F6878;
-    font-family: "Geometria-Regular";
-    font-weight: 400;
     font-size: 16px;
   }
 
@@ -3131,45 +3203,6 @@ Geometria-Bold
     width: 51px;
   }
 
-  .decor-fish {
-    position: absolute;
-    right: -25%;
-    top: 90px;
-    width: 645px;
-    z-index: 5;
-  }
-  
-  .decor-lemon {
-    position: absolute;
-    right: -50px;
-    top: 40px;
-    width: 190px;
-    z-index: 5;
-  }
-  
-  .decor-small-white-fish {
-    position: absolute;
-    left: 20px;
-    top: 250px;
-    width: 260px;
-    z-index: 5;
-  }
-  
-  .decor-big-white-fish {
-    position: absolute;
-    right: -5px;
-    bottom: 150px;
-    width: 300px;
-    z-index: 5;
-  }
-  
-  .decor-shrimp {
-    position: absolute;
-    right: calc(25% + 45px);
-    top: 40px;
-    width: 300px;
-    z-index: 5;
-  }
 
   section {
     font-size: 16px;
@@ -3321,9 +3354,9 @@ Geometria-Bold
   }
 
   .connection__description {
-    font-size: 14px;
-    width: 168px;
-    height: 43px;
+    font-size: 13px;
+    width: 160px;
+    height: 44px;
   }
 
   .feedback__list {
@@ -3340,6 +3373,7 @@ Geometria-Bold
 
   .footer__container {
     gap: 20px;
+    align-items: center;
   }
 
   .footer__logo-corp img {
@@ -3371,15 +3405,16 @@ Geometria-Bold
   }
 
   .header__inner {
-    padding: 10px 0 3px 0;
+    padding: 20px 0 3px 0;
+    height: 86px;
   }
 
   .header__container {
-    gap: 30px;
+    gap: 20px;
   }
 
   .header__logo img {
-    width: 120px;
+    width: 142px;
   }
 
   .header__description div {
@@ -3398,30 +3433,23 @@ Geometria-Bold
   }
 
   .main-section__inner {
-    padding: 128px 0;
+    padding: 170px 0 109px 0;
   }
 
   .main-section__image {
-    top: 20px;
-    right: calc(50% - 570px);
+    top: 75px;
+    left: 515px;
   }
 
   .main-section__image img {
-    width: 529px;
+    width: 710px;
   }
 
   .main-section__title {
     margin: 0 0 29px 0;
   }
 
-  .main-section__title-main {
-    padding: 4px 28px 6px 28px;
-  
-  }
 
-  .main-section__info {
-    margin: 0 0 67px 0;
-  }
 
   .content-privacy__wrapper {
     max-width: 650px;
@@ -3480,23 +3508,6 @@ Geometria-Bold
   }
 }
 
-.header-wave {
-  position: absolute;
-  width: 100%;
-  height: 31px; /* подберите под вашу волну */
-  margin-top: -5px; /* чтобы перекрывала низ header, можно скорректировать */
-  overflow: hidden;
-  z-index: 10;
-}
-
-.header-wave img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  pointer-events: none;
-  user-select: none;
-}
 
 /* Красный placeholder при ошибке согласия */
 .input__field.placeholder-error::placeholder {
