@@ -238,9 +238,9 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
       chatHistory.push({ sender: "bot", key: key, message: '[ASK_MESSENGER]', timestamp: new Date().toISOString() });
       return;
     }
-    // [SHOW_MAGNET_OPTIONS]
-    if (text.includes('[SHOW_MAGNET_OPTIONS]')) {
-      const parts = text.split('[SHOW_MAGNET_OPTIONS]');
+    // SHOW_YES_NO_OPTIONS
+    if (text.includes('[SHOW_YES_NO_OPTIONS]')) {
+      const parts = text.split('[SHOW_YES_NO_OPTIONS]');
       const before = parts[0]?.trim();
       const after = parts[1]?.trim();
       if (before) {
@@ -262,7 +262,7 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[SHOW_MAGNET_OPTIONS]', timestamp: new Date().toISOString() });
+      chatHistory.push({ sender: "bot", key: key, message: '[SHOW_YES_NO_OPTIONS]', timestamp: new Date().toISOString() });
       return;
     }
     // [PHOTO]
@@ -1129,7 +1129,7 @@ async function sendMessageToAI(userMessage) {
   if (!userMessage || !userMessage.trim()) return;
   appendMessage({ text: userMessage, isUser: true });
   // Тест: если пользователь отправляет одну из меток, бот возвращает её же
-  const testTags = ['[ASK_CITY]', '[ASK_PHONE]', '[ASK_MESSENGER]', '[SHOW_MAGNET_OPTIONS]', '[PHOTO]'];
+  const testTags = ['[ASK_CITY]', '[ASK_PHONE]', '[ASK_MESSENGER]', '[SHOW_YES_NO_OPTIONS]', '[PHOTO]'];
   if (testTags.some(tag => userMessage.includes(tag))) {
     appendMessage({ text: userMessage, isUser: false });
     return;
