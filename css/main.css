@@ -660,6 +660,10 @@ h4 {
   margin-bottom: 0;
 }
 
+.response-options-startQ:last-child {
+  margin-bottom: 0;
+}
+
 .response-options button {
   border: none;
   border: 1px solid #7868E6;
@@ -678,7 +682,40 @@ h4 {
   transform: scale(1);
 }
 
+.response-options-startQ {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 12px 0;
+  gap: 6px;
+}
+
+.response-options-startQ button {
+  border: none;
+  border: 1px solid #7868E6;
+  color: #7868E6;
+  font-family: "Gilroy-Medium";
+  background: none;
+  cursor: pointer;
+  line-height: 120%;
+  outline: none;
+  text-align: left;
+  border-radius: 16px;
+  font-size: 13px;
+  padding: 16px;
+  transition: all 0.6s;
+  transform: scale(1);
+}
+
+
 .response-options button:hover {
+  transform: scale(0.98);
+  background-color: #E1DDFF;
+  border: none;
+  color: #7868E6;
+  
+}
+
+.response-options-startQ button:hover {
   transform: scale(0.98);
   background-color: #E1DDFF;
   border: none;
@@ -2329,6 +2366,9 @@ Geometria-Bold
   width: 60px;
 }
 
+.res-button-1, .res-button-2, .res-button-3, .res-button-4, .res-button-5, .res-button-6, .res-button-7  {
+  display:block;
+}
 
 
 .chat__input-field {
@@ -2353,6 +2393,34 @@ Geometria-Bold
     max-width: 720px;
     margin: 0 auto;
     padding: 0 12px;
+  }
+
+  .res-button-1 {
+    max-width: 32.1%;
+  }
+
+  .res-button-2 {
+    max-width: 32.1%;
+  }
+
+  .res-button-3 {
+    max-width: 32.1%;
+  }
+
+  .res-button-4 {
+    max-width: 21.5%;
+  }
+
+  .res-button-5 {
+    max-width: 21.5%;
+  }
+
+  .res-button-6 {
+    max-width: 21.5%;
+  }
+
+  .res-button-7 {
+    max-width: 28%;
   }
 
   .footer-left-info {
@@ -2497,10 +2565,19 @@ Geometria-Bold
   }
 
   .response-options button {
+    border-radius: 12px;
+    padding: 6px;
     min-width: 20%;
     max-width: 31.9%;
+  }
+
+  .response-options-startQ {
+    gap: 9px;
+  }
+
+  .response-options-startQ button {
     border-radius: 12px;
-    padding: 8px;
+    padding: 6px;
   }
 
   .user-message {
@@ -2812,6 +2889,34 @@ Geometria-Bold
     padding: 0 15px;
   }
 
+  .res-button-1 {
+    max-width: 200px;
+  }
+
+  .res-button-2 {
+    max-width: 162px;
+  }
+
+  .res-button-3 {
+    max-width: 180px;
+  }
+
+  .res-button-4 {
+    max-width: 143px;
+  }
+
+  .res-button-5 {
+    max-width: 139px;
+  }
+
+  .res-button-6 {
+    max-width: 151px;
+  }
+
+  .res-button-7 {
+    max-width: 192px;
+  }
+
   .font-s-18 {
     font-size: 14px;
     line-height: 120%;
@@ -2945,7 +3050,17 @@ Geometria-Bold
   .response-options button {
     border-radius: 20px;
     font-size: 15px;
-    padding: 12px;
+    padding: 10px;
+  }
+
+  .response-options-startQ button {
+    border-radius: 12px;
+    padding: 6px;
+  }
+
+  .response-options-startQ {
+    gap: 12px;
+    margin: 16px 0;
   }
 
   .dynamic-form .input__field {
@@ -3131,6 +3246,34 @@ Geometria-Bold
     max-width: 1200px;
   }
 
+  .res-button-1 {
+    max-width: 220px;
+  }
+
+  .res-button-2 {
+    max-width: 182px;
+  }
+
+  .res-button-3 {
+    max-width: 200px;
+  }
+
+  .res-button-4 {
+    max-width: 163px;
+  }
+
+  .res-button-5 {
+    max-width: 159px;
+  }
+
+  .res-button-6 {
+    max-width: 171px;
+  }
+
+  .res-button-7 {
+    max-width: 212px;
+  }
+
   .connection {
     gap: 24px;
   }
@@ -3292,11 +3435,22 @@ Geometria-Bold
   }
 
   .response-options {
-    gap: 14px;
+    gap: 10px;
     margin: 20px 0;
   }
 
   .response-options button {
+    border-radius: 24px;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .response-options-startQ {
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .response-options-startQ button {
     border-radius: 24px;
     padding: 16px;
     font-size: 16px;

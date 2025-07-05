@@ -105,30 +105,30 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
   }
   // Парсер меток для интерактивных элементов
   if (!isUser && typeof text === 'string') {
-    // ВРЕМЕННО ОТКЛЮЧЕНО: [BREAK] - с задержкой между частями для сообщений от бота
-    // if (text.includes('[BREAK]')) {
-    //   const parts = text.split('[BREAK]').map(part => part.trim()).filter(Boolean);
-    //   isProcessingBreak = true; // Устанавливаем флаг
-    //   (async function showPartsWithDelay() {
-    //     for (let i = 0; i < parts.length; i++) {
-    //       const part = parts[i];
-    //       // Показываем индикатор печати перед каждым пузырьком
-    //       const delay = Math.min(part.length * 15, 3800);
-    //       await showTypingIndicator(delay);
-    //       // Задержка 300мс после индикатора
-    //       await new Promise(resolve => setTimeout(resolve, 300));
-    //       // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
-    //       // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
-    //       appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
-    //     }
-    //     // Скрываем индикатор печати только после обработки ВСЕХ частей
-    //     isProcessingBreak = false; // Сбрасываем флаг
-    //     setTimeout(() => {
-    //       hideTypingIndicator();
-    //     }, 600);
-    //   })();
-    //   return;
-    // }
+    // [BREAK] - с задержкой между частями для сообщений от бота
+    if (text.includes('[BREAK]')) {
+      const parts = text.split('[BREAK]').map(part => part.trim()).filter(Boolean);
+      isProcessingBreak = true; // Устанавливаем флаг
+      (async function showPartsWithDelay() {
+        for (let i = 0; i < parts.length; i++) {
+          const part = parts[i];
+          // Показываем индикатор печати перед каждым пузырьком
+          const delay = Math.min(part.length * 15, 3800);
+          await showTypingIndicator(delay);
+          // Задержка 300мс после индикатора
+          await new Promise(resolve => setTimeout(resolve, 300));
+          // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
+          // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
+          appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
+        }
+        // Скрываем индикатор печати только после обработки ВСЕХ частей
+        isProcessingBreak = false; // Сбрасываем флаг
+        setTimeout(() => {
+          hideTypingIndicator();
+        }, 600);
+      })();
+      return;
+    }
     // [START_QUESTIONS]
     if (text.includes('[START_QUESTIONS]')) {
       const parts = text.split('[START_QUESTIONS]');
@@ -474,10 +474,14 @@ function renderOptions(key, options) {
   const responseContainer = document.createElement("div");
   responseContainer.className = "response-options";
 
-  options.forEach(({ label, value, next }) => {
+  options.forEach(({ label, value, next }, idx) => {
     const button = document.createElement("button");
     button.type = 'button';
     button.innerHTML = label;
+    // Добавлять res-button- только для стартовых вопросов
+    if (responseContainer.classList.contains('response-options-startQ')) {
+      button.classList.add(`res-button-${idx + 1}`);
+    }
     button.onclick = () => {
       if (isBotBusy) return;
       appendMessage({ text: label, value: value, key: key, isUser: true });
@@ -1053,12 +1057,21 @@ function renderModuleOptions(key, options, callback) {
   clearOptions();
 
   const responseContainer = document.createElement("div");
-  responseContainer.className = "response-options";
+  // Добавляем нужный класс контейнеру в зависимости от типа опций
+  if (key === 'startQuestions') {
+    responseContainer.className = "response-options-startQ";
+  } else {
+    responseContainer.className = "response-options";
+  }
 
-  options.forEach(({ label, value, next }) => {
+  options.forEach(({ label, value, next }, idx) => {
     const button = document.createElement("button");
     button.type = 'button';
     button.innerHTML = label;
+    // Добавлять res-button- только для стартовых вопросов
+    if (responseContainer.classList.contains('response-options-startQ')) {
+      button.classList.add(`res-button-${idx + 1}`);
+    }
     button.onclick = () => {
       if (isBotBusy) return;
       clearOptions();

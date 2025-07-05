@@ -1,10 +1,11 @@
 const startQuestions = [
-  { label: "Кто вы такие и как вам удалось построить крупную сеть?", value: "aboutCompany", next: "aboutCompany" },
-  { label: "Какие инвестиции нужны для открытия одного магазина?", value: "investments", next: "city" },
-  { label: "Какую прибыль может приносить рыбный магазин?", value: "profit", next: "city2" },
-  { label: "Какую помощь мы окажем вам при открытии магазина?", value: "help", next: "help" },
-  { label: "Как выглядят действующие магазины, которые вы открыли?", value: "gallery", next: "gallery" },
-  { label: "Могу ли я пообщаться с владельцами магазинов сети?", value: "feedback", next: "feedback" }
+  { label: "Почему чат-лендинг в 2 раза эффективнее обычных сайтов?", value: null, next: null},
+  { label: "Почему ваша цена сильно ниже всего, что есть на рынке?", value: null, next: null},
+  { label: "Зачем мне чат-лендинг, если у меня уже есть сайт?", value: null, next: null },
+  { label: "Как мои клиенты будут попадать на чат-лендинг?", value: null, next: null },
+  { label: "От чего зависит цена чат-лендинга?", value: null, next: null },
+  { label: "Можно ли вносить правки в чат-лендинг?", value: null, next: null },
+  { label: "Как строится работа и в какие сроки вы разрабатываете сайт?", value: null, next: null }
 ];
 
 export default startQuestions; 

@@ -5,6 +5,7 @@ function renderYesNoOptions(key, callback, yesText = 'Да', noText = 'Нет') 
 
   const yesBtn = document.createElement("button");
   yesBtn.type = 'button';
+  yesBtn.className = "res-button-yes"
   yesBtn.innerHTML = yesText;
   yesBtn.onclick = () => {
     if (typeof callback === 'function') callback('yes', key);
@@ -13,6 +14,7 @@ function renderYesNoOptions(key, callback, yesText = 'Да', noText = 'Нет') 
 
   const noBtn = document.createElement("button");
   noBtn.type = 'button';
+  noBtn.className = "res-button-no"
   noBtn.innerHTML = noText;
   noBtn.onclick = () => {
     if (typeof callback === 'function') callback('no', key);

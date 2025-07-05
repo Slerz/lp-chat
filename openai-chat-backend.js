@@ -13,7 +13,7 @@ app.use(cors());
 // Статические файлы
 app.use(express.static(path.join(__dirname)));
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY_2?.trim();
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY?.trim();
 const PORT = process.env.PORT || 3001;
 const sessions = {};
 
@@ -24,19 +24,27 @@ if (!OPENAI_API_KEY) {
   console.log('✅ OpenAI API key configured');
 }
 
-// Загружаем promt.txt при запуске
-const promtPath = path.join(__dirname, 'chat-gpt-data', 'promt.txt');
-let promtText = '';
+// Загружаем и склеиваем user-prompt.txt и sys-prompt.txt при запуске
+const sysPromptPath = path.join(__dirname, 'chat-gpt-data', 'sys-prompt.txt');
+const userPromptPath = path.join(__dirname, 'chat-gpt-data', 'user-prompt.txt');
+let sysPromptText = '';
+let userPromptText = '';
 try {
-  promtText = fs.readFileSync(promtPath, 'utf8');
+  sysPromptText = fs.readFileSync(sysPromptPath, 'utf8');
 } catch (e) {
-  console.error('Ошибка загрузки promt.txt:', e.message);
-  promtText = 'Ошибка загрузки promt.txt';
+  console.error('Ошибка загрузки sys-prompt.txt:', e.message);
+  sysPromptText = 'Ошибка загрузки sys-prompt.txt';
+}
+try {
+  userPromptText = fs.readFileSync(userPromptPath, 'utf8');
+} catch (e) {
+  console.error('Ошибка загрузки user-prompt.txt:', e.message);
+  userPromptText = 'Ошибка загрузки user-prompt.txt';
 }
 
 const SYSTEM_PROMPT = {
   role: 'system',
-  content: promtText
+  content: sysPromptText + '\n\n' + userPromptText
 };
 
 // Главная страница
