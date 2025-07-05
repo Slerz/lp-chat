@@ -123,10 +123,10 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         if (!skipScroll) smoothScrollToBottom();
       }
       
-      // Показываем метку [BREAK] как отдельное сообщение
+      // Показываем метку [BREAK] как обычный текст
       const breakMessage = document.createElement("div");
       breakMessage.className = `message bot-message`;
-      breakMessage.innerHTML = `<p style="color: #ff0000; font-weight: bold; background-color: #ffe6e6; border: 2px dashed #ff0000;">[BREAK]</p>`;
+      breakMessage.innerHTML = `<p>[BREAK]</p>`;
       chatContent.appendChild(breakMessage);
       animateFadeIn(breakMessage);
       if (!skipScroll) smoothScrollToBottom();
