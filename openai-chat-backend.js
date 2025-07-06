@@ -98,10 +98,10 @@ app.post('/chat', async (req, res) => {
   sessions[sessionId].push({ role: 'user', content: message });
 
   // Формируем массив messages для OpenAI: system prompt + история (ограничиваем до 12)
-  const shortHistory = sessions[sessionId].slice(-12);
+  const shortHistory = sessions[sessionId].slice(-18);
   const messages = [SYSTEM_PROMPT, ...shortHistory];
 
-  console.log('Sending request to OpenAI with model: gpt-3.5-turbo');
+  console.log('Sending request to OpenAI with model: gpt-4.1-mini');
   console.log('Messages count:', messages.length);
 
   try {
