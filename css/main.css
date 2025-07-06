@@ -768,6 +768,7 @@ h4 {
 .bot-message p {
   background-color: #F3F3FF;
   max-width: 100%;
+  width: 100%;
   font-family: "Gilroy-Medium";
   border-radius: 0 19px 19px 19px;
 }
