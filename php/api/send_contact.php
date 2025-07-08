@@ -75,7 +75,7 @@ try {
 
     // Тема и тело письма
     $mail->isHTML(true);
-    $mail->Subject = 'Новая заявка';
+    $mail->Subject = 'Новая заявка bot.lp-chat.ru';
     
     // --- Группировка и форматирование как в formProcessor.php ---
     $fields = [
@@ -109,7 +109,7 @@ try {
 
     $groups = [
         'Информация, указанная посетителем сайта:' => [
-            'fields' => ['name', 'phone', 'email', 'city', 'question', 'messenger', 'chat_history'],
+            'fields' => ['name', 'phone', 'email', 'city', 'question', 'messenger'],
             'html' => ''
         ],
         'Информация из рекламной системы:' => [
@@ -133,7 +133,7 @@ try {
     unset($group);
 
     $body = "<html><body style='font-family:Arial,sans-serif;'>";
-    $body .= "<h2>Вам поступила новая заявка с сайта</h2>\r\n";
+    $body .= "<h2>Вам поступила новая заявка с сайта bot.lp-chat.ru</h2>\r\n";
     $body .= '<b>Дата:</b> ' . date('d-m-Y H:i:s') . '<br>';
     foreach ($groups as $sectionTitle => $value) {
         if (empty($value['html'])) continue;
