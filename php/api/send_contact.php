@@ -90,7 +90,32 @@ try {
         $body .= '<b>Город:</b> ' . htmlspecialchars($input['city']) . '<br>';
     }
     
-    $body .= '<b>Дата:</b> ' . date('d-m-Y H:i:s');
+    $body .= '<b>Дата:</b> ' . date('d-m-Y H:i:s') . '<br>';
+
+    // --- UTM и рекламная информация ---
+    $utmFields = [
+        'utm_source' => 'Источник трафика',
+        'utm_medium' => 'Тип рекламы',
+        'utm_campaign' => 'Номер рекламной кампании',
+        'utm_content' => 'Контент кампании',
+        'utm_term' => 'Ключевое слово',
+        'utm_device' => 'Тип устройства',
+        'utm_campaign_name' => 'Название рекламного кабинета',
+        'utm_placement' => 'Место показа',
+        'utm_description' => 'Текст рекламного объявления',
+        'page_url' => 'URL страницы',
+        'user_location_ip' => 'IP/Гео пользователя',
+    ];
+    $utmBlock = '';
+    foreach ($utmFields as $key => $label) {
+        if (!empty($input[$key])) {
+            $utmBlock .= '<b>' . $label . ':</b> ' . htmlspecialchars($input[$key]) . '<br>';
+        }
+    }
+    if ($utmBlock) {
+        $body .= '<br><b>Информация из рекламной системы:</b><br>' . $utmBlock;
+    }
+    // --- END UTM ---
     
     // Прикрепляем историю чата, если есть
     $chatHistoryFile = null;
