@@ -72,17 +72,29 @@ function initFeedbackForm() {
         sessionStorage.setItem('city', fields.city)
       }
 
-      var data = $.extend($.feedback_store, fields)
-      var formData = createFormData(data)
+      // Подготавливаем данные для отправки на ваш PHP endpoint
+      var formData = {
+        name: fields.name || '',
+        phone: fields.phone || ''
+      }
 
-      $.ajax('https://grand-smile-production.up.railway.app/formProcessor.php', {
+      // Отправляем данные на ваш PHP endpoint
+      $.ajax('/php/api/send_contact.php', {
         type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
         dataType: 'json',
-      }).always(function () {
-        window.location = 'thanks.html'
+        success: function(response) {
+          if (response.success) {
+            window.location = 'thanks.html'
+          } else {
+            alert('Ошибка отправки: ' + (response.message || 'Неизвестная ошибка'))
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Ошибка отправки формы:', error)
+          alert('Ошибка отправки формы. Попробуйте еще раз.')
+        }
       })
     }
   })

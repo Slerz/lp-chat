@@ -3,6 +3,9 @@ function renderYesNoOptions(key, callback, yesText = 'Да', noText = 'Нет') 
   const responseContainer = document.createElement("div");
   responseContainer.className = "response-options";
 
+  const typingPlaceholder = document.getElementById('typingPlaceholder');
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
+
   const yesBtn = document.createElement("button");
   yesBtn.type = 'button';
   yesBtn.className = "res-button-yes"

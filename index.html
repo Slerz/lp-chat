@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Инновационное решение для вашего бизнеса">
+    <meta name="description" content="Запустите чат-лендинг на основе ИИ и получайте лиды в 3 раза дешевле, чем у конкурентов">
     <meta property="og:image" content="path/to/image.jpg">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="width">
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>LP-Chat - разработка лендингов</title>
+    <title>bot.lp-chat.ru - разработаем чат-лендинг на основе искусственного интеллекта</title>
   </head>
   <body>
     <!-- Yandex.Metrika counter-->
@@ -76,6 +76,7 @@
                       <div class="typing-indicator" id="typingIndicator">
                         <div>Мария печатает<span>.</span><span>.</span><span>.</span></div>
                       </div>
+                      <div class="typing-placeholder" id="typingPlaceholder" style="display: none; min-height: 24px;">&nbsp;</div>
                       <div class="chat__status" id="status" style="display: none;">
                         <div><img src="images/checked.svg" alt="status" width="40" height="40">Ваша заявка принята!</div>
                       </div>
@@ -105,9 +106,16 @@
                 <div class="footer__container font-gil-med">
                   <span class="footer__logo-corp"><a href="https://lp-chat.ru/" target="_blank"><img class="d-block" src="images/logo-main-footer.svg" loading="lazy" alt="logo" width="142" height="43"></a></span>
                   <div class="footer-left-info">
-                    <span class="footer__description font-s-16">© lp-chat.ru, 2025</span>
-                    <a class="footer__privacy d-block font-s-14" href="#" data-remodal-target="privacy">Политика конфиденциальности</a>
+                    <span class="footer__description font-s-16 mar-bot-5">© lp-chat.ru, 2025</span>
+                    <span class="footer__ip-details font-gil-reg font-s-12">ИП Прозоров Александр Викторович,</span>
+                    <span class="footer__inn-details font-gil-reg font-s-12">ИНН 434541423280</span>
                   </div>
+                </div>
+              </div>
+              <div class="footer__col">
+                <div class="text-center">
+                  <a class="footer__privacy d-block font-s-14 mar-bot-10" href="#" data-remodal-target="privacy">Политика конфиденциальности</a>
+                  <a class="footer__cookie d-block font-s-14" href="#" data-remodal-target="cookie">Пользовательское соглашение</a>
                 </div>
               </div>
               <div class="footer__col">

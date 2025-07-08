@@ -3,6 +3,7 @@ const chatHistory = [];
 
 const chatContent = document.getElementById("chatContent");
 const typingIndicator = document.getElementById("typingIndicator");
+const typingPlaceholder = document.getElementById("typingPlaceholder");
 const botNotificationSound = new Audio('audio/ringtone.mp3');
 let lastOptions = null;
 let isBotBusy = false;
@@ -10,6 +11,7 @@ let allowedScroll = false;
 let botMessageCount = 0;
 let swiperInstance = null;
 let isProcessingBreak = false; // Флаг для отслеживания обработки [BREAK]
+let isInteractiveVisible = false;
 
 import startQuestions from './startQuestions.js';
 import messengerOptions from './messengerOptions.js';
@@ -95,6 +97,11 @@ function parseSpecialFormatting(text) {
 }
 
 function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
+  // --- Исправление: обработка BREAK централизованно ---
+  if (!isUser && typeof text === 'string' && text.includes('[BREAK]')) {
+    appendBotMessageSmart({ value: text, type: 'text' }, key);
+    return;
+  }
   // Скрыть [END_CONVERSATION] для пользователя
   if (typeof text === 'string' && text.includes('[END_CONVERSATION]')) {
     const cleaned = text.replace(/\[END_CONVERSATION\]/g, '').trim();
@@ -103,32 +110,19 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
     }
     return;
   }
+  
+  // === ДОБАВЛЯЕМ ВСЕ СООБЩЕНИЯ В CHATHISTORY ===
+  if (text && typeof text === 'string') {
+    chatHistory.push({ 
+      sender: isUser ? "user" : "bot", 
+      key: key, 
+      message: text, 
+      timestamp: new Date().toISOString() 
+    });
+  }
+  
   // Парсер меток для интерактивных элементов
   if (!isUser && typeof text === 'string') {
-    // [BREAK] - с задержкой между частями для сообщений от бота
-    if (text.includes('[BREAK]')) {
-      const parts = text.split('[BREAK]').map(part => part.trim()).filter(Boolean);
-      isProcessingBreak = true; // Устанавливаем флаг
-      (async function showPartsWithDelay() {
-        for (let i = 0; i < parts.length; i++) {
-          const part = parts[i];
-          // Показываем индикатор печати перед каждым пузырьком
-          const delay = Math.min(part.length * 15, 3800);
-          await showTypingIndicator(delay);
-          // Задержка 300мс после индикатора
-          await new Promise(resolve => setTimeout(resolve, 300));
-          // Используем рекурсивный вызов appendMessage для обработки всех меток в каждой части
-          // Передаем флаг isProcessingBreak чтобы индикатор не скрывался
-          appendMessage({ text: part, value, key, isUser, skipScroll, isBreakPart: true });
-        }
-        // Скрываем индикатор печати только после обработки ВСЕХ частей
-        isProcessingBreak = false; // Сбрасываем флаг
-        setTimeout(() => {
-          hideTypingIndicator();
-        }, 600);
-      })();
-      return;
-    }
     // [START_QUESTIONS]
     if (text.includes('[START_QUESTIONS]')) {
       const parts = text.split('[START_QUESTIONS]');
@@ -154,7 +148,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[START_QUESTIONS]', timestamp: new Date().toISOString() });
       return;
     }
     // [ASK_CITY]
@@ -181,7 +174,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[ASK_CITY]', timestamp: new Date().toISOString() });
       return;
     }
     // [ASK_PHONE]
@@ -208,7 +200,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[ASK_PHONE]', timestamp: new Date().toISOString() });
       return;
     }
     // [ASK_MESSENGER]
@@ -235,7 +226,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[ASK_MESSENGER]', timestamp: new Date().toISOString() });
       return;
     }
     // SHOW_YES_NO_OPTIONS
@@ -262,7 +252,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[SHOW_YES_NO_OPTIONS]', timestamp: new Date().toISOString() });
       return;
     }
     // [PHOTO]
@@ -298,7 +287,6 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[PHOTO]', timestamp: new Date().toISOString() });
       return;
     }
     // [ASK_NAME]
@@ -315,7 +303,7 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      renderNameInput(key || 'name', () => {});
+      renderNameInputWithAI(key || 'name', (userName) => {});
       if (after) {
         const message = document.createElement("div");
         message.className = `message bot-message`;
@@ -325,41 +313,29 @@ function appendMessage({ text, value, key, isUser, skipScroll, isBreakPart }) {
         botNotificationSound.play();
         if (!skipScroll) smoothScrollToBottom();
       }
-      chatHistory.push({ sender: "bot", key: key, message: '[ASK_NAME]', timestamp: new Date().toISOString() });
       return;
     }
   }
 
+  // === ОБЫЧНОЕ ОТОБРАЖЕНИЕ СООБЩЕНИЙ ===
   const message = document.createElement("div");
-  message.className = `message ${isUser ? "user-message" : "bot-message"}`;
-  // Применяем парсер только для сообщений бота
-  const formattedText = isUser ? text : parseSpecialFormatting(text);
-  message.innerHTML = `<p>${formattedText}</p>`;
-  chatContent.appendChild(message);
-
-  chatHistory.push({
-    sender: isUser ? "user" : "bot",
-    key: key,
-    message: value || text,
-    timestamp: new Date().toISOString(),
-  });
-
-  animateFadeIn(message);
-  if (!isUser) {
-    swiperInstance = message;
-    // Воспроизводим звуковой сигнал для сообщений от бота
-    botNotificationSound.play();
-    // Скрываем индикатор печати для обычных сообщений от бота
-    // НО только если это не часть [BREAK] последовательности
-    if (!isProcessingBreak && !isBreakPart) {
-      setTimeout(() => {
-        hideTypingIndicator();
-      }, 600);
-    }
+  message.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+  
+  if (isUser) {
+    message.innerHTML = `<p>${parseSpecialFormatting(text)}</p>`;
+  } else {
+    message.innerHTML = `<p>${parseSpecialFormatting(text)}</p>`;
   }
+  
+  chatContent.appendChild(message);
+  animateFadeIn(message);
+  
+  // Звук только для сообщений бота
+  if (!isUser) {
+    botNotificationSound.play();
+  }
+  
   if (!skipScroll) smoothScrollToBottom();
-
-  return message;
 }
 
 function showTypingIndicator(delay) {
@@ -373,6 +349,7 @@ function showTypingIndicator(delay) {
     begin: () => {
       if (typingIndicator) {
         typingIndicator.style.display = 'block';
+        if (typingPlaceholder) typingPlaceholder.style.display = 'none';
       }
     },
   });
@@ -388,6 +365,7 @@ function showTypingIndicator(delay) {
         complete: () => {
           if (typingIndicator) {
             typingIndicator.style.display = 'none';
+            if (typingPlaceholder) typingPlaceholder.style.display = 'block';
           }
           resolve()
           },
@@ -399,18 +377,10 @@ function showTypingIndicator(delay) {
 // Функция для скрытия индикатора печати
 function hideTypingIndicator() {
   if (typingIndicator) {
-    anime({
-      targets: typingIndicator,
-      opacity: 0,
-      duration: 200,
-      translateX: [0, 0],
-      easing: 'easeInOutQuad',
-      complete: () => {
-        if (typingIndicator) {
-          typingIndicator.style.display = 'none';
-        }
-      },
-    });
+    typingIndicator.style.display = 'none';
+    if (typingPlaceholder) {
+      typingPlaceholder.style.display = isInteractiveVisible ? 'none' : 'block';
+    }
   }
 }
 
@@ -426,6 +396,7 @@ function showTypingIndicatorManual() {
       begin: () => {
         if (typingIndicator) {
           typingIndicator.style.display = 'block';
+          if (typingPlaceholder) typingPlaceholder.style.display = 'none';
         }
       },
     });
@@ -434,22 +405,22 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value?.length * 15 || 0, 3800),
-    'swiper': 2000,
-    'yesno': 500,
-    'startQuestions': 1500
+    'text':  Math.min(message.value?.length * 26 || 0, 3500), //сообщение без BREAK
+    'swiper': 2000, //не используется
+    'yesno': 1000, //не используется
+    'startQuestions': 2000
   }
 
   isBotBusy = true;
 
   await showTypingIndicator(delayMap[message.type] || 0);
-  await new Promise(resolve => setTimeout(resolve, 280));
+  await new Promise(resolve => setTimeout(resolve, 300));
 
   botNotificationSound.play();
 
   switch(message.type) {
-    case 'text':
-      appendMessage({ text: message.value, key: key });
+    case 'text': //Сообщения с BREAK
+      await appendBotMessageSmart(message, key); 
       break;
     case 'swiper':
       renderGallerySwiper(message.value);
@@ -469,6 +440,10 @@ async function appendBotMessageWithDelay(message, key) {
 }
 
 function renderOptions(key, options) {
+  hideTypingIndicator();
+  isInteractiveVisible = true;
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
+
   clearOptions();
 
   const responseContainer = document.createElement("div");
@@ -485,6 +460,11 @@ function renderOptions(key, options) {
     button.onclick = () => {
       if (isBotBusy) return;
       appendMessage({ text: label, value: value, key: key, isUser: true });
+
+      // Проверяем и отправляем заявку если все данные собраны
+      if (isUserDataComplete()) {
+        sendChatApplicationWithHistory();
+      }
 
       if (/^questionFranchise\d*$/.test(key) && swiperInstance) {
         swiperInstance.remove();
@@ -557,6 +537,9 @@ function renderSwiper(swiperItems) {
 }
 
 function renderTextInput(key, callback) {
+  hideTypingIndicator();
+  isInteractiveVisible = true;
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
 
   const inputContainer = document.createElement("div");
   inputContainer.className = "textarea-container";
@@ -594,6 +577,9 @@ function renderTextInput(key, callback) {
 }
 
 function renderPhoneInput(key, callback) {
+  hideTypingIndicator();
+  isInteractiveVisible = true;
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
 
   const inputContainer = document.createElement("div");
   inputContainer.className = "textarea-container";
@@ -746,6 +732,12 @@ function renderPhoneInput(key, callback) {
       const phoneNumber = inputField.value.trim();
       inputContainer.remove();
       appendMessage({ text: phoneNumber, key: key, isUser: true });
+      
+      // Проверяем и отправляем заявку если все данные собраны
+      if (isUserDataComplete()) {
+        sendChatApplicationWithHistory();
+      }
+      
       // Переходим к следующему шагу сценария
       if (callback) callback(phoneNumber);
       const state = chatScenario[key];
@@ -763,6 +755,9 @@ function renderPhoneInput(key, callback) {
 }
 
 function renderCityInput(key, callback) {
+  hideTypingIndicator();
+  isInteractiveVisible = true;
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
 
   const inputContainer = document.createElement("div");
   inputContainer.className = "textarea-container";
@@ -802,12 +797,22 @@ function renderCityInput(key, callback) {
     submitHandler: function () {
       const userCity = inputField.value.trim();
       inputContainer.remove();
+      appendMessage({ text: userCity, key: key, isUser: true });
+      
+      // Проверяем и отправляем заявку если все данные собраны
+      if (isUserDataComplete()) {
+        sendChatApplicationWithHistory();
+      }
+      
       if (callback) callback(userCity);
     },
   });
 }
 
 function renderNameInput(key, callback) {
+  hideTypingIndicator();
+  isInteractiveVisible = true;
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
 
   const inputContainer = document.createElement("div");
   inputContainer.className = "textarea-container";
@@ -865,6 +870,10 @@ function renderNameInput(key, callback) {
       const userName = inputField.value.trim();
       inputContainer.remove();
       appendMessage({ text: userName, key: key, isUser: true });
+      // Проверяем и отправляем заявку если все данные собраны
+      if (isUserDataComplete()) {
+        sendChatApplicationWithHistory();
+      }
       // Переходим к следующему шагу сценария
       if (callback) callback(userName);
       const state = chatScenario[key];
@@ -918,8 +927,6 @@ async function processChatState(stateKey) {
       }
 
       if (actionRedirect) {
-        sendChatHistory();
-
         setTimeout(() => {
           window.location.href = 'thanks.html';
         }, 6000);
@@ -990,30 +997,58 @@ function getPayload(history) {
   return payload;
 }
 
-function sendChatHistory() {
+// Функция для сбора данных пользователя из чата
+function collectUserData() {
   const payload = getPayload(chatHistory);
-  const formData = createFormData(payload);
-  // const dataToSend = JSON.stringify({ chatHistory });
-
-  function createFormData(data) {
-    var formData = new FormData()
   
-    Object.entries(data).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value)
-      }
-    })
+  return {
+    name: payload.name || '',
+    phone: payload.phone || '',
+    messenger: payload.messenger || '',
+    city: payload.city || ''
+  };
+}
 
-    return formData
-  }
+// Функция для проверки полноты данных
+function isUserDataComplete() {
+  const userData = collectUserData();
+  return userData.name && userData.phone && userData.messenger;
+}
+
+// === В НАЧАЛО ФАЙЛА ===
+window._chatApplicationSent = false;
+
+// Функция для отправки заявки с историей чата
+function sendChatApplicationWithHistory() {
+  if (window._chatApplicationSent) return;
+  if (!isUserDataComplete()) return;
+  window._chatApplicationSent = true;
+
+  const userData = collectUserData();
+  const chatText = getChatHistoryText();
+
+  // Формируем данные для отправки (отправляем историю как отдельное поле)
+  const payload = {
+    ...userData,
+    chat_history: chatText
+  };
 
   $.ajax({
-    url: 'https://grand-smile-production.up.railway.app/formProcessor.php',
+    url: '/php/api/send_contact.php',
     type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
+    data: JSON.stringify(payload),
+    contentType: 'application/json',
     dataType: 'json',
+    success: function(response) {
+      if (response.success) {
+        console.log('Заявка с историей чата успешно отправлена:', payload);
+      } else {
+        console.error('Ошибка отправки заявки с историей чата:', response.message);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Ошибка отправки заявки с историей чата:', error);
+    }
   });
 }
 
@@ -1022,6 +1057,7 @@ function setCurrentYear() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  window._chatApplicationSent = false;
   setInitialFeedbackStore();
   processChatState("start");
 
@@ -1054,6 +1090,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Функция для рендера интерактивных элементов по модулю (например, стартовых вопросов)
 function renderModuleOptions(key, options, callback) {
+  hideTypingIndicator();
+  isInteractiveVisible = true;
+  if (typingPlaceholder) typingPlaceholder.style.display = 'none';
+
   clearOptions();
 
   const responseContainer = document.createElement("div");
@@ -1075,6 +1115,9 @@ function renderModuleOptions(key, options, callback) {
     button.onclick = () => {
       if (isBotBusy) return;
       clearOptions();
+      
+
+      
       if (key === 'startQuestions') {
         sendMessageToAI(label);
       } else if (callback) {
@@ -1105,7 +1148,7 @@ function getSessionId() {
 const sessionId = getSessionId();
 
 // Отправка сообщения пользователя и получение ответа от OpenAI backend
-async function sendMessageToAI(userMessage) {
+async function sendMessageToAI(userMessage, cb, keyOverride) {
   if (userMessage === "__INIT__") {
     // Не отображаем и не отправляем в историю, только инициируем диалог с ботом
     try {
@@ -1127,7 +1170,7 @@ async function sendMessageToAI(userMessage) {
     return;
   }
   if (!userMessage || !userMessage.trim()) return;
-  appendMessage({ text: userMessage, isUser: true });
+  appendMessage({ text: userMessage, key: keyOverride, isUser: true });
   // Тест: если пользователь отправляет одну из меток, бот возвращает её же
   const testTags = ['[ASK_CITY]', '[ASK_PHONE]', '[ASK_MESSENGER]', '[SHOW_YES_NO_OPTIONS]', '[PHOTO]'];
   if (testTags.some(tag => userMessage.includes(tag))) {
@@ -1147,13 +1190,13 @@ async function sendMessageToAI(userMessage) {
     const data = await response.json();
     if (data.text) {
       await new Promise(resolve => setTimeout(resolve, 300));
-      appendMessage({ text: data.text, isUser: false });
-      
-      // Скрываем индикатор после полной обработки ответа
-      // Используем setTimeout чтобы дать время на обработку интерактивных элементов
-      setTimeout(() => {
+      if (data.text.includes('[BREAK]')) {
+        await appendBotMessageSmart({ value: data.text, type: 'text' }, undefined);
         hideTypingIndicator();
-      }, 600);
+      } else {
+        appendMessage({ text: data.text, isUser: false });
+        hideTypingIndicator();
+      }
     } else if (data.error) {
       appendMessage({ text: 'Ошибка: ' + data.error, isUser: false });
       hideTypingIndicator();
@@ -1220,13 +1263,48 @@ function renderModuleOptionsWithAI(key, options, callback) {
         if (next) processChatState(next);
       });
     } else if (key === 'messenger') {
+      // Только sendMessageToAI, без appendMessage вручную
       sendMessageToAI(value, () => {
         if (next) processChatState(next);
-      });
+      }, 'messenger');
     } else if (callback) {
       callback(value, next);
     } else if (next) {
       processChatState(next);
     }
   });
+}
+
+// Универсальная функция задержки и показа индикатора печати
+async function showTypingWithDelay(text) {
+  const delay = Math.min(text.length * 24, 3500);
+  await showTypingIndicator(delay);
+  await new Promise(resolve => setTimeout(resolve, 300));
+}
+
+// Универсальная функция вывода сообщений с поддержкой BREAK
+async function appendBotMessageSmart(message, key) {
+  if (message.value && message.value.includes('[BREAK]')) {
+    const parts = message.value.split('[BREAK]').map(p => p.trim()).filter(Boolean);
+    for (let part of parts) {
+      await showTypingWithDelay(part);
+      appendMessage({ text: part, key: key });
+    }
+    hideTypingIndicator();
+  } else {
+    await showTypingWithDelay(message.value);
+    appendMessage({ text: message.value, key: key });
+    hideTypingIndicator();
+  }
+}
+
+// Функция для формирования истории чата в виде текста
+function getChatHistoryText() {
+  return chatHistory
+    .map(item => {
+      const sender = item.sender === 'user' ? 'Пользователь' : 'Бот';
+      const msg = item.message || item.text || '';
+      return `${sender}: ${msg}`;
+    })
+    .join('\n');
 }

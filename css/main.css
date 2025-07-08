@@ -188,7 +188,7 @@ h4 {
 
 .font-s-16 {
   line-height: 110%;
-  font-size: 11px;
+  font-size: 16px;
 }
 
 .font-s-18 {
@@ -398,6 +398,10 @@ h4 {
 
 .mar-bot-10 {
   margin: 0 0 10px 0;
+}
+
+.mar-bot-5 {
+  margin: 0 0 5px 0;
 }
 
 .btn {
@@ -779,6 +783,21 @@ h4 {
   border-radius: 19px 19px 0 19px;
 }
 
+.typing-indicator,
+.typing-placeholder {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 12px 0 0 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.2;
+  background: none;
+  border: none;
+  box-sizing: border-box;
+}
+
 .typing-indicator div {
   margin: 12px 0 0 0;
   display: flex;
@@ -1055,6 +1074,7 @@ h4 {
 
 .footer__col {
   margin: 0 0 20px 0;
+  flex: 0 0 auto;
 }
 
 .footer__col:last-child {
@@ -1071,10 +1091,12 @@ h4 {
 .footer__container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   transition: 0.3s;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .footer__container:hover {
@@ -2362,7 +2384,6 @@ Geometria-Bold
   position: relative;
   display: flex;
   flex-direction: column;
-  gap:4px;
 }
 
 .main-section__info-phoneWidget {
@@ -2396,6 +2417,13 @@ Geometria-Bold
     max-width: 720px;
     margin: 0 auto;
     padding: 0 12px;
+  }
+
+  .footer__container {
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    gap: 5px;
   }
 
   .res-button-1 {
