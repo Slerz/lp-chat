@@ -1034,7 +1034,7 @@ function sendChatApplicationWithHistory() {
   };
 
   $.ajax({
-    url: (window.API_BASE_URL || 'https://charismatic-intuition-production.up.railway.app') + '/api/send_contact.php',
+    url: 'https://zoological-expression-production.up.railway.app/api/send_contact.php',
     type: 'POST',
     data: JSON.stringify(payload),
     contentType: 'application/json',
