@@ -79,7 +79,7 @@ function initFeedbackForm() {
       }
 
       // Отправляем данные на ваш PHP endpoint
-      $.ajax('/api/send_contact.php', {
+      $.ajax('https://zoological-expression-production.up.railway.app/api/send_contact.php', {
         type: 'POST',
         data: JSON.stringify(formData),
         contentType: 'application/json',
