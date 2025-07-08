@@ -32,9 +32,9 @@ RUN npm ci --only=production
 # Копируем все файлы проекта
 COPY . .
 
-# Копируем PHP файлы в корень веб-сервера
+# Копируем содержимое PHP папки в корень веб-сервера
 RUN mkdir -p /var/www/html
-COPY php/ /var/www/html/
+COPY php/* /var/www/html/
 
 # Настраиваем Apache для PHP
 RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apache2/httpd.conf && \
@@ -44,12 +44,17 @@ RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apac
     echo "<Directory /var/www/html>" >> /etc/apache2/httpd.conf && \
     echo "    AllowOverride All" >> /etc/apache2/httpd.conf && \
     echo "    Require all granted" >> /etc/apache2/httpd.conf && \
+    echo "    Options Indexes FollowSymLinks" >> /etc/apache2/httpd.conf && \
     echo "</Directory>" >> /etc/apache2/httpd.conf && \
-    echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf
+    echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf && \
+    echo "LoadModule headers_module modules/mod_headers.so" >> /etc/apache2/httpd.conf
 
-# Создаем .htaccess для перенаправления API запросов
+# Создаем .htaccess для перенаправления API запросов и CORS
 RUN echo "RewriteEngine On" > /var/www/html/.htaccess && \
-    echo "RewriteRule ^api/(.*)$ api/$1 [L]" >> /var/www/html/.htaccess
+    echo "RewriteRule ^api/(.*)$ api/$1 [L]" >> /var/www/html/.htaccess && \
+    echo "Header always set Access-Control-Allow-Origin *" >> /var/www/html/.htaccess && \
+    echo "Header always set Access-Control-Allow-Methods 'GET, POST, OPTIONS'" >> /var/www/html/.htaccess && \
+    echo "Header always set Access-Control-Allow-Headers 'Content-Type'" >> /var/www/html/.htaccess
 
 # Устанавливаем зависимости PHP
 WORKDIR /var/www/html
