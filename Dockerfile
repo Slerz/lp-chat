@@ -11,6 +11,11 @@ RUN apk add --no-cache \
     php-openssl \
     php-phar \
     php-zip \
+    php-ctype \
+    php-dom \
+    php-xml \
+    php-xmlreader \
+    php-xmlwriter \
     composer \
     apache2 \
     && rm -rf /var/cache/apk/*
@@ -43,7 +48,7 @@ RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apac
 
 # Устанавливаем зависимости PHP
 WORKDIR /var/www/html/php
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Возвращаемся в рабочую директорию
 WORKDIR /app
