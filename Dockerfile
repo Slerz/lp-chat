@@ -32,9 +32,13 @@ RUN npm ci --only=production
 # Копируем все файлы проекта
 COPY . .
 
-# Копируем содержимое PHP папки в корень веб-сервера
-RUN mkdir -p /var/www/html
-COPY php/* /var/www/html/
+# Создаем структуру для веб-сервера
+RUN mkdir -p /var/www/html/api
+
+# Копируем PHP файлы напрямую
+COPY php/api/send_contact.php /var/www/html/api/
+COPY php/composer.json /var/www/html/
+COPY php/composer.lock /var/www/html/
 
 # Настраиваем Apache для PHP
 RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apache2/httpd.conf && \
@@ -49,10 +53,8 @@ RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apac
     echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf && \
     echo "LoadModule headers_module modules/mod_headers.so" >> /etc/apache2/httpd.conf
 
-# Создаем .htaccess для перенаправления API запросов и CORS
-RUN echo "RewriteEngine On" > /var/www/html/.htaccess && \
-    echo "RewriteRule ^api/(.*)$ api/$1 [L]" >> /var/www/html/.htaccess && \
-    echo "Header always set Access-Control-Allow-Origin *" >> /var/www/html/.htaccess && \
+# Создаем .htaccess для CORS
+RUN echo "Header always set Access-Control-Allow-Origin *" > /var/www/html/.htaccess && \
     echo "Header always set Access-Control-Allow-Methods 'GET, POST, OPTIONS'" >> /var/www/html/.htaccess && \
     echo "Header always set Access-Control-Allow-Headers 'Content-Type'" >> /var/www/html/.htaccess
 
