@@ -926,11 +926,11 @@ async function processChatState(stateKey) {
         action();
       }
 
-      /*if (actionRedirect) {
+      if (actionRedirect) {
         setTimeout(() => {
           window.location.href = 'thanks.html';
-        }, 6000);
-      } */
+        }, 60000);
+      } 
     }
   }
 
