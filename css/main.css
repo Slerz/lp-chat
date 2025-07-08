@@ -1670,7 +1670,7 @@ h4 {
   font-family: "Geometria-Bold";
 }
 Geometria-Bold
-.content-privacy p {
+.content-privacy .modal-politika-text {
   font-size: 13px;
   line-height: 120%;
 }
@@ -1684,8 +1684,13 @@ Geometria-Bold
   line-height: 120%;
 }
 
-.content-privacy p {
+.content-privacy .modal-politika-text {
   margin: 5px 0;
+  padding-left: 10px;
+}
+
+.content-privacy .modal-politika-text.fat {
+  padding-left: 0px;
 }
 
 .remodal-bg.remodal-is-opening,
@@ -2807,11 +2812,11 @@ Geometria-Bold
     margin-bottom: 10px;
   }
 
-  .content-privacy p {
+  .content-privacy .modal-politika-text {
     font-size: 14px;
   }
 
-  .content-privacy p {
+  .content-privacy .modal-politika-text {
     margin: 10px 0;
   }
 
@@ -3235,7 +3240,7 @@ Geometria-Bold
     font-size: 16px;
   }
 
-  .content-privacy p {
+  .content-privacy .modal-politika-text {
     font-size: 16px;
   }
 
@@ -3657,7 +3662,7 @@ Geometria-Bold
     font-size: 16px;
   }
 
-  .content-privacy p {
+  .content-privacy .modal-politika-text {
     font-size: 16px;
   }
 
