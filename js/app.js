@@ -892,7 +892,7 @@ async function processChatState(stateKey) {
   if (showStatus) {
     setTimeout(() => {
       displayStatus(true);
-    }, 5000);
+    }, 7000);
   } else {
     displayStatus(false);
   }
