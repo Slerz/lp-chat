@@ -1,9 +1,14 @@
 <?php
 
-header("Access-Control-Allow-Origin: https://bot.lp-chat.ru");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header('Access-Control-Max-Age: 86400');
+function set_cors_headers() {
+    header("Access-Control-Allow-Origin: https://bot.lp-chat.ru");
+    header("Access-Control-Allow-Methods: POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header("Access-Control-Max-Age: 86400");
+    header("Content-Type: application/json; charset=UTF-8");
+}
+
+set_cors_headers();
 
 // Обработка preflight запросов
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -18,9 +23,10 @@ use PHPMailer\PHPMailer\Exception;
 
 // Проверяем метод запроса
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    set_cors_headers();
     http_response_code(405);
     echo json_encode(['error' => 'Method not allowed']);
-    exit;
+    exit();
 }
 
 // Получаем данные из POST запроса
@@ -38,9 +44,10 @@ foreach ($required_fields as $field) {
   }
 }
 if (!empty($errors)) {
+    set_cors_headers();
     http_response_code(400);
     echo json_encode(['error' => 'Validation failed', 'details' => $errors]);
-    exit;
+    exit();
 }
 
 // Устанавливаем часовой пояс
@@ -97,8 +104,12 @@ try {
     if ($chatHistoryFile && file_exists($chatHistoryFile)) {
         unlink($chatHistoryFile);
     }
+    set_cors_headers();
     echo json_encode(['success' => true, 'message' => 'Заявка успешно отправлена!']);
+    exit();
 } catch (Exception $e) {
+    set_cors_headers();
     http_response_code(500);
     echo json_encode(['error' => 'Ошибка отправки', 'message' => $mail->ErrorInfo]);
+    exit();
 } 
