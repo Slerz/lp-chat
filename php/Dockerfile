@@ -1,5 +1,10 @@
 FROM php:8.2-apache
 
+# Установить необходимые пакеты: git, unzip, zip
+RUN apt-get update && \
+    apt-get install -y git unzip zip && \
+    docker-php-ext-install zip
+
 # Установить composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
