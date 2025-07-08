@@ -1024,13 +1024,10 @@ function sendChatApplicationWithHistory() {
   if (!isUserDataComplete()) return;
   window._chatApplicationSent = true;
 
-  const userData = collectUserData();
-  const chatText = getChatHistoryText();
-
-  // Формируем данные для отправки (отправляем историю как отдельное поле)
+  // Вместо userData и collectUserData используем getPayload для всех данных, включая UTM
   const payload = {
-    ...userData,
-    chat_history: chatText
+    ...getPayload(chatHistory),
+    chat_history: getChatHistoryText()
   };
 
   $.ajax({

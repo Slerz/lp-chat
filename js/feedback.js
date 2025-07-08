@@ -43,6 +43,22 @@ function createFormData(data) {
   return formData
 }
 
+function getUTMData() {
+  return {
+    utm_source: $.query.get('utm_source') || '',
+    utm_medium: $.query.get('utm_medium') || '',
+    utm_campaign: $.query.get('utm_campaign') || '',
+    utm_content: $.query.get('utm_content') || '',
+    utm_term: $.query.get('utm_term') || '',
+    utm_device: $.query.get('utm_device') || '',
+    utm_campaign_name: $.query.get('utm_campaign_name') || '',
+    utm_placement: $.query.get('utm_placement') || '',
+    utm_description: $.query.get('utm_description') || '',
+    page_url: window.location.href,
+    user_location_ip: '',
+  };
+}
+
 function initFeedbackForm() {
   const $forms = $('[data-feedback-form]')
 
@@ -75,7 +91,8 @@ function initFeedbackForm() {
       // Подготавливаем данные для отправки на ваш PHP endpoint
       var formData = {
         name: fields.name || '',
-        phone: fields.phone || ''
+        phone: fields.phone || '',
+        ...getUTMData()
       }
 
       // Отправляем данные на ваш PHP endpoint
