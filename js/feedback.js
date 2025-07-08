@@ -79,7 +79,7 @@ function initFeedbackForm() {
       }
 
       // Отправляем данные на ваш PHP endpoint
-      $.ajax('/php/api/send_contact.php', {
+      $.ajax('/api/send_contact.php', {
         type: 'POST',
         data: JSON.stringify(formData),
         contentType: 'application/json',

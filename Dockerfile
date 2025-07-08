@@ -32,9 +32,9 @@ RUN npm ci --only=production
 # Копируем все файлы проекта
 COPY . .
 
-# Копируем PHP файлы в отдельную директорию
-RUN mkdir -p /var/www/html/php
-COPY php/ /var/www/html/php/
+# Копируем PHP файлы в корень веб-сервера
+RUN mkdir -p /var/www/html
+COPY php/ /var/www/html/
 
 # Настраиваем Apache для PHP
 RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apache2/httpd.conf && \
@@ -44,10 +44,15 @@ RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apac
     echo "<Directory /var/www/html>" >> /etc/apache2/httpd.conf && \
     echo "    AllowOverride All" >> /etc/apache2/httpd.conf && \
     echo "    Require all granted" >> /etc/apache2/httpd.conf && \
-    echo "</Directory>" >> /etc/apache2/httpd.conf
+    echo "</Directory>" >> /etc/apache2/httpd.conf && \
+    echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf
+
+# Создаем .htaccess для перенаправления API запросов
+RUN echo "RewriteEngine On" > /var/www/html/.htaccess && \
+    echo "RewriteRule ^api/(.*)$ api/$1 [L]" >> /var/www/html/.htaccess
 
 # Устанавливаем зависимости PHP
-WORKDIR /var/www/html/php
+WORKDIR /var/www/html
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Возвращаемся в рабочую директорию

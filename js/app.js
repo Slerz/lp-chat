@@ -1034,7 +1034,7 @@ function sendChatApplicationWithHistory() {
   };
 
   $.ajax({
-    url: '/php/api/send_contact.php',
+    url: '/api/send_contact.php',
     type: 'POST',
     data: JSON.stringify(payload),
     contentType: 'application/json',
