@@ -927,9 +927,9 @@ async function processChatState(stateKey) {
       }
 
       if (actionRedirect) {
-        setTimeout(() => {
-          window.location.href = 'thanks.html';
-        }, 60000);
+        // setTimeout(() => {
+        //   window.location.href = 'thanks.html';
+        // }, 6000);
       } 
     }
   }
