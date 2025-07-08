@@ -77,46 +77,72 @@ try {
     $mail->isHTML(true);
     $mail->Subject = 'Новая заявка';
     
-    $body = '<b>Имя:</b> ' . htmlspecialchars($input['name']) . '<br>' .
-        '<b>Телефон:</b> ' . htmlspecialchars($input['phone']) . '<br>';
-    
-    // Добавляем мессенджер если есть
-    if (!empty($input['messenger'])) {
-        $body .= '<b>Мессенджер:</b> ' . htmlspecialchars($input['messenger']) . '<br>';
-    }
-    
-    // Добавляем город если есть
-    if (!empty($input['city'])) {
-        $body .= '<b>Город:</b> ' . htmlspecialchars($input['city']) . '<br>';
-    }
-    
-    $body .= '<b>Дата:</b> ' . date('d-m-Y H:i:s') . '<br>';
-
-    // --- UTM и рекламная информация ---
-    $utmFields = [
-        'utm_source' => 'Источник трафика',
-        'utm_medium' => 'Тип рекламы',
-        'utm_campaign' => 'Номер рекламной кампании',
-        'utm_content' => 'Контент кампании',
-        'utm_term' => 'Ключевое слово',
-        'utm_device' => 'Тип устройства',
-        'utm_campaign_name' => 'Название рекламного кабинета',
-        'utm_placement' => 'Место показа',
-        'utm_description' => 'Текст рекламного объявления',
-        'page_url' => 'URL страницы',
-        'user_location_ip' => 'IP/Гео пользователя',
+    // --- Группировка и форматирование как в formProcessor.php ---
+    $fields = [
+        'name' => ['Имя отправителя', 'Name', $input['name'] ?? ''],
+        'phone' => ['Номер телефона', 'Phone', $input['phone'] ?? ''],
+        'email' => ['Email', 'Email', $input['email'] ?? ''],
+        'city' => ['Город', 'City', $input['city'] ?? ''],
+        'question' => ['Вопрос', 'Question', $input['question'] ?? ''],
+        'messenger' => ['Мессенджер', 'Messenger', $input['messenger'] ?? ''],
+        'chat_history' => ['История чата', 'Chat history', $input['chat_history'] ?? ''],
+        // UTM и рекламные
+        'utm_source' => ['Источник трафика', 'utm_source', $input['utm_source'] ?? ''],
+        'utm_medium' => ['Тип рекламы', 'utm_medium', $input['utm_medium'] ?? ''],
+        'utm_campaign' => ['Номер рекламной кампании', 'utm_campaign', $input['utm_campaign'] ?? ''],
+        'utm_content' => ['Контент кампании', 'utm_content', $input['utm_content'] ?? ''],
+        'utm_term' => ['Ключевое слово', 'utm_term', $input['utm_term'] ?? ''],
+        'utm_device' => ['Тип устройства', 'utm_device', $input['utm_device'] ?? ''],
+        'utm_campaign_name' => ['Название рекламного кабинета', 'utm_campaign_name', $input['utm_campaign_name'] ?? ''],
+        'utm_placement' => ['Место показа', 'utm_placement', $input['utm_placement'] ?? ''],
+        'utm_description' => ['Текст рекламного объявления', 'utm_description', $input['utm_description'] ?? ''],
+        'utm_region_name' => ['Регион', 'utm_region_name', $input['utm_region_name'] ?? ''],
+        'device_type' => ['Тип устройства (доп.)', 'device_type', $input['device_type'] ?? ''],
+        'yclid' => ['Яндекс Клик ID', 'yclid', $input['yclid'] ?? ''],
+        'page_url' => ['URL страницы', 'page_url', $input['page_url'] ?? ''],
+        'user_location_ip' => ['IP/Гео пользователя', 'user_location_ip', $input['user_location_ip'] ?? ''],
+        // Кастомные
+        'section-btn-text' => ['Текст на кнопке', 'Answertext', $input['section-btn-text'] ?? ''],
+        'section-name-text' => ['Заголовок на экране, с которого оставлена заявка', 'Section-name-text', $input['section-name-text'] ?? ''],
+        'section-name' => ['Тип формы', 'Section-name', $input['section-name'] ?? ''],
     ];
-    $utmBlock = '';
-    foreach ($utmFields as $key => $label) {
-        if (!empty($input[$key])) {
-            $utmBlock .= '<b>' . $label . ':</b> ' . htmlspecialchars($input[$key]) . '<br>';
+
+    $groups = [
+        'Информация, указанная посетителем сайта:' => [
+            'fields' => ['name', 'phone', 'email', 'city', 'question', 'messenger', 'chat_history'],
+            'html' => ''
+        ],
+        'Информация из рекламной системы:' => [
+            'fields' => ['page_url', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_device', 'utm_campaign_name', 'utm_placement', 'utm_description', 'utm_region_name', 'device_type', 'yclid', 'user_location_ip'],
+            'html' => ''
+        ],
+        'Кастомная информация:' => [
+            'fields' => ['section-btn-text', 'section-name-text', 'section-name'],
+            'html' => ''
+        ],
+    ];
+
+    foreach ($fields as $key => $val) {
+        if (empty($val[2])) continue;
+        foreach ($groups as $groupName => &$group) {
+            if (in_array($key, $group['fields'])) {
+                $group['html'] .= '<p style="margin:0;"><strong>' . $val[0] . ':</strong> ' . htmlspecialchars($val[2]) . '</p>' . "\r\n";
+            }
         }
     }
-    if ($utmBlock) {
-        $body .= '<br><b>Информация из рекламной системы:</b><br>' . $utmBlock;
+    unset($group);
+
+    $body = "<html><body style='font-family:Arial,sans-serif;'>";
+    $body .= "<h2>Вам поступила новая заявка с сайта</h2>\r\n";
+    $body .= '<b>Дата:</b> ' . date('d-m-Y H:i:s') . '<br>';
+    foreach ($groups as $sectionTitle => $value) {
+        if (empty($value['html'])) continue;
+        $body .= '<h3 style="font-size: 15px; font-weight: normal; font-style: italic;">' . $sectionTitle . '</h3>';
+        $body .= $value['html'];
     }
-    // --- END UTM ---
-    
+    $body .= "<p style='font-style: italic; padding: 10px 0 0 0;'>Свяжитесь с потенциальным клиентом в течение 15 минут!</p>";
+    $body .= "</body></html>";
+
     // Прикрепляем историю чата, если есть
     $chatHistoryFile = null;
     if (!empty($input['chat_history'])) {

@@ -103,7 +103,7 @@ function initFeedbackForm() {
         dataType: 'json',
         success: function(response) {
           if (response.success) {
-            // window.location = 'thanks.html'
+            window.location = 'thanks.html'
           } else {
             alert('Ошибка отправки: ' + (response.message || 'Неизвестная ошибка'))
           }
