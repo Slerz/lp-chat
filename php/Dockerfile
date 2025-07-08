@@ -12,13 +12,12 @@ RUN apt-get update && apt-get install -y \
 # Устанавливаем Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Устанавливаем рабочую директорию
 WORKDIR /var/www/html
 
 # Копируем composer файлы
 COPY composer.json composer.lock ./
 
-# Устанавливаем зависимости
+# Устанавливаем зависимости PHP
 RUN composer install --no-dev --optimize-autoloader
 
 # Копируем все файлы проекта
