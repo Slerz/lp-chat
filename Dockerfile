@@ -32,11 +32,11 @@ RUN npm ci --only=production
 # Копируем все файлы проекта
 COPY . .
 
-# Создаем структуру для веб-сервера и копируем PHP файлы
-RUN mkdir -p /var/www/html/api && \
-    cp php/api/send_contact.php /var/www/html/api/ && \
-    cp php/composer.json /var/www/html/ && \
-    cp php/composer.lock /var/www/html/
+# Создаем структуру для веб-сервера
+RUN mkdir -p /var/www/html
+
+# Копируем PHP файлы в корень веб-сервера
+RUN cp -r php/* /var/www/html/
 
 # Настраиваем Apache для PHP
 RUN echo "LoadModule php_module /usr/lib/apache2/modules/libphp.so" >> /etc/apache2/httpd.conf && \
