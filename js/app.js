@@ -405,7 +405,7 @@ function showTypingIndicatorManual() {
 
 async function appendBotMessageWithDelay(message, key) {
   const delayMap = {
-    'text':  Math.min(message.value?.length * 26 || 0, 3500), //сообщение без BREAK
+    'text':  Math.min(message.value?.length * 22 || 0, 3000), //сообщение без BREAK
     'swiper': 2000, //не используется
     'yesno': 1000, //не используется
     'startQuestions': 2000
@@ -1274,7 +1274,7 @@ function renderModuleOptionsWithAI(key, options, callback) {
 
 // Универсальная функция задержки и показа индикатора печати
 async function showTypingWithDelay(text) {
-  const delay = Math.min(text.length * 24, 3500);
+  const delay = Math.min(text.length * 20, 3000);
   await showTypingIndicator(delay);
   await new Promise(resolve => setTimeout(resolve, 300));
 }

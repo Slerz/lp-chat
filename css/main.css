@@ -192,7 +192,7 @@ h4 {
 }
 
 .font-s-18 {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 110%;
 }
 
@@ -2377,7 +2377,8 @@ Geometria-Bold
   background: #75C833;
   transform: skew(-15deg);
   box-shadow: 0 2px 8px rgba(100, 80, 200, 0.08);
-  padding: 1px 5px 2px 5px;
+  padding: 5px 8px 7px 8px;
+  font-size: 20px;
 }
 
 .main-section__info-price > * {
@@ -2392,7 +2393,11 @@ Geometria-Bold
 }
 
 .main-section__info-phoneWidget {
-  width: 60px;
+  width: 70px;
+}
+
+.main-section__title-secondary br {
+  display: block;
 }
 
 .res-button-1, .res-button-2, .res-button-3, .res-button-4, .res-button-5, .res-button-6, .res-button-7  {
@@ -2916,6 +2921,7 @@ Geometria-Bold
 
   .main-section__info-price {
     padding: 1px 5px 2px 5px;
+    font-size: 13px;
   }
 }
 
