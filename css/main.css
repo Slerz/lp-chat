@@ -2427,6 +2427,11 @@ Geometria-Bold
     padding: 0 12px;
   }
 
+  .main-section__info {
+    gap: 6px;
+  } 
+
+
   .footer__container {
     flex-direction: column;
     align-items: start;
@@ -2774,7 +2779,7 @@ Geometria-Bold
   }
 
   .main-section__info-phoneWidget {
-    width: 80px;
+    width: 85px;
   }
 
   .main-section__info {
@@ -2927,6 +2932,10 @@ Geometria-Bold
   .wrapper {
     max-width: 970px;
     padding: 0 15px;
+  }
+
+  .main-section__info {
+    gap: 12px;
   }
 
   .res-button-1 {
