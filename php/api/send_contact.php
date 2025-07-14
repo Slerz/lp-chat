@@ -72,6 +72,9 @@ try {
     // От кого и кому
     $mail->setFrom('idrisovamir21tr@gmail.com', 'LP Chat');
     $mail->addAddress('idrisovamir21tr@gmail.com');
+    $mail->addAddress('leads@clicklab-agency.ru');
+    $mail->addAddress('mpleads@yandex.kz');
+    $mail->addAddress('milartartem@yandex.ru');
 
     // Тема и тело письма
     $mail->isHTML(true);
