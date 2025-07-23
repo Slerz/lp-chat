@@ -508,7 +508,7 @@ h4 {
   border-radius: 30px;
   gap: 20px;
   min-height: 400px;
-  padding: 16px 16px 30px 16px;
+  padding: 16px 16px 18px 16px;
   z-index: 100;
   border: 1px solid #B8AEFF;
 }
@@ -705,7 +705,7 @@ h4 {
   text-align: left;
   border-radius: 16px;
   font-size: 13px;
-  padding: 16px;
+  padding: 12px;
   transition: all 0.6s;
   transform: scale(1);
 }
@@ -2307,9 +2307,9 @@ Geometria-Bold
   border-radius: 16px;
   border: 1px solid #7868E6;
   padding: 0 18px;
-  font-size: 16px;
+  font-size: 12px;
   font-family: "Gilroy-Medium", Arial, sans-serif;
-  background: #f7f7f7;
+  background: #fbfbfb;
   color: #222;
   outline: none;
   transition: border 0.2s;
@@ -2411,13 +2411,27 @@ Geometria-Bold
 }
 
 .chat__input-field.input__field::placeholder {
-  font-size: 16px;
+  font-size: 12px;
   color: #7868E6;
   font-family: "Gilroy-Medium";
 }
 
-.chat__input-field.input__field:focus{
-  border: 1.8px solid #7868E6;
+
+.chat__input-info {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+  color: #7A7A7A;
+  align-items: center;
+}
+
+.info-img {
+  width: 30px;
+}
+
+.info-img img{
+  display: block;
+  width: 100%
 }
 
 @media only screen and (min-width: 768px) {
@@ -2502,7 +2516,7 @@ Geometria-Bold
   }
 
   .chat__input-field.input__field::placeholder {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   section {
@@ -2600,8 +2614,16 @@ Geometria-Bold
   }
 
   .chat__container {
-    padding: 20px 30px;
+    padding: 20px 30px 20px 30px;
     z-index: 100;
+  }
+
+  .chat__input-info {
+    margin-top: 8px;
+  }
+
+  .info-img {
+    width: 18px;
   }
 
   .response-options {
@@ -2915,6 +2937,7 @@ Geometria-Bold
 
   .chat__input-field {
     height: 42px;
+    font-size: 13px;
   }
 
   .chat__input-btn {
@@ -2932,6 +2955,10 @@ Geometria-Bold
   .wrapper {
     max-width: 970px;
     padding: 0 15px;
+  }
+
+  .chat__input-info {
+    margin-top: 12px;
   }
 
   .main-section__info {
@@ -3018,6 +3045,7 @@ Geometria-Bold
 
   .chat__input-field.input__field {
     height: 47px;
+    font-size: 14px;
   }
 
   .chat__input-btn {
@@ -3079,7 +3107,11 @@ Geometria-Bold
   }
 
   .chat__container {
-    padding: 50px 74px;
+    padding: 50px 74px 25px 74px;
+  }
+
+  .info-img{
+    width: 21px;
   }
 
   .chat__bot-avatar img {
@@ -3104,7 +3136,7 @@ Geometria-Bold
 
   .response-options-startQ button {
     border-radius: 12px;
-    padding: 6px;
+    padding: 9px;
   }
 
   .response-options-startQ {
@@ -3388,6 +3420,7 @@ Geometria-Bold
 
   .chat__input-field.input__field {
     height: 51px;
+    font-size: 16px;
   }
 
   .chat__input-btn {
@@ -3472,15 +3505,20 @@ Geometria-Bold
 
   .chat__input-field {
     height: 51px;
+
   }
 
   .chat__container {
-    padding: 80px 151px;
+    padding: 80px 151px 45px 151px;
     min-height: 600px;
   }
 
   .chat__bot-avatar img {
     width: 80px;
+  }
+
+  .info-img {
+    width: 24px;
   }
 
   .response-options {
@@ -3725,4 +3763,60 @@ Geometria-Bold
 .input__field.placeholder-error::placeholder {
   color: #ff0032 !important;
   opacity: 1;
+}
+
+
+/*Анимация прыжка подсказки */
+
+@keyframes infoBounce {
+  0%, 100% { transform: translateY(0); }
+  10% { transform: translateY(-8px); }
+  20% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  40% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  60%, 100% { transform: translateY(0); }
+}
+
+.info-img.bounce {
+  animation: infoBounce 1.2s cubic-bezier(.68,-0.55,.27,1.55) 0s 1;
+}
+
+
+/*Анимация прыжка поля ввода */
+
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(120,104,230, 0.7), 0 0 8px 2px #7a5cff, 0 0 0 0 #fff;
+  }
+  40% {
+    box-shadow: 0 0 8px 4px #7a5cff, 0 0 16px 8px #b8aeff, 0 0 0 0 #fff;
+  }
+  60% {
+    box-shadow: 0 0 16px 8px #b8aeff, 0 0 32px 16px #7a5cff, 0 0 0 8px #fff;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(120,104,230, 0.7), 0 0 8px 2px #7a5cff, 0 0 0 0 #fff;
+  }
+}
+
+.chat__input-field:focus {
+  border: 1px solid #7a5cff;
+  animation: neonPulse 1.5s infinite;
+  outline: none;
+}
+
+@keyframes neonSoftPulse {
+  0%, 100% {
+    box-shadow: 0 0 6px 1px #b8aeff66, 0 0 0 0 #7a5cff22;
+  }
+  50% {
+    box-shadow: 0 0 10px 2px #b8aeff99, 0 0 6px 2px #7a5cff33;
+  }
+}
+
+.chat__input-field:focus {
+  border: 1px solid #b8aeff;
+  animation: neonSoftPulse 3.2s ease-in-out infinite;
+  outline: none;
 }

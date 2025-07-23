@@ -1305,3 +1305,23 @@ function getChatHistoryText() {
     })
     .join('\n');
 }
+
+//Анимация подпрыгивания подсказки
+// Теперь анимация начинается через 5 секунд и повторяется дважды с паузой 2 секунды
+
+document.addEventListener('DOMContentLoaded', function() {
+  function bounceInfoImg() {
+    var infoImg = document.querySelector('.info-img');
+    if (infoImg) {
+      infoImg.classList.add('bounce');
+      infoImg.addEventListener('animationend', function handler() {
+        infoImg.classList.remove('bounce');
+        infoImg.removeEventListener('animationend', handler);
+      });
+    }
+  }
+  setTimeout(function() {
+    bounceInfoImg();
+    setTimeout(bounceInfoImg, 2000);
+  }, 13000);
+});
