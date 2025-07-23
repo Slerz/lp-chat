@@ -88,7 +88,6 @@ h2,
 h3,
 h4 {
   font-family: "Geometria-Bold";
-  font-weight: 700;
   /* text-transform: uppercase; */
 }
 
@@ -126,54 +125,44 @@ h4 {
 
 .font-g-extrabold {
   font-family: "Geometria-ExtraBold";
-  font-weight: 800;
 }
 
 .font-g-bold {
   font-family: "Geometria-Bold";
-  font-weight: 700;
 }
 
 
 .font-g-reg {
   font-family: "Geometria-Regular";
-  font-weight: 400;
 }
 
 .font-g-med {
   font-family: "Geometria-Medium";
-  font-weight: 500;
 }
 
 .font-g-light {
   font-family: "Geometria-Light";
-  font-weight: 300;
 }
 
 .font-gil-light {
   font-family: "Gilroy-Light";
-  font-weight: 300;
 }
 
 .font-gil-reg {
   font-family: "Gilroy-Regular";
-  font-weight: 400;
 }
 
 .font-gil-med {
   font-family: "Gilroy-Medium";
-  font-weight: 500;
 }
 
 
 .font-gil-s-bold {
   font-family: "Gilroy-Semibold";
-  font-weight: 600;
 }
 
 .font-gil-bold {
   font-family: "Gilroy-Bold";
-  font-weight: 700;
 }
 
 .font-s-12 {
@@ -396,9 +385,6 @@ h4 {
   border-radius: 14px;
 }
 
-.mar-bot-10 {
-  margin: 0 0 10px 0;
-}
 
 .mar-bot-5 {
   margin: 0 0 5px 0;
@@ -1124,11 +1110,13 @@ h4 {
 }
 
 .footer__privacy,
-.footer__cookie {
+.footer__cookie,
+.footer__personal-data {
   text-decoration: underline;
   text-decoration-skip-ink: none;
   color: #7A7A7A;
   transition: 0.3s;
+  margin-bottom: 6px;
 }
 
 .footer__privacy:hover,
@@ -1526,20 +1514,16 @@ h4 {
 }
 
 
-.content-privacy {
+.content-modals {
   padding: 0 0 14px 0;
 }
 
-.content-privacy a{
+.content-modals a{
   text-decoration: underline;
   text-decoration-skip-ink: none;
 }
 
-.content-privacy.content-privacy--cookie h2 {
-  font-size: 17px;
-}
-
-.content-privacy__wrapper {
+.content-modals__wrapper {
   max-width: 450px;
   width: 100%;
   padding: 30px 12px 40px 12px;
@@ -1549,19 +1533,15 @@ h4 {
   border-radius: 8px;
 }
 
-.content-privacy__wrapper h3 {
-  padding: 10px 0 0 0;
-  font-family: "Geometria-ExtraBold";
-}
 
-.content-privacy__close {
+.content-modals__close {
   cursor: pointer;
   position: absolute;
   top: 6px;
   right: 11px;
 }
 
-.content-privacy__icon {
+.content-modals__icon {
   width: 18px;
   height: 18px;
   transition: 0.3s;
@@ -1571,17 +1551,17 @@ h4 {
   background-size: cover;
 }
 
-.content-privacy__icon:hover {
+.content-modals__icon:hover {
   transform: scale(1.3);
 }
 
-.content-privacy__btn-up {
+.content-modals__btn-up {
   position: absolute;
   bottom: 10px;
   right: 9px;
 }
 
-.content-privacy__icon-up {
+.content-modals__icon-up {
   width: 34px;
   height: 34px;
   border-radius: 100%;
@@ -1649,47 +1629,49 @@ h4 {
   }
 }
 
-.content-privacy__icon-up img {
+.content-modals__icon-up img {
   width: 17px;
   height: auto;
 }
 
-.content-privacy h2 {
+.content-modals h2 {
   text-align: center;
   font-size: 17px;
   line-height: 120%;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.content-privacy h3,
-.content-privacy strong {
-  margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 120%;
-  font-family: "Geometria-Bold";
-}
-Geometria-Bold
-.content-privacy .modal-politika-text {
+.content-modals h3 {
   font-size: 13px;
   line-height: 120%;
+  font-family: "Geometria-Bold";
+  margin: 10px 0 6px 0;
 }
 
-.content-privacy li {
+.content-modals div{
+  margin-bottom: 4px;
+}
+
+.content-modals {
+  font-size: 13px;
+}
+
+.content-modals li {
   padding: 0 0 0 5%;
 }
 
-.content-privacy li p {
+.content-modals li p {
   font-size: 13px;
   line-height: 120%;
 }
 
-.content-privacy .modal-politika-text {
+.content-modals .modal-text {
   margin: 5px 0;
   padding-left: 10px;
 }
 
-.content-privacy .modal-politika-text.fat {
+.content-modals .modal-text.fat {
   padding-left: 0px;
 }
 
@@ -1858,7 +1840,7 @@ Geometria-Bold
   max-height: 100%;
 }
 
-.remodal--privacy {
+.remodal--modals {
   max-width: 100%;
   padding: 0 10px;
 }
@@ -2426,7 +2408,7 @@ Geometria-Bold
 }
 
 .info-img {
-  width: 30px;
+  width: 26px;
 }
 
 .info-img img{
@@ -2439,6 +2421,16 @@ Geometria-Bold
     max-width: 720px;
     margin: 0 auto;
     padding: 0 12px;
+  }
+
+  .footer__privacy,
+  .footer__cookie,
+  .footer__personal-data {
+    margin-bottom: 8px;
+  }
+
+  .footer .connection{
+    flex-direction: column-reverse;
   }
 
   .main-section__info {
@@ -2623,7 +2615,7 @@ Geometria-Bold
   }
 
   .info-img {
-    width: 18px;
+    width: 14px;
   }
 
   .response-options {
@@ -2674,10 +2666,6 @@ Geometria-Bold
 
   .connection {
     gap: 12px;
-  }
-
-  .content-privacy.content-privacy--cookie h2 {
-    font-size: 16px;
   }
 
   .connection__link {
@@ -2818,43 +2806,48 @@ Geometria-Bold
     height: 32px;
   }
 
-  .content-privacy {
+  .content-modals {
     padding: 0 0 20px 0;
   }
 
-  .content-privacy__wrapper {
+  .content-modals__wrapper {
     padding: 24px 20px 34px 20px;
     max-width: 450px;
   }
 
-  .content-privacy__close {
+  .content-modals__close {
     top: 6px;
     right: 6px;
   }
 
-  .content-privacy__icon {
+  .content-modals__icon {
     width: 22px;
     height: 22px;
   }
 
-  .content-privacy h2 {
-    font-size: 21px;
+  .content-modals h2 {
+    font-size: 20px;
     margin-bottom: 10px;
   }
 
-  .content-privacy .modal-politika-text {
+  .content-modals {
     font-size: 14px;
   }
 
-  .content-privacy .modal-politika-text {
-    margin: 10px 0;
+  .content-modals h3{
+    font-size: 14px;
+    margin: 12px  0 8px 0;
+  }
+
+  .content-modals div{
+    margin-bottom: 6px;
   }
 
   .modal-scrollable.remodal-wrapper {
     padding: 20px 0;
   }
 
-  .remodal--privacy {
+  .remodal--modals {
     max-width: unset;
     padding: 0;
   }
@@ -2955,6 +2948,16 @@ Geometria-Bold
   .wrapper {
     max-width: 970px;
     padding: 0 15px;
+  }
+
+  .footer__privacy,
+  .footer__cookie,
+  .footer__personal-data {
+    margin-bottom: 6px;
+  }
+
+  .footer .connection{
+    flex-direction:initial;
   }
 
   .chat__input-info {
@@ -3111,7 +3114,7 @@ Geometria-Bold
   }
 
   .info-img{
-    width: 21px;
+    width: 17px;
   }
 
   .chat__bot-avatar img {
@@ -3251,42 +3254,41 @@ Geometria-Bold
 
 
 
-  .content-privacy__wrapper {
+  .content-modals__wrapper {
     max-width: 550px;
     padding: 30px 36px 40px 36px;
   }
 
-  .content-privacy__close {
+  .content-modals__close {
     top: 14px;
     right: 14px;
   }
 
-  .content-privacy__icon-up {
+  .content-modals__icon-up {
     width: 40px;
     height: 40px;
   }
 
-  .content-privacy__icon-up img {
+  .content-modals__icon-up img {
     width: 20px;
   }
 
-  .content-privacy h2 {
+  .content-modals h2 {
     margin-bottom: 20px;
-    font-size: 26px;
+    font-size: 24px;
   }
 
-  .content-privacy.content-privacy--cookie h2 {
-    font-size: 18px;
-  }
-
-  .content-privacy h3,
-  .content-privacy strong {
-    margin-bottom: 10px;
+  .content-modals {
     font-size: 16px;
   }
 
-  .content-privacy .modal-politika-text {
+  .content-modals div{
+    margin-bottom: 8px;
+  }
+
+  .content-modals h3{
     font-size: 16px;
+    margin: 16px 0 10px 0;
   }
 
   .remodal__feedback {
@@ -3327,6 +3329,7 @@ Geometria-Bold
     max-width: 1200px;
   }
 
+
   .res-button-1 {
     max-width: 220px;
   }
@@ -3358,6 +3361,7 @@ Geometria-Bold
   .connection {
     gap: 24px;
   }
+
 
   .main-section__title-secondary {
     margin: 0 0 14px 0;
@@ -3494,10 +3498,6 @@ Geometria-Bold
     height: 60px;
   }
 
-  .content-privacy.content-privacy--cookie h2 {
-    font-size: 20px;
-  }
-
   .chat__input-btn {
     height: 51px;
     width: 51px;
@@ -3518,7 +3518,7 @@ Geometria-Bold
   }
 
   .info-img {
-    width: 24px;
+    width: 20px;
   }
 
   .response-options {
@@ -3692,30 +3692,16 @@ Geometria-Bold
 
 
 
-  .content-privacy__wrapper {
+  .content-modals__wrapper {
     max-width: 650px;
     padding: 30px 44px 40px 44px;
   }
 
-  .content-privacy__close {
+  .content-modals__close {
     top: 20px;
     right: 20px;
   }
 
-  .content-privacy h2 {
-    margin-bottom: 20px;
-    font-size: 26px;
-  }
-
-  .content-privacy h3,
-  .content-privacy strong {
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-
-  .content-privacy .modal-politika-text {
-    font-size: 16px;
-  }
 
   .remodal__feedback {
     width: 432px;
