@@ -610,32 +610,46 @@ function renderPhoneInput(key, callback) {
   agreeFlex.style.flexWrap = "wrap";
   agreeFlex.style.alignItems = "center";
 
-  // Контейнер для чекбокса и текста
+  // Контейнер для чекбокса и текста согласия
   const agreeMain = document.createElement("div");
   agreeMain.className = "agree__main";
   agreeMain.style.display = "flex";
-  agreeMain.style.alignItems = "center";
+
 
   const agreeCheckbox = document.createElement("input");
   agreeCheckbox.type = "checkbox";
   agreeCheckbox.className = "agree";
   agreeCheckbox.id = "agree";
   agreeCheckbox.name = "agree";
-  agreeCheckbox.style.marginRight = "8px";
+  agreeCheckbox.style.margin = "3px 8px 0 0";
+  agreeCheckbox.style.width = "18px";
+  agreeCheckbox.style.height = "18px";
 
-  const agreeText = document.createElement("span");
-  agreeText.textContent = "Я принимаю ";
-  agreeText.style.color = "#303437";
+ 
+  
 
-  agreeMain.appendChild(agreeCheckbox);
-  agreeMain.appendChild(agreeText);
+  // span с текстом и ссылками
+  const agreeTextSpan = document.createElement("span");
+  agreeTextSpan.style.color = "#303437";
 
-  // Контейнер для ссылки
-  const agreeLink = document.createElement("div");
-  agreeLink.className = "agree__link";
-  agreeLink.style.display = "flex";
-  agreeLink.style.alignItems = "center";
+  // Текст до первой ссылки
+  agreeTextSpan.appendChild(document.createTextNode("Я даю "));
 
+  // Первая ссылка
+  const personalDataLink = document.createElement("a");
+  personalDataLink.href = "#";
+  personalDataLink.setAttribute("data-remodal-target", "personal-data");
+  personalDataLink.textContent = "Согласие на обработку моих персональных данных";
+  personalDataLink.style.textDecoration = "underline";
+  personalDataLink.style.color = "#303437";
+  personalDataLink.style.marginLeft = "4px";
+  agreeTextSpan.appendChild(personalDataLink);
+
+  // Текст между ссылками с переносом строки
+  agreeTextSpan.appendChild(document.createElement("br"));
+  agreeTextSpan.appendChild(document.createTextNode("и принимаю "));
+
+  // Вторая ссылка
   const privacyLink = document.createElement("a");
   privacyLink.href = "#";
   privacyLink.setAttribute("data-remodal-target", "privacy");
@@ -643,19 +657,18 @@ function renderPhoneInput(key, callback) {
   privacyLink.style.textDecoration = "underline";
   privacyLink.style.color = "#303437";
   privacyLink.style.marginLeft = "4px";
+  agreeTextSpan.appendChild(privacyLink);
 
-  agreeLink.appendChild(privacyLink);
+  // Собираем основной блок: чекбокс + span
+  agreeMain.appendChild(agreeCheckbox);
+  agreeMain.appendChild(agreeTextSpan);
 
-  // Собираем flex-контейнер
-  agreeFlex.appendChild(agreeMain);
-  agreeFlex.appendChild(agreeLink);
-
-  // Label-обёртка для accessibility (можно оставить пустой или обернуть agreeFlex)
+  // Label-обёртка для accessibility (можно оставить пустой или обернуть agreeMain)
   const agreeLabel = document.createElement("label");
   agreeLabel.className = "agree__label tap-color";
   agreeLabel.style.display = "block";
   agreeLabel.style.cursor = "pointer";
-  agreeLabel.appendChild(agreeFlex);
+  agreeLabel.appendChild(agreeMain);
 
   // Сообщение об ошибке (скрыто по умолчанию)
   const agreeError = document.createElement("div");
@@ -663,7 +676,7 @@ function renderPhoneInput(key, callback) {
   agreeError.className = "error error--privacy";
   agreeError.setAttribute("for", "agree");
   agreeError.style.display = "none";
-  agreeError.textContent = "Подтвердите согласие с политикой конфиденциальности";
+  agreeError.textContent = "Подтвердите согласие с условиями обработки персональных данных и политикой конфиденциальности";
 
   // Основной контейнер для блока согласия
   const agreeDiv = document.createElement("div");
